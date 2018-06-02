@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Material design components for the web</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/Roboto+Mono.css">
+        <link rel="stylesheet" href="css/Roboto_300_400_500.css">
+        <link rel="stylesheet" href="css/material-icons.css">
+        <link rel="stylesheet" href="css/material-components-web.min.css">
+        <link rel="stylesheet" href="css/widget.css">
+    </head>
+    <body class="mdc-typography">
+        <header class="mdc-toolbar mdc-toolbar--fixed mdc-toolbar--waterfall mdc-toolbar--flexible mdc-toolbar--flexible-default-behavior mdc-toolbar--flexible-space-maximized">
+            <div class="mdc-toolbar__row" style="height: 200px;">
+                <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+                    <a id="menu_root_button" class="material-icons mdc-toolbar__menu-icon" href="javascript:void(0)">menu</a>
+                    <span class="mdc-toolbar__title">Title</span>
+                </section>
+                <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+                    <!-- Widget - Search -->
+                    <div class="widget_search">
+                        <i class="material-icons button_open">search</i>
+                        <i class="material-icons button_close">close</i>
+                        <input name="searchText" type="text" placeholder="Search" autocomplete="off">
+                    </div>
+                    <a href="javascript:void(0)" class="material-icons mdc-toolbar__icon" aria-label="Download">file_download</a>
+                    <a href="javascript:void(0)" class="material-icons mdc-toolbar__icon" aria-label="Print this page">print</a>
+                    <a href="javascript:void(0)" class="material-icons mdc-toolbar__icon" aria-label="Bookmark this page">bookmark</a>
+                </section>
+            </div>
+        </header>
+        <aside class="mdc-typography mdc-drawer mdc-drawer--temporary">
+            <nav class="mdc-drawer__drawer">
+                <header class="mdc-drawer__header mdc-theme--primary-bg mdc-theme--text-primary-on-primary">
+                    <div class="mdc-drawer__header-content">
+                        Header here
+                    </div>
+                </header>
+                <nav class="mdc-drawer__content mdc-list">
+                    <a class="mdc-list-item mdc-list-item--activated" href="javascript:void(0)">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>Inbox
+                    </a>
+                    <a class="mdc-list-item" href="javascript:void(0)">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">star</i>Star
+                    </a>
+                </nav>
+            </nav>
+        </aside>
+        <main class="mdc-toolbar-fixed-adjust">
+            <div class="mdc-layout-grid">
+                <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 mdc-layout-grid__cell--span-4-phone">
+                        <p class="mdc-typography--body1">Column left</p>
+                    </div>
+                    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6 mdc-layout-grid__cell--span-8-tablet">
+                        <p class="mdc-typography--body1">Column center</p>
+                        
+                        <p class="mdc-typography--title">Tabs</p>
+                        <div style="margin: 20px;">
+                            <nav class="mdc-tab-bar mdc-tab-bar--icons-with-text">
+                                <a class="mdc-tab mdc-tab--with-icon-and-text mdc-tab--active" href="javascript:void(0)">
+                                    <i class="material-icons mdc-tab__icon" aria-hidden="true">phone</i>
+                                    <span class="mdc-tab__icon-text">Label 1</span>
+                                </a>
+                                <a class="mdc-tab mdc-tab--with-icon-and-text" href="javascript:void(0)">
+                                    <i class="material-icons mdc-tab__icon" aria-hidden="true">favorite</i>
+                                    <span class="mdc-tab__icon-text">Label 2</span>
+                                </a>
+                                <a class="mdc-tab mdc-tab--with-icon-and-text" href="javascript:void(0)">
+                                    <i class="material-icons mdc-tab__icon" aria-hidden="true">person_pin</i>
+                                    <span class="mdc-tab__icon-text">Label 3</span>
+                                </a>
+                                <span class="mdc-tab-bar__indicator"></span>
+                            </nav>
+                            <div style="margin: 50px;"></div>
+                            <div class="mdc-tab-bar-scroller">
+                                <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--back">
+                                    <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="scroll back button">navigate_before</a>
+                                </div>
+                                <div class="mdc-tab-bar-scroller__scroll-frame">
+                                    <nav class="mdc-tab-bar mdc-tab-bar-scroller__scroll-frame__tabs">
+                                        <a class="mdc-tab mdc-tab--active" href="javascript:void(0)">Item One</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Two</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Three</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Four</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Five</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Six</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Seven</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Eight</a>
+                                        <a class="mdc-tab" href="javascript:void(0)">Item Nine</a>
+                                        <span class="mdc-tab-bar__indicator"></span>
+                                    </nav>
+                                </div>
+                                <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--forward mdc-tab-bar-scroller__indicator--enabled">
+                                    <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="scroll forward button">navigate_next</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Switch</p>
+                        <div style="margin: 20px;">
+                            <div>
+                                <div class="mdc-switch">
+                                    <input id="mdc_switch" class="mdc-switch__native-control" type="checkbox"/>
+                                    <div class="mdc-switch__background">
+                                        <div class="mdc-switch__knob"></div>
+                                    </div>
+                                </div>
+                                <label class="mdc-switch-label" for="mdc_switch">off/on</label>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <input id="switch_disable" type="checkbox"/>
+                                <label for="switch_disable">Disabled</label>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Slider</p>
+                        <div style="margin: 20px;">
+                            <div style="margin: 20px;">
+                                <div class="mdc-slider mdc-slider--continuous" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Select value">
+                                    <div class="mdc-slider__track-container">
+                                        <div class="mdc-slider__track"></div>
+                                    </div>
+                                    <div class="mdc-slider__thumb-container">
+                                        <svg class="mdc-slider__thumb" width="21" height="21">
+                                            <circle cx="10.5" cy="10.5" r="7.875"></circle>
+                                        </svg>
+                                        <div class="mdc-slider__focus-ring"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin: 20px;">
+                                <div class="mdc-slider mdc-slider--discrete mdc-slider--display-markers" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Select value">
+                                    <div class="mdc-slider__track-container">
+                                        <div class="mdc-slider__track"></div>
+                                        <div class="mdc-slider__track-marker-container"></div>
+                                    </div>
+                                    <div class="mdc-slider__thumb-container">
+                                        <div class="mdc-slider__pin">
+                                            <span class="mdc-slider__pin-value-marker"></span>
+                                        </div>
+                                        <svg class="mdc-slider__thumb" width="21" height="21">
+                                            <circle cx="10.5" cy="10.5" r="7.875"></circle>
+                                        </svg>
+                                        <div class="mdc-slider__focus-ring"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input id="slider_disable" type="checkbox"/>
+                                <label for="slider_disable">Disabled</label>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Form field</p>
+                            <p class="mdc-typography--subheading1"><u>- Checkbox</u></p>
+                            <div>
+                                <div class="mdc-form-field">
+                                    <div class="mdc-checkbox">
+                                        <input id="mdc_checkbox" class="mdc-checkbox__native-control" type="checkbox"/>
+                                        <div class="mdc-checkbox__background">
+                                            <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                                <path class="mdc-checkbox__checkmark-path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                                            </svg>
+                                            <div class="mdc-checkbox__mixedmark"></div>
+                                        </div>
+                                    </div>
+                                    <label for="mdc_checkbox">Label</label>
+                                </div>
+                                <div>
+                                    <input id="checkbox_disable" type="checkbox"/>
+                                    <label for="checkbox_disable">Disabled</label>
+                                </div>
+                            </div>
+                            <p class="mdc-typography--subheading1"><u>- Radio button</u></p>
+                            <div>
+                                <div class="radio-row">
+                                    <div class="mdc-form-field">
+                                        <div class="mdc-radio">
+                                            <input id="mdc_radio_1" class="mdc-radio__native-control" name="radios" type="radio" checked/>
+                                            <div class="mdc-radio__background">
+                                                <div class="mdc-radio__outer-circle"></div>
+                                                <div class="mdc-radio__inner-circle"></div>
+                                            </div>
+                                        </div>
+                                        <label for="mdc_radio_1">Radio 1</label>
+                                    </div>
+                                    <div class="mdc-form-field">
+                                        <div class="mdc-radio">
+                                            <input id="mdc_radio_2" class="mdc-radio__native-control" name="radios" type="radio"/>
+                                            <div class="mdc-radio__background">
+                                                <div class="mdc-radio__outer-circle"></div>
+                                                <div class="mdc-radio__inner-circle"></div>
+                                            </div>
+                                        </div>
+                                        <label for="mdc_radio_2">Radio 2</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input id="radioButton_disable" type="checkbox"/>
+                                    <label for="radioButton_disable">Disabled</label>
+                                </div>
+                            </div>
+                            <p class="mdc-typography--subheading1"><u>- Text field</u></p>
+                            <div>
+                                <div class="textField_container">
+                                    <div class="mdc-text-field">
+                                        <input id="mdc_textField" class="mdc-text-field__input" type="text"/>
+                                        <label class="mdc-text-field__label" for="mdc_textField">Hint text</label>
+                                        <div class="mdc-line-ripple"></div>
+                                    </div>
+                                    <p class="mdc-text-field-helper-text" style="display: none;" aria-hidden="true">Helper Text</p>
+                                </div>
+                                <div>
+                                    <input id="textField_disable" type="checkbox"/>
+                                    <label for="textField_disable">Disabled</label>
+                                </div>
+                                <div>
+                                    <input id="textField_rtl" type="checkbox"/>
+                                    <label for="textField_rtl">RTL</label>
+                                </div>
+                                <div>
+                                    <input id="textField_dense" type="checkbox"/>
+                                    <label for="textField_dense">Dense</label>
+                                </div>
+                                <div>
+                                    <input id="textField_require" type="checkbox"/>
+                                    <label for="textField_require">Required</label>
+                                </div>
+                                <div>
+                                    <input id="textField_helperText" type="checkbox"/>
+                                    <label for="textField_helperText">Use Helper Text</label>
+                                </div>
+                                <div>
+                                    <input id="textField_helperTextPersistent" type="checkbox" disabled=""/>
+                                    <label for="textField_helperTextPersistent">Make helper text persistent</label>
+                                </div>
+                                <div>
+                                    <input id="textField_helperTextValidation" type="checkbox" disabled=""/>
+                                    <label for="textField_helperTextValidation">
+                                        Use helper text as validation message
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="mdc-typography--subheading1"><u>- Textarea</u></p>
+                            <div>
+                                <div class="textArea_container">
+                                    <div class="mdc-text-field mdc-text-field--textarea">
+                                        <textarea id="mdc_textarea" class="mdc-text-field__input" rows="8" cols="40"></textarea>
+                                        <label class="mdc-text-field__label" for="mdc_textarea">Textarea Label</label>
+                                    </div>
+                                    <p class="mdc-text-field-helper-text" style="display: none;" aria-hidden="true">Helper Text</p>
+                                </div>
+                                <div>
+                                    <input id="textArea_disable" type="checkbox"/>
+                                    <label for="textArea_disable">Disabled</label>
+                                </div>
+                                <div>
+                                    <input id="textArea_rtl" type="checkbox"/>
+                                    <label for="textField_rtl">RTL</label>
+                                </div>
+                                <div>
+                                    <input id="textArea_dense" type="checkbox"/>
+                                    <label for="textField_dense">Dense</label>
+                                </div>
+                                <div>
+                                    <input id="textArea_require" type="checkbox"/>
+                                    <label for="textField_require">Required</label>
+                                </div>
+                                <div>
+                                    <input id="textArea_helperText" type="checkbox"/>
+                                    <label for="textField_helperText">Use Helper Text</label>
+                                </div>
+                                <div>
+                                    <input id="textArea_helperTextPersistent" type="checkbox" disabled=""/>
+                                    <label for="textField_helperTextPersistent">Make helper text persistent</label>
+                                </div>
+                                <div>
+                                    <input id="textArea_helperTextValidation" type="checkbox" disabled=""/>
+                                    <label for="textField_helperTextValidation">
+                                        Use helper text as validation message
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="mdc-typography--subheading1"><u>- Select</u></p>
+                            <div>
+                                <div class="mdc-select" role="listbox">
+                                    <div class="mdc-select__surface" tabindex="0">
+                                        <div class="mdc-select__label">Select</div>
+                                        <div class="mdc-select__selected-text"></div>
+                                        <div class="mdc-select__bottom-line"></div>
+                                    </div>
+                                    <div class="mdc-menu mdc-select__menu">
+                                        <ul class="mdc-list mdc-menu__items">
+                                            <li class="mdc-list-item" role="option" value="Item 1 value" tabindex="0">Item 1</li>
+                                            <li class="mdc-list-item" role="option" value="Item 2 value" tabindex="1">Item 2</li>
+                                            <li class="mdc-list-item" role="option" value="Item 3 value" tabindex="2">Item 3</li>
+                                            <li class="mdc-list-item" role="option" value="Item 4 value" tabindex="3" aria-disabled="true">Item 4</li>
+                                            <li class="mdc-list-item" role="option" value="Item 5 value" tabindex="4">Item 5</li>
+                                            <li class="mdc-list-item" role="option" value="Item 6 value" tabindex="5">Item 6</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 20px;">
+                                    <input id="select_disable" type="checkbox"/>
+                                    <label for="select_disable">Disabled</label>
+                                </div>
+                            </div>
+                        
+                        <p class="mdc-typography--title">Button</p>
+                        <div style="margin: 20px;">
+                            <div>
+                                <button class="mdc-button mdc-button--raised" type="button">Baseline</button>
+                                <button class="mdc-button mdc-button--raised mdc-button--compact" type="button">Compact</button>
+                                <button class="mdc-button mdc-button--raised mdc-button--dense" type="button">Dense</button>
+                                <button class="mdc-button mdc-button--raised secondary-filled-button mdc-theme--secondary-bg mdc-theme--text-primary-on-secondary" type="button">Secondary</button>
+                                <button class="mdc-button mdc-button--raised" type="button">
+                                    <i class="material-icons mdc-button__icon">favorite</i> Icon
+                                </button>
+                                <a class="mdc-button mdc-button--raised" href="javascript:void(0)">Link</a>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <input id="button_disable" type="checkbox"/>
+                                <label for="button_disable">Disabled</label>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Floating action button</p>
+                        <div style="margin: 20px;">
+                            <button class="mdc-fab material-icons" type="button" aria-label="Favorite">
+                                <span class="mdc-fab__icon">
+                                    favorite
+                                </span>
+                            </button>
+                            <div style="margin-top: 20px;">
+                                <input id="fabButton_animate" type="checkbox"/>
+                                <label for="fabButton_animate">Animated</label>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Icon toggle</p>
+                        <div style="margin: 20px;">
+                            <i class="mdc-icon-toggle material-icons" tabindex="0" role="button" aria-pressed="false" aria-label="Add to favorites"
+                                data-toggle-on='{"label": "Remove from favorites", "content": "favorite"}'
+                                data-toggle-off='{"label": "Add to favorites", "content": "favorite_border"}'>
+                                favorite_border
+                            </i>
+                        </div>
+                        
+                        <p class="mdc-typography--title">List</p>
+                        <div style="margin: 20px;">
+                            <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list mdc-elevation--z8">
+                                <li class="mdc-list-item mdc-list-item--activated">
+                                    <span class="mdc-list-item__graphic" role="presentation">
+                                        <i class="material-icons" aria-hidden="true">folder</i>
+                                    </span>
+                                    <span class="mdc-list-item__text">
+                                        Photos
+                                        <span class="mdc-list-item__secondary-text">Jan 9, 2014</span>
+                                    </span>
+                                    <i class="mdc-list-item__meta material-icons" aria-hidden="true">info</i>
+                                </li>
+                                <li class="mdc-list-item">
+                                    <span class="mdc-list-item__graphic" role="presentation">
+                                        <i class="material-icons" aria-hidden="true">folder</i>
+                                    </span>
+                                    <span class="mdc-list-item__text">
+                                        Recipes
+                                        <span class="mdc-list-item__secondary-text">Jan 17, 2014</span>
+                                    </span>
+                                    <i class="mdc-list-item__meta material-icons" aria-hidden="true">info</i>
+                                </li>
+                                <li class="mdc-list-item">
+                                    <span class="mdc-list-item__graphic" role="presentation">
+                                        <i class="material-icons" aria-hidden="true">folder</i>
+                                    </span>
+                                    <span class="mdc-list-item__text">
+                                        Work
+                                        <span class="mdc-list-item__secondary-text">Jan 28, 2014</span>
+                                    </span>
+                                    <i class="mdc-list-item__meta material-icons" aria-hidden="true">info</i>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Card</p>
+                        <div style="margin: 20px;">
+                            <div class="mdc-card" style="max-width: 350px; margin: auto;">
+                                <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url(images/16-9.jpg);"></div>
+                                <div style="padding: 10px;">
+                                    <h2 class="mdc-typography--title">Title</h2>
+                                    <h3 class="mdc-typography--subheading1">Sub title</h3>
+                                </div>
+                                <div class="mdc-typography--body1" style="padding: 0px 10px 18px 10px;">
+                                    Content text
+                                </div>
+                                <div class="mdc-card__actions">
+                                    <div class="mdc-card__action-buttons">
+                                        <button class="mdc-button mdc-card__action mdc-card__action--button" type="button">Read</button>
+                                        <button class="mdc-button mdc-card__action mdc-card__action--button" type="button">Bookmark</button>
+                                    </div>
+                                    <div class="mdc-card__action-icons">
+                                        <i class="mdc-icon-toggle material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" aria-pressed="false" aria-label="Add to favorites"
+                                            title="Add to favorites"
+                                            data-toggle-on='{"label": "Remove from favorites", "content": "favorite"}'
+                                            data-toggle-off='{"label": "Add to favorites", "content": "favorite_border"}'>favorite_border
+                                        </i>
+                                        <i class="material-icons mdc-card__action mdc-card__action--icon mdc-ripple-surface" tabindex="1" role="button" data-mdc-ripple-is-unbounded="" title="Share">share</i>
+                                        <i class="material-icons mdc-card__action mdc-card__action--icon mdc-ripple-surface" tabindex="2" role="button" data-mdc-ripple-is-unbounded="" title="More options">more_vert</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdc-card" style="max-width: 350px; margin: auto; border-radius: 24px 4px;">
+                            <div style="display: flex; border-top-left-radius: inherit;">
+                                <div class="mdc-card__media mdc-card__media--square" style="background-image: url(images/1-1.jpg); width: 110px; border-top-left-radius: inherit;"></div>
+                                <div style="padding: 10px;">
+                                    <div class="mdc-typography--headline">Text</div>
+                                    <div class="mdc-typography--body1">Body text 1</div>
+                                    <div class="mdc-typography--body1">Body text 2</div>
+                                </div>
+                            </div>
+                            <hr class="mdc-list-divider">
+                            <div class="mdc-card__actions">
+                                <div class="mdc-card__action-buttons">Rate this</div>
+                                <div class="mdc-card__action-icons">
+                                    <i class="material-icons card__action-icon--star" tabindex="1" role="button" title="2 stars">star_border</i>
+                                    <i class="material-icons card__action-icon--star" tabindex="1" role="button" title="2 stars">star_border</i>
+                                    <i class="material-icons card__action-icon--star" tabindex="2" role="button" title="3 stars">star_border</i>
+                                    <i class="material-icons card__action-icon--star" tabindex="3" role="button" title="4 stars">star_border</i>
+                                    <i class="material-icons card__action-icon--star" tabindex="4" role="button" title="5 stars">star_border</i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Linear progress</p>
+                        <div style="margin: 20px;">
+                            <div class="mdc-linear-progress" role="progressbar">
+                                <div class="mdc-linear-progress__buffering-dots"></div>
+                                <div class="mdc-linear-progress__buffer"></div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: 20px;">
+                            <div class="mdc-linear-progress" role="progressbar" data-buffer="true">
+                                <div class="mdc-linear-progress__buffering-dots"></div>
+                                <div class="mdc-linear-progress__buffer"></div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin: 20px;">
+                            <div class="mdc-linear-progress mdc-linear-progress--indeterminate" role="progressbar">
+                                <div class="mdc-linear-progress__buffering-dots"></div>
+                                <div class="mdc-linear-progress__buffer"></div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                                <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                                    <span class="mdc-linear-progress__bar-inner"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Chips</p>
+                        <div style="margin: 20px;">
+                            <div class="mdc-chip">
+                                <div class="mdc-chip__text">Chip content</div>
+                            </div>
+                            <div class="mdc-chip">
+                                <div class="mdc-chip__text">Chip content</div>
+                            </div>
+                            <div class="mdc-chip">
+                                <div class="mdc-chip__text">Chip content</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Widget - Date picker -->
+                        <p class="mdc-typography--title">Date picker</p>
+                        <div class="textField_container">
+                            <div class="mdc-text-field">
+                                <input id="widget_datePicker_input" class="mdc-text-field__input" type="text"/>
+                                <label class="mdc-text-field__label" for="widget_datePicker_input">Hint text</label>
+                                <div class="mdc-line-ripple"></div>
+                            </div>
+                            <p class="mdc-text-field-helper-text" style="display: none;" aria-hidden="true">Helper Text</p>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Dialog</p>
+                        <div class="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label" aria-describedby="my-mdc-dialog-description">
+                            <div class="mdc-dialog__surface">
+                                <header class="mdc-dialog__header">
+                                    <h2 class="mdc-dialog__header__title">Title</h2>
+                                </header>
+                                <section class="mdc-dialog__body"> <!-- mdc-dialog__body mdc-dialog__body--scrollable -->
+                                    Content
+                                </section>
+                                <footer class="mdc-dialog__footer">
+                                    <button class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel" type="button">Cancel</button>
+                                    <button class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept" type="button">Accept</button>
+                                </footer>
+                            </div>
+                            <div class="mdc-dialog__backdrop"></div>
+                        </div>
+                        <div style="margin: 20px;">
+                            <button id="dialog_show" class="mdc-button mdc-button--raised">Show dialog</button>
+                        </div>
+                        
+                        <p class="mdc-typography--title">Snackbar</p>
+                        <div class="mdc-snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+                            <div class="mdc-snackbar__text"></div>
+                            <div class="mdc-snackbar__action-wrapper">
+                                <button class="mdc-snackbar__action-button" type="button"></button>
+                            </div>
+                        </div>
+                        <div style="margin: 20px;">
+                            <button id="snackbar_show" class="mdc-button mdc-button--raised">Show snackbar</button>
+                        </div>
+                    </div>
+                    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 mdc-layout-grid__cell--span-4-phone">
+                        <p class="mdc-typography--body1">Column right</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <script src="javascript/jquery-3.3.1.min.js"></script>
+        <script src="javascript/material-components-web.min.js"></script>
+        <!--<script src="javascript/code_native.js"></script>-->
+        <script src="javascript/code_jquery.js"></script>
+        <script src="javascript/widget/WidgetSearch.js"></script>
+        <script src="javascript/widget/WidgetDatePicker.js"></script>
+        <script src="javascript/index.js"></script>
+    </body>
+</html>
