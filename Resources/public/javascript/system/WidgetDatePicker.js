@@ -1,3 +1,5 @@
+// Version 1.0.0
+
 /* global mdc */
 
 var widgetDatePicker = new WidgetDatePicker();
@@ -6,36 +8,27 @@ function WidgetDatePicker() {
     // Vars
     var self = this;
 
-    var language = "";
-    var currentYear = -1;
-    var currentMonth = -1;
-    var currentDay = -1;
+    var language;
+    var currentYear;
+    var currentMonth;
+    var currentDay;
     
-    var yearMin = 1900;
-    var yearMax = -1;
+    var yearMin;
+    var yearMax;
 
-    var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var monthDays;
     
-    var monthLabels = {
-        'en': new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"),
-        'jp': new Array("一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"),
-        'it': new Array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre")
-    };
+    var monthLabels;
+    var dayLabels;
     
-    var dayLabels = {
-        'en': new Array("S", "M", "T", "W", "T", "F", "S"),
-        'jp': new Array("日", "月", "火", "水", "木", "金", "土"),
-        'it': new Array("D", "L", "M", "M", "G", "V", "S")
-    };
+    var monthLength;
+    var weekCurrentDay;
+    var weekDayShift;
+    var dayFirstPosition;
     
-    var monthLength = 0;
-    var weekCurrentDay = 0;
-    var weekDayShift = 0;
-    var dayFirstPosition = 0;
+    var result;
     
-    var result = "";
-    
-    var inputFillTag = "";
+    var inputFillTag;
     
     // Properties
     self.setLanguage = function(value) {
@@ -55,11 +48,46 @@ function WidgetDatePicker() {
     };
     
     self.setInputFill = function(value) {
-        inputFillTag = value;
+        if ($(value).is("input") === true)
+            inputFillTag = value;
+        else
+            inputFillTag = $(value).find("input");
     };
 
     // Functions public
     self.init = function() {
+        language = "";
+        currentYear = -1;
+        currentMonth = -1;
+        currentDay = -1;
+
+        yearMin = 1900;
+        yearMax = -1;
+
+        monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        monthLabels = {
+            'en': new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"),
+            'jp': new Array("一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"),
+            'it': new Array("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre")
+        };
+        dayLabels = {
+            'en': new Array("S", "M", "T", "W", "T", "F", "S"),
+            'jp': new Array("日", "月", "火", "水", "木", "金", "土"),
+            'it': new Array("D", "L", "M", "M", "G", "V", "S")
+        };
+
+        monthLength = 0;
+        weekCurrentDay = 0;
+        weekDayShift = 0;
+        dayFirstPosition = 0;
+
+        result = "";
+
+        inputFillTag = "";
+    };
+    
+    self.create = function() {
         var date = new Date();
         
         if (currentYear === -1)
@@ -84,7 +112,7 @@ function WidgetDatePicker() {
                 content += createMonthHtml();
                 content += createWeekHtml();
                 content += createDayHtml();
-                content += createFooterHtml();
+                content += createButtonHtml();
             content += "</div>";
             
         content += "</div>";
@@ -106,6 +134,10 @@ function WidgetDatePicker() {
         });
         
         $.each($(".widget_datePicker").find(".mdc-button"), function(key, value) {
+            mdc.ripple.MDCRipple.attachTo(value);
+        });
+        
+        $.each($(".widget_datePicker").find(".mdc-fab"), function(key, value) {
             mdc.ripple.MDCRipple.attachTo(value);
         });
         
@@ -144,9 +176,14 @@ function WidgetDatePicker() {
         var html = "";
         
         if (type === true) {
-            html = "<div class=\"mdc-theme--primary-bg mdc-theme--text-primary-on-primary header\">\n\
+            html = "<div class=\"mdc-theme--primary-bg mdc-theme--on-primary header\">\n\
                 <p>" + currentYear + "</p>\n\
-                <div class=\"mdc-typography--display1 text\">" + weekCurrentDay + ", " + monthLabels[language][currentMonth] + " " + currentDay + "</div>\n\
+                <div class=\"mdc-typography--headline6 text\">" + weekCurrentDay + ", " + monthLabels[language][currentMonth] + " " + currentDay + "</div>\n\
+                <button class=\"mdc-fab material-icons mdc-fab--mini\" aria-label=\"Close\">\n\
+                    <span class=\"mdc-fab__icon\">\n\
+                        close\n\
+                    </span>\n\
+                </button>\n\
             </div>";
         }
         else if (type === false)
@@ -212,7 +249,7 @@ function WidgetDatePicker() {
             for (var b = 0; b <= 6; b ++) {
                 if (day === currentDay) {
                     if (a > 0 || b + weekDayShift >= dayFirstPosition)
-                        html += "<li><span class=\"mdc-theme--primary-bg mdc-theme--text-primary-on-primary\">";
+                        html += "<li><span class=\"mdc-theme--primary-bg mdc-theme--on-primary\">";
                     else
                         html += "</span><li>";
                 }
@@ -241,11 +278,11 @@ function WidgetDatePicker() {
         return html;
     }
     
-    function createFooterHtml() {
-        return html = "<div class=\"footer\">\n\
-            <button class=\"mdc-button button_today\" type=\"button\">Today</button>\n\
-            <button class=\"mdc-button button_clear\" type=\"button\">Clear</button>\n\
-            <button class=\"mdc-button button_confirm\" type=\"button\">Confirm</button>\n\
+    function createButtonHtml() {
+        return html = "<div class=\"button\">\n\
+            <button class=\"mdc-button button_today\">" + window.text.today + "</button>\n\
+            <button class=\"mdc-button button_clear\">" + window.text.clear + "</button>\n\
+            <button class=\"mdc-button button_confirm\">" + window.text.confirm + "</button>\n\
         </div>";
     }
     
@@ -270,10 +307,10 @@ function WidgetDatePicker() {
         $(".widget_datePicker").find(".listYears li").off("click").on("click", "", function() {
             currentYear = parseInt($(this).text().trim());
             
-            self.init();
+            self.create();
         });
         
-        $(".widget_datePicker").find(".material-icons").off("click").on("click", "", function() {
+        $(".widget_datePicker").find(".material-icons").not(".mdc-fab").off("click").on("click", "", function() {
             if ($(this).parent().prop("class") === "left")
                 currentMonth -= 1;
             else
@@ -298,25 +335,25 @@ function WidgetDatePicker() {
                 currentMonth = 11;
             }
             
-            self.init();
+            self.create();
         });
         
         $(".widget_datePicker").find(".day li span").off("mouseover").on("mouseover", "", function() {
             if ($(this).text().trim() !== "")
-                $(this).addClass("mdc-theme--secondary-bg mdc-theme--text-primary-on-secondary");
+                $(this).addClass("mdc-theme--secondary-bg mdc-theme--on-secondary");
         });
         
         $(".widget_datePicker").find(".day li span").off("mouseout").on("mouseout", "", function() {
             if ($(this).text().trim() !== "")
-                $(this).removeClass("mdc-theme--secondary-bg mdc-theme--text-primary-on-secondary");
+                $(this).removeClass("mdc-theme--secondary-bg mdc-theme--on-secondary");
         });
         
         $(".widget_datePicker").find(".day li span").off("click").on("click", "", function() {
             var text = $(this).text().trim();
             
             if (text !== "") {
-                $(this).parents(".day").find("li span").removeClass("mdc-theme--primary-bg mdc-theme--text-primary-on-primary");
-                $(this).addClass("mdc-theme--primary-bg mdc-theme--text-primary-on-primary");
+                $(this).parents(".day").find("li span").removeClass("mdc-theme--primary-bg mdc-theme--on-primary");
+                $(this).addClass("mdc-theme--primary-bg mdc-theme--on-primary");
                 
                 currentDay = parseInt(text);
                 
@@ -326,20 +363,27 @@ function WidgetDatePicker() {
             }
         });
         
-        $(".widget_datePicker").find(".footer .button_today").off("click").on("click", "", function() {
+        $(".widget_datePicker").find(".button .button_today").off("click").on("click", "", function() {
             currentYear = -1;
             currentMonth = -1;
             currentDay = -1;
             
-            self.init();
+            self.create();
         });
         
-        $(".widget_datePicker").find(".footer .button_clear").off("click").on("click", "", function() {
+        $(".widget_datePicker").find(".button .button_clear").off("click").on("click", "", function() {
             fillInput(false);
         });
         
-        $(".widget_datePicker").find(".footer .button_confirm").off("click").on("click", "", function() {
+        $(".widget_datePicker").find(".button .button_confirm").off("click").on("click", "", function() {
             fillInput(true);
+        });
+        
+        $(".widget_datePicker").find(".mdc-fab").off("click").on("click", "", function() {
+            $(inputFillTag).focus();
+
+            $(".widget_datePicker_back").hide();
+            $(".widget_datePicker").hide();
         });
     }
     
@@ -349,12 +393,25 @@ function WidgetDatePicker() {
         if (language === "it")
             result = currentDay + "/" + (currentMonth + 1) + "/" + currentYear;
         
-        $(inputFillTag).focus();
-        
         if (type === true)
             $(inputFillTag).val(result);
         else
             $(inputFillTag).val("");
+        
+        if ($(inputFillTag).parent().find(".mdc-text-field__label").length > 0) {
+            if (type === true) {
+                $(inputFillTag).parent().addClass("mdc-text-field--focused");
+                $(inputFillTag).parent().find(".mdc-text-field__label").addClass("mdc-text-field__label--float-above");
+                $(inputFillTag).parent().find(".mdc-line-ripple").addClass("mdc-line-ripple--active");
+            }
+            else {
+                $(inputFillTag).parent().removeClass("mdc-text-field--focused");
+                $(inputFillTag).parent().find(".mdc-text-field__label").removeClass("mdc-text-field__label--float-above");
+                $(inputFillTag).parent().find(".mdc-line-ripple").removeClass("mdc-line-ripple--active");
+            }
+        }
+        else
+            $(inputFillTag).focus();
         
         $(".widget_datePicker_back").hide();
         $(".widget_datePicker").hide();

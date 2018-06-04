@@ -1,0 +1,10 @@
+<?php
+$html = <<<XYZ
+<div id="flashBag" class="mdc-snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+    <div class="mdc-snackbar__text content"></div>
+    <div class="mdc-snackbar__action-wrapper">
+        <button class="mdc-snackbar__action-button" type="button"></button>
+    </div>
+</div>
+XYZ;
+echo $html;
