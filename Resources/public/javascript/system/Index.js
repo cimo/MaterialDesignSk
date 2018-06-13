@@ -1,6 +1,8 @@
 /* global utility, materialDesign, widgetSearch, widgetDatePicker, flashBag */
 
 $(document).ready(function() {
+    utility.init();
+    
     utility.checkMobile(true);
     
     utility.linkPreventDefault();
@@ -9,15 +11,23 @@ $(document).ready(function() {
     
     // Material design
     materialDesign.init();
-    materialDesign.tab();
-    materialDesign.checkbox();
-    materialDesign.textField();
-    materialDesign.select();
     materialDesign.button();
     materialDesign.fabButton();
-    materialDesign.icon();
+    materialDesign.iconButton();
+    materialDesign.chip();
+    materialDesign.dialog();
+    materialDesign.drawer();
+    materialDesign.checkbox();
+    materialDesign.radioButton();
+    materialDesign.select();
+    materialDesign.slider();
+    materialDesign.textField();
+    materialDesign.linearProgress();
+    materialDesign.list();
+    materialDesign.menu();
     materialDesign.snackbar();
-    materialDesign.utility();
+    materialDesign.tabBar();
+    materialDesign.fix();
     
     // Widget
     widgetSearch.init();
@@ -32,14 +42,14 @@ $(document).ready(function() {
     widgetDatePicker.setInputFill(".widget_datePicker_input");
     widgetDatePicker.create();
     
-    flashBag.init();
-    flashBag.setElement(materialDesign.getSnackbarMsc()[0]);
-    flashBag.sessionActivity();
-    
     search.init();
     
+    flashBag.init();
+    flashBag.setElement(materialDesign.getSnackbarMsc());
+    flashBag.sessionActivity();
+    
     $(window).resize(function() {
-        materialDesign.utility();
+        materialDesign.fix();
         
         widgetSearch.changeView();
     });

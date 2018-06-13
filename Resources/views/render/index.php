@@ -36,7 +36,7 @@ $settingRow['template'] = "basic";
         <header class="mdc-top-app-bar mdc-top-app-bar--prominent">
             <div class="mdc-top-app-bar__row">
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                    <a id="menu_root_button" class="material-icons mdc-top-app-bar__navigation-icon  display_mobile" href="javascript:void(0)">menu</a>
+                    <a class="material-icons mdc-top-app-bar__navigation-icon show_menu_root display_mobile" href="javascript:void(0)">menu</a>
                     <span class="mdc-top-app-bar__title display_desktop"><?php echo $utility->getWebsiteName(); ?></span>
                     <span class="mdc-top-app-bar__title display_mobile">
                         <img class="logo_main" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/images/templates/<?php echo $settingRow['template']; ?>/logo.svg"/>
@@ -48,6 +48,20 @@ $settingRow['template'] = "basic";
                     <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="Account" alt="Account">account_circle</a>
                 </section>
             </div>
+            <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+                <nav class="mdc-drawer__drawer">
+                    <header class="mdc-drawer__header">
+                        <div class="mdc-drawer__header-content">
+                            <p>Text<p>
+                        </div>
+                    </header>
+                    <nav id="icon-with-text-demo" class="mdc-drawer__content mdc-list">
+                        <a class="mdc-list-item mdc-list-item--activated" href="javascript:void(0)">
+                            <i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Home
+                        </a>
+                    </nav>
+                </nav>
+            </aside>
         </header>
         <div class="mdc-layout-grid main">
             <div class="mdc-layout-grid__inner">
@@ -83,6 +97,7 @@ $settingRow['template'] = "basic";
         </footer>
         <?php include_once(dirname(__DIR__) . "/include/flash_bag.php"); ?>
         <?php include_once(dirname(__DIR__) . "/include/loader.php"); ?>
+        <?php include_once(dirname(__DIR__) . "/include/popup_easy.php"); ?>
         <!-- Javascript -->
         <script type="text/javascript">
             var session = {

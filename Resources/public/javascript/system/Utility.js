@@ -414,57 +414,6 @@ function Utility() {
         }, 1000);
     };
     
-    self.mdcTopAppBarCustom = function() {
-        var scrollLimit = 30;
-        
-        if (self.checkWidthType() === "desktop") {
-            $(".mdc-top-app-bar").addClass("mdc-top-app-bar--prominent");
-            
-            if ($(document).scrollTop() > scrollLimit) {
-                $(".mdc-top-app-bar__row").addClass("mdc-top-app-bar_shrink");
-            }
-            
-            $(window).scroll(function() {
-                if (self.checkWidthType() === "desktop") {
-                    if ($(document).scrollTop() > scrollLimit) {
-                      $(".mdc-top-app-bar__row").addClass("mdc-top-app-bar_shrink");
-                    }
-                    else
-                      $(".mdc-top-app-bar__row").removeClass("mdc-top-app-bar_shrink");
-                }
-            });
-        }
-        else {
-            $(".mdc-top-app-bar").removeClass("mdc-top-app-bar--prominent");
-            $(".mdc-top-app-bar__row").removeClass("mdc-top-app-bar_shrink");
-        }
-    };
-    
-    self.mdcTabsCustom = function() {
-        var parameters = self.urlParameters(window.setting.language);
-        var parametersReverse = parameters.reverse();
-        
-        $(".mdc-tab-bar").find(".mdc-tab").removeClass("mdc-tab--active");
-        
-        $.each($(".mdc-tab-bar").find(".mdc-tab"), function(key, value) {
-            if ($(value).attr("href").indexOf(parametersReverse[0]) !== -1) {
-                $(value).addClass("mdc-tab--active");
-                
-                return false;
-            }
-        });
-    };
-    
-    self.mdcTextFieldHelperTextClear = function() {
-        $(".mdc-text-field__input").on("blur", "", function(event) {
-            $(event.target).parents(".form_row").find(".mdc-text-field-helper-text").text("");
-        });
-    };
-    
-    self.mdcButtonEnable = function() {
-        $(".mdc-button").removeAttr("disabled");
-    };
-    
     // Functions private
     function swipeFix() {
         var defaults = {
