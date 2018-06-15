@@ -35,6 +35,17 @@ function Utility() {
         }
     };
     
+    self.mutationObserver = function(type, element, callback) {
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === type)
+                    callback();
+            });
+        });
+        
+        observer.observe(element, {attributes: true, childList: true, subtree: true});
+    };
+    
     self.checkMobile = function(fix = false) {
         var isMobile = false;
         

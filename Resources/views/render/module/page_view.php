@@ -20,6 +20,12 @@ $html = <<<XYZ
                         </button>
                     </div>
                     <div style="display: inline-block;">
+                        <button class="mdc-button">
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">favorite</i>
+                            Button
+                        </button>
+                    </div>
+                    <div style="display: inline-block;">
                         <button class="mdc-fab material-icons" aria-label="Favorite">
                             <span class="mdc-fab__icon">favorite</span>
                         </button>
@@ -283,32 +289,32 @@ $html = <<<XYZ
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">List</h2>
                 <div>
-                    <ul class="mdc-list mdc-list--two-line">
+                    <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list">
                         <li class="mdc-list-item">
+                            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
                             <span class="mdc-list-item__text">
-                                First-line text
-                                <span class="mdc-list-item__secondary-text">
-                                    Second-line text
-                                </span>
+                                Title
+                                <span class="mdc-list-item__secondary-text">Test</span>
                             </span>
+                            <span class="mdc-list-item__meta material-icons" aria-hidden="true">info</span>
                         </li>
                         <li role="separator" class="mdc-list-divider"></li>
                         <li class="mdc-list-item">
+                            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
                             <span class="mdc-list-item__text">
-                                First-line text
-                                <span class="mdc-list-item__secondary-text">
-                                    Second-line text
-                                </span>
+                                Title
+                                <span class="mdc-list-item__secondary-text">Test</span>
                             </span>
+                            <span class="mdc-list-item__meta material-icons" aria-hidden="true">info</span>
                         </li>
                         <li role="separator" class="mdc-list-divider"></li>
                         <li class="mdc-list-item">
+                            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
                             <span class="mdc-list-item__text">
-                                First-line text
-                                <span class="mdc-list-item__secondary-text">
-                                    Second-line text
-                                </span>
+                                Title
+                                <span class="mdc-list-item__secondary-text">Test</span>
                             </span>
+                            <span class="mdc-list-item__meta material-icons" aria-hidden="true">info</span>
                         </li>
                     </ul>
                 </div>
@@ -333,7 +339,7 @@ $html = <<<XYZ
                 <h2 class="demo-title mdc-typography--headline6">Tab</h2>
                 <div>
                     <nav class="mdc-tab-bar mdc-tab-bar--icons-with-text">
-                        <a class="mdc-tab mdc-tab--with-icon-and-text mdc-tab--active" href="javascript:void(0)">
+                        <a class="mdc-tab mdc-tab--with-icon-and-text" href="javascript:void(0)">
                             <i class="material-icons mdc-tab__icon" aria-hidden="true">person</i>
                             <span class="mdc-tab__icon-text">Item a</span>
                         </a>
