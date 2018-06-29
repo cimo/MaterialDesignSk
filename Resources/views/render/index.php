@@ -33,7 +33,7 @@ $settingRow['template'] = "basic";
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/css/system/widget.css" rel="stylesheet"/>
     </head>
     <body class="mdc-typography user_select_none">
-        <header class="mdc-top-app-bar mdc-top-app-bar--prominent">
+        <header class="mdc-top-app-bar">
             <div class="mdc-top-app-bar__row">
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <a class="material-icons mdc-top-app-bar__navigation-icon show_menu_root display_mobile" href="javascript:void(0)">menu</a>

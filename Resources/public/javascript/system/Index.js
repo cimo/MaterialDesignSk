@@ -1,4 +1,4 @@
-/* global utility, materialDesign, widgetSearch, widgetDatePicker, flashBag */
+/* global utility, materialDesign, widgetSearch, widgetDatePicker, search, flashBag */
 
 $(document).ready(function() {
     utility.init();
@@ -22,7 +22,8 @@ $(document).ready(function() {
     materialDesign.select();
     materialDesign.slider();
     materialDesign.textField();
-    materialDesign.linearProgress();
+    materialDesign.linearProgress(".linear_progress_b", 0.5, 1, 0.75);
+    materialDesign.linearProgress(".linear_progress_c", 0.5, 1);
     materialDesign.list();
     materialDesign.menu();
     materialDesign.snackbar();

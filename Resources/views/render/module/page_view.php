@@ -217,8 +217,8 @@ $html = <<<XYZ
                     <div class="form_row">
                         <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon mdc-text-field--dense">
                             <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
-                            <label class="mdc-floating-label">Label</label>
                             <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">face</i>
+                            <label class="mdc-floating-label">Label</label>
                             <div class="mdc-notched-outline">
                                 <svg>
                                     <path class="mdc-notched-outline__path"/>
@@ -256,7 +256,7 @@ $html = <<<XYZ
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">Linear progress</h2>
                 <div>
-                    <div class="mdc-linear-progress mdc-linear-progress--indeterminate" role="progressbar" style="margin-bottom: 20px;">
+                    <div class="mdc-linear-progress mdc-linear-progress--indeterminate linear_progress_a" role="progressbar" style="margin-bottom: 20px;">
                         <div class="mdc-linear-progress__buffering-dots"></div>
                         <div class="mdc-linear-progress__buffer"></div>
                         <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
@@ -266,7 +266,7 @@ $html = <<<XYZ
                             <span class="mdc-linear-progress__bar-inner"></span>
                         </div>
                     </div>
-                    <div class="mdc-linear-progress" role="progressbar" data-buffer="true" style="margin-bottom: 20px;">
+                    <div class="mdc-linear-progress linear_progress_b" role="progressbar" data-buffer="true" style="margin-bottom: 20px;">
                         <div class="mdc-linear-progress__buffering-dots"></div>
                         <div class="mdc-linear-progress__buffer"></div>
                         <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
@@ -276,7 +276,7 @@ $html = <<<XYZ
                             <span class="mdc-linear-progress__bar-inner"></span>
                         </div>
                     </div>
-                    <div class="mdc-linear-progress mdc-linear-progress--reversed" role="progressbar" style="margin-bottom: 20px;">
+                    <div class="mdc-linear-progress mdc-linear-progress--reversed linear_progress_c" role="progressbar" style="margin-bottom: 20px;">
                         <div class="mdc-linear-progress__buffering-dots"></div>
                         <div class="mdc-linear-progress__buffer"></div>
                         <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
