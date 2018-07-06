@@ -50,6 +50,21 @@ $(document).ready(function() {
     flashBag.sessionActivity();
     
     $(window).resize(function() {
+        materialDesign.button();
+        materialDesign.fabButton();
+        materialDesign.iconButton();
+        materialDesign.chip();
+        materialDesign.dialog();
+        materialDesign.drawer();
+        materialDesign.checkbox();
+        materialDesign.radioButton();
+        materialDesign.select();
+        materialDesign.slider();
+        materialDesign.textField();
+        materialDesign.list();
+        materialDesign.menu();
+        materialDesign.snackbar();
+        materialDesign.tabBar();
         materialDesign.fix();
         
         widgetSearch.changeView();

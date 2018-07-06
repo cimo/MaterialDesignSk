@@ -241,7 +241,7 @@ function MaterialDesign() {
         $(".mdc-tab-bar").find(".mdc-tab").removeClass("mdc-tab--active");
         
         $.each($(".mdc-tab-bar").find(".mdc-tab"), function(key, value) {
-            if ($(value).attr("href").indexOf(parametersReverse[0]) !== -1) {
+            if ($(value).prop("href").indexOf(parametersReverse[0]) !== -1) {
                 $(value).addClass("mdc-tab--active");
                 
                 if (type === "tabBar")

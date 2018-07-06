@@ -4,30 +4,30 @@ $html = <<<XYZ
     <div class="settings">
         <i class="material-icons drag">drag_handle</i>
     </div>
-    <div class="mdc-typography--body1">
+    <div class="mdc-typography--body2">
         <div class="page_container">
             <div class="header">
                 <h1 class="mdc-typography--headline6">Material design elements</h1>
             </div>
-            <div class="argument"><p>Examples of material design elements.</p></div>
+            <div class="argument"><p>Starter kit for material design. You can try all material design elements and with copy and paast you can integrate in your projects.</p></div>
             <div class="controllerAction">
                 <h2 class="demo-title mdc-typography--headline6">Button</h2>
                 <div>
                     <div style="display: inline-block;">
-                        <button class="mdc-button mdc-button--raised">
+                        <button class="mdc-button mdc-button--dense mdc-button--raised" type="button">
                             <i class="material-icons mdc-button__icon" aria-hidden="true">favorite</i>
                             Button
                         </button>
                     </div>
                     <div style="display: inline-block;">
-                        <button class="mdc-button">
+                        <button class="mdc-button" type="button">
                             <i class="material-icons mdc-button__icon" aria-hidden="true">favorite</i>
                             Button
                         </button>
                     </div>
                     <div style="display: inline-block;">
-                        <button class="mdc-fab material-icons" aria-label="Favorite">
-                            <span class="mdc-fab__icon">favorite</span>
+                        <button class="mdc-fab mdc-fab--mini" aria-label="Favorite" type="button">
+                            <span class="mdc-fab__icon material-icons">favorite</span>
                         </button>
                     </div>
                     <div style="display: inline-block;">
@@ -51,7 +51,7 @@ $html = <<<XYZ
                             </div>
                             <div class="mdc-card__actions">
                                 <div class="mdc-card__action-buttons">
-                                    <button class="mdc-button mdc-card__action mdc-card__action--button mdc-button--dense">Action</button>
+                                    <button class="mdc-button mdc-button--dense mdc-card__action mdc-card__action--button" type="button">Action</button>
                                 </div>
                                 <div class="mdc-card__action-icons">
                                     <i class="material-icons mdc-card__action mdc-card__action--icon mdc-ripple-surface"
@@ -78,7 +78,7 @@ $html = <<<XYZ
                             <hr class="mdc-list-divider">
                             <div class="mdc-card__actions">
                                 <div class="mdc-card__action-buttons">
-                                    <button class="mdc-button mdc-card__action mdc-card__action--button mdc-button--dense">Action</button>
+                                    <button class="mdc-button mdc-button--dense mdc-card__action mdc-card__action--button" type="button">Action</button>
                                 </div>
                                 <div class="mdc-card__action-icons">
                                     <i class="material-icons mdc-card__action mdc-card__action--icon mdc-ripple-surface"
@@ -99,7 +99,7 @@ $html = <<<XYZ
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">Dialog</h2>
                 <div>
-                    <button class="mdc-button mdc-button--raised show_dialog">Show</button>
+                    <button class="mdc-button mdc-button--dense mdc-button--raised show_dialog" type="button">Show</button>
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">Checkbox</h2>
                 <div>
@@ -320,7 +320,7 @@ $html = <<<XYZ
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">Menu</h2>
                 <div>
-                    <button class="mdc-button mdc-button--raised">Open</button>
+                    <button class="mdc-button mdc-button--dense mdc-button--raised" type="button">Open</button>
                     <div class="mdc-menu" tabindex="-1">
                         <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
                             <li class="mdc-list-item" role="menuitem" tabindex="0">
@@ -334,7 +334,7 @@ $html = <<<XYZ
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">Snackbar</h2>
                 <div>
-                    <button class="mdc-button mdc-button--raised show_snackbar">Show</button>
+                    <button class="mdc-button mdc-button--dense mdc-button--raised show_snackbar" type="button">Show</button>
                 </div>
                 <h2 class="demo-title mdc-typography--headline6">Tab</h2>
                 <div>
@@ -370,6 +370,17 @@ $html = <<<XYZ
                         <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--forward">
                             <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="scroll forward button">navigate_next</a>
                         </div>
+                    </div>
+                </div>
+                <h2 class="demo-title mdc-typography--headline6">Datepicker</h2>
+                <div>
+                    <div class="form_row">
+                        <div class="mdc-text-field mdc-text-field__basic mdc-text-field--dense">
+                            <input class="mdc-text-field__input widget_datePicker_input" type="text" value="" autocomplete="off"/>
+                            <label class="mdc-floating-label">Date</label>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                        <p class="mdc-text-field-helper-text" aria-hidden="true"></p>
                     </div>
                 </div>
             </div>

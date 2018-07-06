@@ -12,17 +12,19 @@ $settingRow['template'] = "basic";
 <html lang="en">
     <head>
         <title><?php echo $utility->getWebsiteName(); ?></title>
+        
         <!-- Meta -->
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
+        
         <!-- Favicon -->
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/images/templates/<?php echo $settingRow['template']; ?>/favicon.ico" rel="icon" type="image/x-icon">
+        
         <!-- Css -->
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/css/library/jquery-ui_1.12.1.min.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/css/library/jquery-ui_1.12.1_structure.min.css" rel="stylesheet"/>
-
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/css/library/Roboto+Mono.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/css/library/Roboto_300_400_500.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/Resources/public/css/library/material-icons.css" rel="stylesheet"/>
@@ -52,7 +54,7 @@ $settingRow['template'] = "basic";
                 <nav class="mdc-drawer__drawer">
                     <header class="mdc-drawer__header">
                         <div class="mdc-drawer__header-content">
-                            <p>Text<p>
+                            <p>Header here<p>
                         </div>
                     </header>
                     <nav id="icon-with-text-demo" class="mdc-drawer__content mdc-list">
@@ -98,6 +100,7 @@ $settingRow['template'] = "basic";
         <?php include_once(dirname(__DIR__) . "/include/flash_bag.php"); ?>
         <?php include_once(dirname(__DIR__) . "/include/loader.php"); ?>
         <?php include_once(dirname(__DIR__) . "/include/popup_easy.php"); ?>
+        
         <!-- Javascript -->
         <script type="text/javascript">
             var session = {
@@ -118,16 +121,19 @@ $settingRow['template'] = "basic";
                 'warning': "Warning!",
                 'ok': "Ok",
                 'close': "Close",
-                'ajaxConnectionError': "Connection error, please reload the page.",
-                'today': "Today",
-                'clear': "Clear",
-                'confirm': "Confirm"
+                'ajaxConnectionError': "Connection error, please reload the page."
             };
             
             var setting = {
                 'widthMobile': 839,
                 'widthDesktop': 840,
                 'template': "<?php echo $settingRow['template']; ?>"
+            };
+            
+            var widgetDatePickerText = {
+                'today': "Today",
+                'clear': "Clear",
+                'confirm': "Confirm"
             };
         </script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/library/jquery_3.3.1.min.js"></script>
@@ -138,12 +144,11 @@ $settingRow['template'] = "basic";
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/Utility.js"></script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/Ajax.js"></script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/Search.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/FlashBag.js"></script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/Loader.js"></script>
+        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/FlashBag.js"></script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/MaterialDesign.js"></script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/WidgetSearch.js"></script>
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/WidgetDatePicker.js"></script>
-        
         <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/Resources/public/javascript/system/Index.js"></script>
     </body>
 </html>
