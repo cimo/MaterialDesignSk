@@ -1,7 +1,5 @@
 /* global utility */
 
-// Version 1.0.0
-
 var materialDesign = new MaterialDesign();
 
 function MaterialDesign() {
@@ -18,7 +16,7 @@ function MaterialDesign() {
         return dialogMdc;
     };
     
-    self.getSnackbarMsc = function() {
+    self.getSnackbarMdc = function() {
         return snackbarMdc;
     };
     
@@ -30,6 +28,25 @@ function MaterialDesign() {
         mdcTextFields = new Array();
         
         window.mdc.autoInit();
+    };
+    
+    self.refresh = function() {
+        self.button();
+        self.fabButton();
+        self.iconButton();
+        self.chip();
+        self.dialog();
+        self.drawer();
+        self.checkbox();
+        self.radioButton();
+        self.select();
+        self.slider();
+        self.textField();
+        self.list();
+        self.menu();
+        self.snackbar();
+        self.tabBar();
+        self.fix();
     };
     
     self.button = function() {
@@ -118,8 +135,10 @@ function MaterialDesign() {
     };
     
     self.textField = function() {
+        mdcTextFields = new Array();
+        
         $.each($(".mdc-text-field"), function(key, value) {
-            mdcTextFields[key] = new mdc.textField.MDCTextField.attachTo(value);
+            mdcTextFields.push(new mdc.textField.MDCTextField.attachTo(value));
             mdcTextFields[key].layout();
         });
         
@@ -200,7 +219,6 @@ function MaterialDesign() {
     self.fix = function() {
         mdcTopAppBarCustom();
         mdcButtonEnable();
-        mdcTextFieldLayout();
         mdcTextFieldHelperTextClear();
         mdcDrawerCustom();
     };
@@ -236,12 +254,11 @@ function MaterialDesign() {
     
     function mdcTabBarCustom(type, mdc) {
         var parameters = utility.urlParameters(window.setting.language);
-        var parametersReverse = parameters.reverse();
         
         $(".mdc-tab-bar").find(".mdc-tab").removeClass("mdc-tab--active");
         
         $.each($(".mdc-tab-bar").find(".mdc-tab"), function(key, value) {
-            if ($(value).prop("href").indexOf(parametersReverse[0]) !== -1) {
+            if ($(value).prop("href").indexOf(parameters[2]) !== -1) {
                 $(value).addClass("mdc-tab--active");
                 
                 if (type === "tabBar")
@@ -258,12 +275,6 @@ function MaterialDesign() {
                 
                 return false;
             }
-        });
-    }
-    
-    function mdcTextFieldLayout() {
-        $.each(mdcTextFields, function(key, value) {
-            mdcTextFields[key].layout();
         });
     }
     

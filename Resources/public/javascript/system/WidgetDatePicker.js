@@ -1,5 +1,3 @@
-// Version 1.0.0
-
 /* global mdc */
 
 var widgetDatePicker = new WidgetDatePicker();

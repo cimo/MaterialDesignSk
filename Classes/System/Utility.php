@@ -390,11 +390,16 @@ class Utility {
         
         $required = $isRequired == true ? "required=\"required\"" : "";
         
-        $html = "<select id=\"$selectId\" class=\"form-control\" $required>
-            <option value=\"\">Select</option>";
-            foreach($rows as $key => $value)
-                $html .= "<option value=\"{$value['id']}\">{$value['level']}</option>";
-        $html .= "</select>";
+        $html = "<div id=\"$selectId\" class=\"mdc-select\" $required>
+            <select class=\"mdc-select__native-control\">
+                <option value=\"\"></option>";
+                foreach ($rows as $key => $value) {
+                    $html .= "<option value=\"{$value['id']}\">{$value['level']}</option>";
+                }
+            $html .= "</select>
+            <label class=\"mdc-floating-label mdc-floating-label--float-above\">Role</label>
+            <div class=\"mdc-line-ripple\"></div>
+        </div>";
         
         return $html;
     }

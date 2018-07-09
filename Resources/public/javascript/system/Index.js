@@ -2,11 +2,8 @@
 
 $(document).ready(function() {
     utility.init();
-    
     utility.checkMobile(true);
-    
     utility.linkPreventDefault();
-    
     //utility.watch("#flashBag", flashBag.sessionActivity);
     
     // Material design
@@ -46,26 +43,11 @@ $(document).ready(function() {
     search.init();
     
     flashBag.init();
-    flashBag.setElement(materialDesign.getSnackbarMsc());
+    flashBag.setElement(materialDesign.getSnackbarMdc());
     flashBag.sessionActivity();
     
     $(window).resize(function() {
-        materialDesign.button();
-        materialDesign.fabButton();
-        materialDesign.iconButton();
-        materialDesign.chip();
-        materialDesign.dialog();
-        materialDesign.drawer();
-        materialDesign.checkbox();
-        materialDesign.radioButton();
-        materialDesign.select();
-        materialDesign.slider();
-        materialDesign.textField();
-        materialDesign.list();
-        materialDesign.menu();
-        materialDesign.snackbar();
-        materialDesign.tabBar();
-        materialDesign.fix();
+        materialDesign.refresh();
         
         widgetSearch.changeView();
     });

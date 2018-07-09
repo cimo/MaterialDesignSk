@@ -7,6 +7,8 @@ $root = new Root();
 
 //$settingRow = $utility->getQuery()->selectSettingDatabase();
 $settingRow['template'] = "basic";
+$settingRow['language'] = "en";
+$settingRow['website_active'] = "1";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +129,9 @@ $settingRow['template'] = "basic";
             var setting = {
                 'widthMobile': 839,
                 'widthDesktop': 840,
-                'template': "<?php echo $settingRow['template']; ?>"
+                'template': "<?php echo $settingRow['template']; ?>",
+                'language': "<?php echo $settingRow['language']; ?>",
+                'websiteActive': "<?php echo $settingRow['website_active']; ?>"
             };
             
             var widgetDatePickerText = {
