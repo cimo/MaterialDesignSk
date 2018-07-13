@@ -43,7 +43,7 @@ function Utility() {
             });
         });
         
-        observer.observe(element, {attributes: true, childList: true, subtree: true});
+        observer.observe(element, {'attributes': true, 'childList': true, 'subtree': true, 'characterData': true});
     };
     
     self.checkMobile = function(fix = false) {

@@ -105,8 +105,6 @@ function Ajax() {
         
         if (reply !== "")
             flashBag.show(reply);
-        
-        flashBag.sessionActivity();
     };
     
     // Functions private
