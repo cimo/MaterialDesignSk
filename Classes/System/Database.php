@@ -12,15 +12,8 @@ class Database {
     public function __construct($config) {
         $connectionFields = $config->getDatabaseConnectionFields();
         
-        if ($connectionFields[0] != "" && $connectionFields[1] != "" && $connectionFields[2] != "" && $connectionFields[3] != "") {
-            set_exception_handler(function($error) {
-                error_log($error->getMessage());
-
-                exit('Pdo problem!');
-            });
-            
+        if ($connectionFields[0] != "" && $connectionFields[1] != "" && $connectionFields[2] != "" && $connectionFields[3] != "")
             $this->pdo = new PDO($connectionFields[0], $connectionFields[1], $connectionFields[2],$connectionFields[3]);
-        }
     }
     
     public function close() {

@@ -1,6 +1,6 @@
 <?php
 $html = <<<XYZ
-<div id="panel_id_3" class="module_clean">
+<div id="panel_id_2" class="module_clean">
     <div class="settings">
         <i class="material-icons drag">drag_handle</i>
     </div>
@@ -120,7 +120,7 @@ $html = <<<XYZ
                 <div>
                     <div class="mdc-form-field">
                         <div class="mdc-radio">
-                            <input class="mdc-radio__native-control" type="radio" name="radios">
+                            <input class="mdc-radio__native-control" type="radio" name="radio">
                             <div class="mdc-radio__background">
                                 <div class="mdc-radio__outer-circle"></div>
                                 <div class="mdc-radio__inner-circle"></div>
