@@ -323,7 +323,7 @@ $html = <<<XYZ
                     <button class="mdc-button mdc-button--dense mdc-button--raised" type="button">Open</button>
                     <div class="mdc-menu" tabindex="-1">
                         <ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
-                            <li class="mdc-list-item" role="menuitem" tabindex="0">
+                            <li class="mdc-list-item" role="menuitem" tabindex="-1" aria-disabled="true">
                                 Item a
                             </li>
                             <li class="mdc-list-item" role="menuitem" tabindex="0">
