@@ -56,11 +56,11 @@ class Config {
     public function __construct() {
         $this->databaseConnectionFields = Array("", "", "", Array());
         $this->protocol = isset($_SERVER['HTTPS']) == true ? "https://" : "http://";
-        $this->pathRoot = "/projects/material_design_sk";
-        $this->urlRoot = "/projects/material_design_sk";
+        $this->pathRoot = "/material_design_sk/root";
+        $this->urlRoot = "/material_design_sk/root";
         $this->supportSymlink = true;
         $this->file = "";
-        $this->name = "Material design sk 1.0.0";
+        $this->name = "M.D. sk 1.0.0";
         $this->curlLogin = Array("", "", "");
     }
     
