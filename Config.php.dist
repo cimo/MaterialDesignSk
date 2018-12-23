@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set("Europe/Rome");
+date_default_timezone_set("Japan/Tokyo");
 
 session_write_close();
 session_name("material_design_sk");
