@@ -199,15 +199,15 @@ $websiteName = $root->getWebsiteName();
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-mobile_1.5.0.min.js"></script>
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/material-components-web_custom.min.js"></script>
         
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Utility.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/MaterialDesign.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetSearch.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetDatePicker.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Ajax.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Loader.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/FlashBag.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/PopupEasy.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Utility.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/MaterialDesign.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetSearch.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetDatePicker.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Ajax.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Loader.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/FlashBag.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/PopupEasy.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.min.js"></script>
         
         <?php include_once(__DIR__ . "/layout_site_custom.html.php"); ?>
     </body>
