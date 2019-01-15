@@ -1,3 +1,7 @@
+<?php
+$html = <<<XYZ
 <div>
-    <h1 class="mdc-typography--headline1">{% trans %}error_1{% endtrans %} {{app.request.get("error")}}</h1>
+    <h1 class="mdc-typography--headline1">Error page.</h1>
 </div>
+XYZ;
+echo $html;

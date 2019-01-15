@@ -1,6 +1,6 @@
 <?php
 $html = <<<XYZ
-<script type="text/javascript">
+<script>
     url['testCustom'] = ""
 </script>
 XYZ;

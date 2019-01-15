@@ -1,3 +1,5 @@
+<?php
+$html = <<<XYZ
 <div class="mdc-linear-progress" role="progressbar">
     <div class="mdc-linear-progress__buffering-dots"></div>
     <div class="mdc-linear-progress__buffer"></div>
@@ -8,3 +10,5 @@
         <span class="mdc-linear-progress__bar-inner"></span>
     </div>
 </div>
+XYZ;
+echo $html;

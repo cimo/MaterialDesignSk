@@ -14,12 +14,12 @@ $websiteName = $root->getWebsiteName();
         
         <!-- Meta -->
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
-        <meta name="description" content=""/>
-        <meta name="keywords" content=""/>
-        <meta name="robots" content="noindex, nofollow"/>
+        <meta name="description" content="..."/>
+        <meta name="keywords" content="..."/>
+        <meta name="robots" content="index, follow"/>
         
         <!-- Favicon -->
         <link href="<?php echo $utility->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/favicon.ico" rel="icon" type="image/x-icon">
@@ -63,8 +63,8 @@ $websiteName = $root->getWebsiteName();
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
                     <?php include_once(dirname(__DIR__) . "/render/module/widget_search.html.php"); ?>
                     
-                    <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="Language" alt="Language">language</a>
-                    <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="Account" alt="Account">account_circle</a>
+                    <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="label" alt="Language">language</a>
+                    <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="label" alt="Account">account_circle</a>
                 </section>
             </div>
             <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
@@ -137,7 +137,7 @@ $websiteName = $root->getWebsiteName();
                 </div>
             </div>
             <div class="text">
-                <p>Copyright © 2018 - Reinvent software.</p>
+                <p>Copyright © 2019 - Reinvent software.</p>
                 <p>All rights reserved.</p>
             </div>
         </footer>
@@ -146,7 +146,7 @@ $websiteName = $root->getWebsiteName();
         <?php include_once(dirname(__DIR__) . "/include/flash_bag.html.php"); ?>
         <?php include_once(dirname(__DIR__) . "/include/popup_easy.html.php"); ?>
         
-        <script type="text/javascript">
+        <script>
             <?php
             if (isset($_SESSION['userActivity']) == true) {
             ?>
@@ -194,20 +194,20 @@ $websiteName = $root->getWebsiteName();
                 'label_3': "Confirm"
             };
         </script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery_3.3.1.min.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-ui_1.12.1.min.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-mobile_1.5.0.min.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/material-components-web.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery_3.3.1.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-ui_1.12.1.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-mobile_1.5.0.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/material-components-web_custom.min.js"></script>
         
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Utility.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/MaterialDesign.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetSearch.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetDatePicker.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Ajax.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Loader.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/FlashBag.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/PopupEasy.js"></script>
-        <script type="text/javascript" src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Utility.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/MaterialDesign.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetSearch.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetDatePicker.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Ajax.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Loader.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/FlashBag.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/PopupEasy.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.js"></script>
         
         <?php include_once(__DIR__ . "/layout_site_custom.html.php"); ?>
     </body>

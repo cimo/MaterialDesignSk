@@ -1,6 +1,9 @@
 <?php
+$_SESSION['page_title'] = "Material design";
+$_SESSION['page_argument'] = "This is a collection of material design elements.";
+
 $html = <<<XYZ
-<h2 class="demo-title mdc-typography--headline6">Button</h2>
+<h2 class="mdc-typography--headline6">Button</h2>
 <div>
     <div style="display: inline-block;">
         <button class="mdc-button mdc-button--dense mdc-button--raised" type="button">
@@ -15,7 +18,7 @@ $html = <<<XYZ
         </button>
     </div>
     <div style="display: inline-block;">
-        <button class="mdc-fab mdc-fab--mini" aria-label="Favorite" type="button">
+        <button class="mdc-fab mdc-fab--mini" aria-label="label" type="button">
             <span class="mdc-fab__icon material-icons">favorite</span>
         </button>
     </div>
@@ -25,11 +28,11 @@ $html = <<<XYZ
             tabindex="0"
             data-toggle-on='{"label": "Remove from favorites", "content": "favorite"}'
             data-toggle-off='{"label": "Add to favorites", "content": "favorite_border"}']
-            aria-label="Add to favorites"
+            aria-label="label"
             aria-pressed="false">favorite_border</i>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Card</h2>
+<h2 class="mdc-typography--headline6">Card</h2>
 <div>
     <div style="display: inline-block;">
         <div class="mdc-card" style="width: 250px; margin: 10px;">
@@ -79,22 +82,22 @@ $html = <<<XYZ
         </div>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Chip</h2>
+<h2 class="mdc-typography--headline6">Chip</h2>
 <div>
     <div class="mdc-chip">
-        <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">event</i>
+        <i class="material-icons mdc-chip__icon mdc-chip__icon--leading md-dark">event</i>
         <div class="mdc-chip__text">Label</div>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Dialog</h2>
+<h2 class="mdc-typography--headline6">Dialog</h2>
 <div>
     <button class="mdc-button mdc-button--dense mdc-button--raised show_dialog" type="button">Show</button>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Checkbox</h2>
+<h2 class="mdc-typography--headline6">Checkbox</h2>
 <div>
     <div class="mdc-form-field">
         <div class="mdc-checkbox">
-            <input class="mdc-checkbox__native-control" type="checkbox"/>
+            <input class="mdc-checkbox__native-control" type="checkbox" aria-label="label"/>
             <div class="mdc-checkbox__background">
                 <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
                     <path class="mdc-checkbox__checkmark-path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
@@ -105,11 +108,11 @@ $html = <<<XYZ
         <label>Label</label>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Radio button</h2>
+<h2 class="mdc-typography--headline6">Radio button</h2>
 <div>
     <div class="mdc-form-field">
         <div class="mdc-radio">
-            <input class="mdc-radio__native-control" type="radio" name="radio">
+            <input class="mdc-radio__native-control" type="radio" aria-label="label">
             <div class="mdc-radio__background">
                 <div class="mdc-radio__outer-circle"></div>
                 <div class="mdc-radio__inner-circle"></div>
@@ -118,10 +121,10 @@ $html = <<<XYZ
         <label>Label</label>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Select</h2>
+<h2 class="mdc-typography--headline6">Select</h2>
 <div>
     <div class="mdc-select">
-        <select class="mdc-select__native-control">
+        <select class="mdc-select__native-control" aria-label="label">
             <option value="" selected></option>
             <option value="a">Option a</option>
             <option value="b" disabled>Option b</option>
@@ -131,9 +134,9 @@ $html = <<<XYZ
         <div class="mdc-line-ripple"></div>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Slider</h2>
+<h2 class="mdc-typography--headline6">Slider</h2>
 <div>
-    <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Drag">
+    <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="label">
         <div class="mdc-slider__track-container">
             <div class="mdc-slider__track"></div>
         </div>
@@ -144,7 +147,7 @@ $html = <<<XYZ
             <div class="mdc-slider__focus-ring"></div>
         </div>
     </div>
-    <div class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Drag">
+    <div class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="label">
         <div class="mdc-slider__track-container">
             <div class="mdc-slider__track"></div>
         </div>
@@ -159,22 +162,22 @@ $html = <<<XYZ
         </div>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Switch</h2>
+<h2 class="mdc-typography--headline6">Switch</h2>
 <div>
     <div class="mdc-switch">
-        <input class="mdc-switch__native-control" type="checkbox" role="switch">
+        <input class="mdc-switch__native-control" type="checkbox" role="switch" aria-checked="false" aria-label="label">
         <div class="mdc-switch__background">
             <div class="mdc-switch__knob"></div>
         </div>
     </div>
     <label for="basic-switch">Off/On</label>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Text field</h2>
+<h2 class="mdc-typography--headline6">Text field</h2>
 <div>
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon mdc-text-field--dense">
             <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">face</i>
-            <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input" type="text" value="" autocomplete="off" aria-label="label"/>
             <label class="mdc-floating-label">Label</label>
             <div class="mdc-line-ripple"></div>
         </div>
@@ -182,7 +185,7 @@ $html = <<<XYZ
     </div>
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field--box mdc-text-field--with-trailing-icon mdc-text-field--dense">
-            <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input" type="text" value="" autocomplete="off" aria-label="label"/>
             <label class="mdc-floating-label">Label</label>
             <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">face</i>
             <div class="mdc-line-ripple"></div>
@@ -192,7 +195,7 @@ $html = <<<XYZ
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon mdc-text-field--dense">
             <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">face</i>
-            <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input" type="text" value="" autocomplete="off" aria-label="label"/>
             <label class="mdc-floating-label">Label</label>
             <div class="mdc-notched-outline">
                 <svg>
@@ -205,7 +208,7 @@ $html = <<<XYZ
     </div>
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-trailing-icon mdc-text-field--dense">
-            <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input" type="text" value="" autocomplete="off" aria-label="label"/>
             <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">face</i>
             <label class="mdc-floating-label">Label</label>
             <div class="mdc-notched-outline">
@@ -219,7 +222,7 @@ $html = <<<XYZ
     </div>
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field__basicTrailing mdc-text-field--dense">
-            <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input" type="text" value="" autocomplete="off" aria-label="label"/>
             <label class="mdc-floating-label">Label</label>
             <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">face</i>
             <div class="mdc-line-ripple"></div>
@@ -228,7 +231,7 @@ $html = <<<XYZ
     </div>
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field__basic mdc-text-field--dense">
-            <input class="mdc-text-field__input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input" type="text" value="" autocomplete="off" aria-label="label"/>
             <label class="mdc-floating-label">Label</label>
             <div class="mdc-line-ripple"></div>
         </div>
@@ -236,14 +239,14 @@ $html = <<<XYZ
     </div>
     <div class="form_row">
         <div class="mdc-text-field text-field mdc-text-field--textarea">
-            <textarea class="mdc-text-field__input"></textarea>
+            <textarea class="mdc-text-field__input" aria-label="label"></textarea>
             <label class="mdc-floating-label">Standard</label>
             <div class="mdc-line-ripple"></div>
         </div>
         <p class="mdc-text-field-helper-text" aria-hidden="true"></p>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Linear progress</h2>
+<h2 class="mdc-typography--headline6">Linear progress</h2>
 <div>
     <div class="mdc-linear-progress mdc-linear-progress--indeterminate linear_progress_a" role="progressbar" style="margin-bottom: 20px;">
         <div class="mdc-linear-progress__buffering-dots"></div>
@@ -276,38 +279,38 @@ $html = <<<XYZ
         </div>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">List</h2>
+<h2 class="mdc-typography--headline6">List</h2>
 <div>
     <ul class="mdc-list mdc-list--two-line mdc-list--avatar-list">
         <li class="mdc-list-item">
-            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
+            <span class="mdc-list-item__graphic material-icons md-dark" aria-hidden="true">folder</span>
             <span class="mdc-list-item__text">
                 Title
                 <span class="mdc-list-item__secondary-text">Test</span>
             </span>
-            <span class="mdc-list-item__meta material-icons" aria-hidden="true">info</span>
+            <span class="mdc-list-item__meta material-icons md-dark" aria-hidden="true">info</span>
         </li>
         <li role="separator" class="mdc-list-divider"></li>
         <li class="mdc-list-item">
-            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
+            <span class="mdc-list-item__graphic material-icons md-dark" aria-hidden="true">folder</span>
             <span class="mdc-list-item__text">
                 Title
                 <span class="mdc-list-item__secondary-text">Test</span>
             </span>
-            <span class="mdc-list-item__meta material-icons" aria-hidden="true">info</span>
+            <span class="mdc-list-item__meta material-icons md-dark" aria-hidden="true">info</span>
         </li>
         <li role="separator" class="mdc-list-divider"></li>
         <li class="mdc-list-item">
-            <span class="mdc-list-item__graphic material-icons" aria-hidden="true">folder</span>
+            <span class="mdc-list-item__graphic material-icons md-dark" aria-hidden="true">folder</span>
             <span class="mdc-list-item__text">
                 Title
                 <span class="mdc-list-item__secondary-text">Test</span>
             </span>
-            <span class="mdc-list-item__meta material-icons" aria-hidden="true">info</span>
+            <span class="mdc-list-item__meta material-icons md-dark" aria-hidden="true">info</span>
         </li>
     </ul>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Menu</h2>
+<h2 class="mdc-typography--headline6">Menu</h2>
 <div>
     <button class="mdc-button mdc-button--dense mdc-button--raised" type="button">Open</button>
     <div class="mdc-menu" tabindex="-1">
@@ -321,11 +324,11 @@ $html = <<<XYZ
         </ul>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Snackbar</h2>
+<h2 class="mdc-typography--headline6">Snackbar</h2>
 <div>
     <button class="mdc-button mdc-button--dense mdc-button--raised show_snackbar" type="button">Show</button>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Tab</h2>
+<h2 class="mdc-typography--headline6">Tab</h2>
 <div>
     <nav class="mdc-tab-bar mdc-tab-bar--icons-with-text">
         <a class="mdc-tab mdc-tab--with-icon-and-text" href="javascript:void(0)">
@@ -340,7 +343,7 @@ $html = <<<XYZ
     </nav>
     <div class="mdc-tab-bar-scroller" style="margin-top: 20px;">
         <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--back">
-            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="scroll back button">navigate_before</a>
+            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="label">navigate_before</a>
         </div>
         <div class="mdc-tab-bar-scroller__scroll-frame">
             <nav class="mdc-tab-bar mdc-tab-bar-scroller__scroll-frame__tabs">
@@ -357,15 +360,15 @@ $html = <<<XYZ
             </nav>
         </div>
         <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--forward">
-            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="scroll forward button">navigate_next</a>
+            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="label">navigate_next</a>
         </div>
     </div>
 </div>
-<h2 class="demo-title mdc-typography--headline6">Datepicker</h2>
+<h2 class="mdc-typography--headline6">Datepicker</h2>
 <div>
     <div class="form_row">
         <div class="mdc-text-field mdc-text-field__basic mdc-text-field--dense">
-            <input class="mdc-text-field__input widget_datePicker_input" type="text" value="" autocomplete="off"/>
+            <input class="mdc-text-field__input widget_datePicker_input" type="text" value="" autocomplete="off" aria-label="label"/>
             <label class="mdc-floating-label">Date</label>
             <div class="mdc-line-ripple"></div>
         </div>
