@@ -48,6 +48,6 @@ Temporary Items
 
 # cimo
 nbproject
-/src/Config.php
+
 /var/sessions/*
 !/var/sessions/.gitkeep
