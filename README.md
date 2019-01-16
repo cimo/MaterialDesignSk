@@ -24,6 +24,6 @@ Is a full responsive and have a .scss\.css and .js examples.
 | Datepicker |
 
 ## Images
-<img src="screenshots/1.png" width="200" alt="1"/>
+<img src="screenshots/1.png" width="200" alt="1.png"/>
 
 <b>By CIMO - https://www.reinventsoftware.org</b>

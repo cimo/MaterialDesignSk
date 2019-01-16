@@ -18,6 +18,7 @@ class Utility {
     private $pathWeb;
     
     private $urlRoot;
+    private $urlListener;
     
     private $supportSymlink;
     
@@ -57,6 +58,10 @@ class Utility {
         return $this->urlRoot;
     }
     
+    public function getUrlListener() {
+        return $this->urlListener;
+    }
+    
     public function getSupportSymlink() {
         return $this->supportSymlink;
     }
@@ -84,6 +89,7 @@ class Utility {
         $this->pathWeb = "{$this->pathRoot}/public";
         
         $this->urlRoot = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . $this->config->getUrlRoot();
+        $this->urlListener = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . dirname($this->config->getUrlRoot()) . "/src";
         
         $this->supportSymlink = $this->config->getSupportSymlink();
         
@@ -357,17 +363,17 @@ class Utility {
     public function arrayUniqueMulti($elements, $index, $fix = true) {
         $results = Array();
         
-        $i = 0;
+        $a = 0;
         $keys = Array();
         
         foreach ($elements as $key => $value) {
             if (in_array($value[$index], $keys) == false) {
-                $results[$i] = $value;
+                $results[$a] = $value;
                 
-                $keys[$i] = $value[$index];
+                $keys[$a] = $value[$index];
             }
             
-            $i ++;
+            $a ++;
         }
         
         if ($fix == true)

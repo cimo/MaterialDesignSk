@@ -3,7 +3,7 @@ date_default_timezone_set("Japan/Tokyo");
 
 session_write_close();
 session_name("material_design_sk_dev");
-//session_save_path(__DIR__ . "/sessions");
+//session_save_path(dirname(__DIR__) . "/var/sessions");
 
 if (session_id() == "")
     session_start();
