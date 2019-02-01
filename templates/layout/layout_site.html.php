@@ -27,10 +27,10 @@ $websiteName = $root->getWebsiteName();
         <!-- Css -->
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/jquery-ui_1.12.1.min.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/jquery-ui_1.12.1_structure.min.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/Roboto+Mono.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/Roboto_300_400_500.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/material-icons.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/material-components-web.min.css" rel="stylesheet"/>
+        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/Roboto+Mono_custom.css" rel="stylesheet"/>
+        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/Roboto_300_400_500_custom.css" rel="stylesheet"/>
+        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/material-icons_custom.css" rel="stylesheet"/>
+        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/material-components-web_custom.min.css" rel="stylesheet"/>
         
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/<?php echo $settingRow['template']; ?>.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/loader.css" rel="stylesheet"/>
@@ -147,18 +147,12 @@ $websiteName = $root->getWebsiteName();
         <?php include_once(dirname(__DIR__) . "/include/popup_easy.html.php"); ?>
         
         <script>
-            <?php
-            if (isset($_SESSION['userActivity']) == true) {
-            ?>
-                var session = {
-                    'token': "<?php echo $_SESSION['token']; ?>",
-                    'userActivity': "<?php echo $_SESSION['userActivity']; ?>",
-                    'languageTextCode': "<?php echo $_SESSION['languageTextCode'] ?>",
-                    'currentPageId': "0"
-                };
-            <?php
-            }
-            ?>
+            var session = {
+                'token': "<?php echo $_SESSION['token']; ?>",
+                'userInform': "<?php echo $_SESSION['userInform']; ?>",
+                'languageTextCode': "<?php echo $_SESSION['languageTextCode'] ?>",
+                'currentPageId': "0"
+            };
             
             var path = {
                 'documentRoot': "{{response.path.documentRoot}}",

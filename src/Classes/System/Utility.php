@@ -435,62 +435,56 @@ class Utility {
             $_SESSION['languageTextCode'] = $_REQUEST["languageTextCode"];
     }
     
-    public function checkSessionOverTime($url) {
-        if (isset($_SESSION['userActivity']) == false)
-            $_SESSION['userActivity'] = "";
+    public function checkSessionOverTime($url = "") {
+        if (isset($_SESSION['userActionCount']) == false && isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == true) {
+            $_SESSION['userInform'] = "Session time is over, please refresh the page.";
+            
+            return $this->sessionIsOver($url);
+        }
+        
+        if (isset($_SESSION['userActionCount']) == false)
+            $_SESSION['userActionCount'] = 0;
+        
+        if (isset($_SESSION['userInform']) == false || isset($_SESSION['userInformCount']) == false) {
+            $_SESSION['userInform'] = "";
+            $_SESSION['userInformCount'] = 0;
+        }
         
         if (isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == true) {
-            if (isset($_SESSION['userActivityTimestamp']) == false)
-                $_SESSION['userActivityTimestamp'] = time();
-            else {
-                $timeLapse = time() - $_SESSION['userActivityTimestamp'];
-
-                if ($timeLapse > $this->sessionMaxIdleTime) {
-                    $_SESSION['userActivity'] = "Session time is over, please refresh the page.";
-                    
-                    if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
-                        echo json_encode(Array(
-                            'userActivity' => $_SESSION['userActivity']
-                        ));
-
-                        exit;
-                    }
-                    else {
-                        $userActivity = $_SESSION['userActivity'];
-                        
-                        $this->sessionUnset();
-                        
-                        $this->generateToken();
-                        
-                        $_SESSION['userActivity'] = $userActivity;
-                        
-                        unset($_SESSION['userActivityTimestamp']);
-                        
-                        return $url;
-                    }
-                }
-                else {
-                    $_SESSION['userActivityTimestamp'] = time();
-                    
-                    $_SESSION['userActivity'] = "";
-                }
-            }
-        }
-        else {
-            if (isset($_SESSION['userActivity']) == true && empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest" && $_SESSION['userActivity'] != "") {
-                $_SESSION['userActivity'] = "Session time is over, please refresh the page.";
+            if (isset($_SESSION['userTimestamp']) == false)
+                $_SESSION['userTimestamp'] = time();
+            
+            $_SESSION['userActionCount'] ++;
+            
+            $timeElapsed = time() - $_SESSION['userTimestamp'];
+            
+            $isOver = false;
+            
+            // Inactivity
+            if ($_SESSION['userActionCount'] > 1 && $timeElapsed >= $this->sessionMaxIdleTime) {
+                $_SESSION['userInform'] = "Session time is over, please refresh the page.";
                 
-                echo json_encode(Array(
-                    'userActivity' => $_SESSION['userActivity']
-                ));
-                
-                $_SESSION['userActivity'] = "";
-
-                exit;
+                $isOver = true;
             }
+            
+            // Roles changed
+            //...
+            
+            if ($isOver == true)
+                return $this->sessionIsOver($url);
+
+            $_SESSION['userTimestamp'] = time();
         }
         
-        return "";
+        if ($_SESSION['userInform'] != "")
+            $_SESSION['userInformCount'] ++;
+
+        if ($_SESSION['userInformCount'] > 1) {
+            $_SESSION['userInform'] = "";
+            $_SESSION['userInformCount'] = 0;
+        }
+        
+        return false;
     }
     
     public function checkHost($host) {
@@ -529,6 +523,27 @@ class Utility {
     }
     
     // Functions private
+    private function sessionIsOver($url) {
+        if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
+            echo json_encode(Array(
+                'userInform' => $_SESSION['userInform']
+            ));
+
+            exit;
+        }
+        else {
+            $userInform = $_SESSION['userInform'];
+
+            $this->sessionUnset();
+
+            $this->generateToken();
+
+            $_SESSION['userInform'] = $userInform;
+
+            unset($_SESSION['userInformTimestamp']);
+        }
+    }
+    
     private function arrayColumnFix() {
         if (function_exists("array_column") == false) {
             function array_column($input = null, $columnKey = null, $indexKey = null) {

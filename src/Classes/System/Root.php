@@ -40,7 +40,7 @@ class Root {
         
         $this->utility->configureCookie(session_name(), 0, true, true);
         
-        $url = $this->utility->checkSessionOverTime("");
+        $url = $this->utility->checkSessionOverTime();
         
         $this->response['path']['documentRoot'] = $_SERVER['DOCUMENT_ROOT'];
         $this->response['path']['root'] = $this->utility->getPathRoot();
@@ -51,7 +51,7 @@ class Root {
         
         $this->websiteName = $this->utility->getWebsiteName();
         
-        if ($url != "")
+        if ($url != false)
             header("Location: $url");
         
         $event = isset($_POST['event']) == true ? $_POST['event'] : "";
