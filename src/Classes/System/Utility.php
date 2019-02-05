@@ -435,19 +435,19 @@ class Utility {
             $_SESSION['languageTextCode'] = $_REQUEST["languageTextCode"];
     }
     
-    public function checkSessionOverTime($url = "") {
-        if (isset($_SESSION['userActionCount']) == false && isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == true) {
-            $_SESSION['userInform'] = "Session time is over, please refresh the page.";
-            
-            return $this->sessionIsOver($url);
-        }
-        
+    public function checkSessionOverTime() {
         if (isset($_SESSION['userActionCount']) == false)
             $_SESSION['userActionCount'] = 0;
         
         if (isset($_SESSION['userInform']) == false || isset($_SESSION['userInformCount']) == false) {
             $_SESSION['userInform'] = "";
             $_SESSION['userInformCount'] = 0;
+        }
+        
+        if (isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == false && $_SESSION['userInform'] == "") {
+            $_SESSION['userInform'] = "Session time is over, please login again.";
+            
+            $isOver = true;
         }
         
         if (isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == true) {
@@ -462,7 +462,7 @@ class Utility {
             
             // Inactivity
             if ($_SESSION['userActionCount'] > 1 && $timeElapsed >= $this->sessionMaxIdleTime) {
-                $_SESSION['userInform'] = "Session time is over, please refresh the page.";
+                $_SESSION['userInform'] = "Session time is over, please login again.";
                 
                 $isOver = true;
             }
@@ -470,8 +470,28 @@ class Utility {
             // Roles changed
             //...
             
-            if ($isOver == true)
-                return $this->sessionIsOver($url);
+            if ($isOver == true) {
+                if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
+                    echo json_encode(Array(
+                        'userInform' => $_SESSION['userInform']
+                    ));
+
+                    exit;
+                }
+                else {
+                    $_SESSION['userActionCount'] = 0;
+                    
+                    $userInform = $_SESSION['userInform'];
+
+                    $this->sessionUnset();
+
+                    $this->generateToken();
+
+                    $_SESSION['userInform'] = $userInform;
+
+                    return $this->urlRoot;
+                }
+            }
 
             $_SESSION['userTimestamp'] = time();
         }
@@ -494,6 +514,8 @@ class Utility {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36");
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         
         $curlResponse = curl_exec($curl);
         curl_close($curl);
@@ -523,27 +545,6 @@ class Utility {
     }
     
     // Functions private
-    private function sessionIsOver($url) {
-        if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
-            echo json_encode(Array(
-                'userInform' => $_SESSION['userInform']
-            ));
-
-            exit;
-        }
-        else {
-            $userInform = $_SESSION['userInform'];
-
-            $this->sessionUnset();
-
-            $this->generateToken();
-
-            $_SESSION['userInform'] = $userInform;
-
-            unset($_SESSION['userInformTimestamp']);
-        }
-    }
-    
     private function arrayColumnFix() {
         if (function_exists("array_column") == false) {
             function array_column($input = null, $columnKey = null, $indexKey = null) {
