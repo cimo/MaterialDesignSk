@@ -1,6 +1,9 @@
 <?php
 date_default_timezone_set("Japan/Tokyo");
 
+ini_set("session.cookie_lifetime", 0);
+ini_set("session.gc_maxlifetime", 0);
+
 session_write_close();
 session_name("materialDesignSk_dev");
 //session_save_path(dirname(__DIR__) . "/var/sessions");
