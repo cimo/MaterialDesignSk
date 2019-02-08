@@ -2,6 +2,7 @@ Material design sk
 ==============
 
 Starter kit with material design components.
+
 All folders are organize for easy and fast develop.
 
 | INFO |
@@ -34,6 +35,7 @@ All folders are organize for easy and fast develop.
 <img src="screenshots/2.png" width="200" alt="2.png"/>
 
 | LIBRARY |
+|:---|
 Material design web https://material.io/develop/web/
 
 <b>By CIMO - https://www.reinventsoftware.org</b>
