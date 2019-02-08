@@ -35,6 +35,8 @@ $websiteName = $root->getWebsiteName();
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/<?php echo $settingRow['template']; ?>.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/loader.css" rel="stylesheet"/>
         <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/widget.css" rel="stylesheet"/>
+        
+        <?php include_once(__DIR__ . "/layout_site_custom_top.html.php"); ?>
     </head>
     <body class="mdc-typography user_select_none">
         <div id="body_progress">
@@ -45,9 +47,8 @@ $websiteName = $root->getWebsiteName();
             <div class="mdc-top-app-bar__row">
                 <div class="display_desktop">
                     <?php
-                    if ($settingRow['website_active'] == true) {
-                        // menu root
-                    }
+                    if ($settingRow['website_active'] == true)
+                        include_once(dirname(__DIR__) . "/render/module/menu_root_desktop.html.php");
                     ?>
                 </div>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
@@ -76,9 +77,8 @@ $websiteName = $root->getWebsiteName();
                         </div>
                     </header>
                     <?php
-                    if ($settingRow['website_active'] == true) {
-                        // menu root
-                    }
+                    if ($settingRow['website_active'] == true)
+                        include_once(dirname(__DIR__) . "/render/module/menu_root_mobile.html.php");
                     ?>
                 </nav>
             </aside>
@@ -155,14 +155,15 @@ $websiteName = $root->getWebsiteName();
             };
             
             var path = {
-                'documentRoot': "{{response.path.documentRoot}}",
+                'documentRoot': "<?php echo $_SERVER['DOCUMENT_ROOT']; ?>",
                 'root': "<?php echo $utility->getPathRoot(); ?>",
                 'src': "<?php echo $utility->getPathSrc(); ?>",
                 'web': "<?php echo $utility->getPathWeb(); ?>"
             };
             
             var url = {
-                'root': "<?php echo $utility->getUrlRoot(); ?>"
+                'root': "<?php echo $utility->getUrlRoot(); ?>",
+                'listener': "<?php echo $utility->getUrlListener(); ?>"
             };
             
             var setting = {
@@ -201,8 +202,10 @@ $websiteName = $root->getWebsiteName();
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Loader.min.js"></script>
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/FlashBag.min.js"></script>
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/PopupEasy.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.min.js"></script>
         
-        <?php include_once(__DIR__ . "/layout_site_custom.html.php"); ?>
+        <?php include_once(__DIR__ . "/layout_site_custom_bottom.html.php"); ?>
+        
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index_custom.min.js"></script>
     </body>
 </html>

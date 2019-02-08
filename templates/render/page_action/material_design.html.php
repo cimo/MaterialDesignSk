@@ -1,6 +1,6 @@
 <?php
-$_SESSION['page_title'] = "Material design";
-$_SESSION['page_argument'] = "This is a collection of material design elements.";
+$_SESSION['pageTitle'] = "Material design";
+$_SESSION['pageArgument'] = "Starter kit with material design components.";
 
 $html = <<<XYZ
 <h2 class="mdc-typography--headline6">Button</h2>

@@ -89,7 +89,7 @@ class Utility {
         $this->pathWeb = "{$this->pathRoot}/public";
         
         $this->urlRoot = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . $this->config->getUrlRoot();
-        $this->urlListener = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . dirname($this->config->getUrlRoot()) . "/src";
+        $this->urlListener = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . dirname($this->config->getUrlRoot()) . "/src/EventListener";
         
         $this->supportSymlink = $this->config->getSupportSymlink();
         
@@ -444,12 +444,6 @@ class Utility {
             $_SESSION['userInformCount'] = 0;
         }
         
-        if (isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == false && $_SESSION['userInform'] == "") {
-            $_SESSION['userInform'] = "Session time is over, please login again.";
-            
-            $isOver = true;
-        }
-        
         if (isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogged']) == true) {
             if (isset($_SESSION['userTimestamp']) == false)
                 $_SESSION['userTimestamp'] = time();
@@ -542,6 +536,30 @@ class Utility {
             $newString,
             $isFind
         );
+    }
+    
+    public function download() {
+        if ($this->checkToken($_REQUEST['token']) == true) {
+            header("Content-Description: File Transfer");
+            header("Content-Disposition: attachment; filename=\"" . basename($_SESSION['download']['path']) . "\"");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: " . filesize($_SESSION['download']['path']));
+            header("Content-Type: {$_SESSION['download']['mime']}");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, pre-check=0, post-check=0");
+            header("Pragma: public");
+            
+            readfile($_SESSION['download']['path']);
+            
+            if ($_SESSION['download']['remove'] == true)
+                unlink($_SESSION['download']['path']);
+            
+            unset($_SESSION['download']);
+            
+            return;
+        }
+        
+        echo "404";
     }
     
     // Functions private

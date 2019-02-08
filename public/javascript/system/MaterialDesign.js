@@ -42,9 +42,9 @@ function MaterialDesign() {
         $.each($(".mdc-fab"), function(key, value) {
             new mdc.ripple.MDCRipple.attachTo(value);
             
-            $(value).on("click", "", function(event) {
+            /*$(value).on("click", "", function(event) {
                 $(this).addClass("mdc-fab--exited");
-            });
+            });*/
         });
     };
     
@@ -69,13 +69,13 @@ function MaterialDesign() {
                 dialogMdc.show();
             });
 
-            dialogMdc.listen("MDCDialog:accept", function() {
+            /*dialogMdc.listen("MDCDialog:accept", function() {
                 console.log("Dialog - Accepted");
             });
 
             dialogMdc.listen("MDCDialog:cancel", function() {
                 console.log("Dialog - Canceled");
-            });
+            });*/
         }
     };
     
@@ -105,9 +105,9 @@ function MaterialDesign() {
         $.each($(".mdc-select"), function(key, value) {
             var selectMdc = new mdc.select.MDCSelect.attachTo(value);
 
-            $(value).on("change", "", function() {
+            /*$(value).on("change", "", function() {
                 console.log("Select - Item with index " + selectMdc.selectedIndex + " and value " + selectMdc.value);
-            });
+            });*/
         });
     };
     
@@ -115,9 +115,9 @@ function MaterialDesign() {
         $.each($(".mdc-slider"), function(key, value) {
             var sliderMdc = new mdc.slider.MDCSlider.attachTo(value);
 
-            $(value).on("MDCSlider:change", "", function() {
+            /*$(value).on("MDCSlider:change", "", function() {
                 console.log("Slider - Value: " + sliderMdc.value);
-            });
+            });*/
         });
     };
     
@@ -168,9 +168,9 @@ function MaterialDesign() {
                 menuMdc.open = !menuMdc.open;
             });
             
-            $(value).on("MDCMenu:selected", "", function(event) {
+            /*$(value).on("MDCMenu:selected", "", function(event) {
                 console.log("Menu - Item with index " + event.detail.index + " and value " + event.detail.item.innerText);
-            });
+            });*/
         });
     };
     

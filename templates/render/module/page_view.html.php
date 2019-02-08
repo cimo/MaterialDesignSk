@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include_once(dirname(__DIR__) . "/page_controller_action/material_design.html.php");
+include_once(dirname(__DIR__) . "/page_action/{$_SESSION['pageAction']}.html.php");
 $obGetContents = ob_get_contents();
 ob_end_clean();
 
@@ -9,10 +9,10 @@ $html = <<<XYZ
     <div class="mdc-typography--body2">
         <div class="page_container user_select_text">
             <div class="header">
-                <h1 class="mdc-typography--headline6">{$_SESSION['page_title']}</h1>
+                <h1 class="mdc-typography--headline6">{$_SESSION['pageTitle']}</h1>
             </div>
             <div class="argument">
-                <p>{$_SESSION['page_argument']}</p>
+                <p>{$_SESSION['pageArgument']}</p>
             </div>
             <div class="controllerAction">
                 {$obGetContents}

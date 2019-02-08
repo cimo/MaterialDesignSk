@@ -1,10 +1,15 @@
-MaterialDesignSk
+Material design sk
 ==============
 
-This is a open source starter kit for material design.
-Is a full responsive and have a .scss\.css and .js examples.
+Starter kit with material design components.
+All folders are organize for easy and fast develop.
 
-| Elements |
+| INFO |
+|:---|
+| Cross browser and responsive (Chrome, Firefox, Edge, Opera, Safari) |
+| Cross platform (Windows, Linux, Mac, Android, Ios ) |
+
+| ELEMENTS |
 |:---|
 | Button |
 | Card |
@@ -23,7 +28,12 @@ Is a full responsive and have a .scss\.css and .js examples.
 | Tab |
 | Datepicker |
 
-## Images
+| IMAGES |
+|:---|
 <img src="screenshots/1.png" width="200" alt="1.png"/>
+<img src="screenshots/2.png" width="200" alt="2.png"/>
+
+| LIBRARY |
+Material design web https://material.io/develop/web/
 
 <b>By CIMO - https://www.reinventsoftware.org</b>
