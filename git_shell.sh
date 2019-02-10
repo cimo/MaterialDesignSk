@@ -46,6 +46,9 @@ then
     
     if [ $success -eq 1 ]
     then
+        cd $rootWebPath/symfony_fw
+        sudo -u www-data php bin/console cache:clear --no-warmup --env=dev
+
         echo "Settings project in progress, please wait..."
 
         sudo chown -R $userWebScript $rootWebPath

@@ -140,6 +140,10 @@ $boxBackgroundColor: #ededed;
             }
         }
     }
+    
+    #setting_language_manage_container {
+        width: 50%;
+    }
 }
 @media(max-width: "599px") {
     .main {
@@ -148,7 +152,7 @@ $boxBackgroundColor: #ededed;
         }
     }
     
-    .api_card {
+    .microservice_api_card {
         display: block !important;
         margin: 20px auto !important;
     }
@@ -398,6 +402,26 @@ table {
     max-width: 300px;
 }
 
+.cursor_custom {
+    cursor: pointer;
+}
+
+.graph_container {
+    height: 400px;
+}
+
+.wysiwyg {
+    .toolbar {
+        .select_format, .select_font {
+            width: 120px !important;
+        }
+    }
+}
+
+.info_field {
+    margin-bottom: 0;
+}
+
 .cp_menu {
     width: 100%;
     
@@ -405,7 +429,7 @@ table {
         margin-right: 5px;
     }
     
-    .title_groupe {
+    .title_group {
         margin: 0 0 0 10px;
     }
 }
@@ -426,26 +450,16 @@ table {
     }
 }
 
-.cursor_custom {
-    cursor: pointer;
-}
-
-.graph_container {
-    height: 400px;
-}
-
-.wysiwyg {
-    .toolbar {
-        .select_format, .select_font {
-            width: 120px !important;
-        }
+.microservice_deploy_group {
+    .container {
+        display: inline-block;
     }
 }
 
-.api_card {
+.microservice_api_card {
     display: inline-block;
 }
-.api_log {
+.microservice_api_log {
     height: 300px;
     overflow-y: scroll;
     padding: 10px;
@@ -693,6 +707,8 @@ table {
 
 #setting_language_manage_container {
     display: none;
+    background-color: $boxBackgroundColor;
+    padding: 10px;
     
     &> p {
         margin: 0;
