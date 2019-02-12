@@ -49,5 +49,6 @@ Temporary Items
 # cimo
 nbproject
 /src/Config.php
+/public/.sass-cache
 /var/sessions/*
 !/var/sessions/.gitkeep
