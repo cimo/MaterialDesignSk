@@ -7,7 +7,7 @@ $html = <<<XYZ
     </div>
     <i class="material-icons mdc-top-app-bar__action-item button_close">close</i>
 
-    <input id="form_search__token" type="hidden" name="form_search[_token]" value="">
+    <input id="form_search_token" type="hidden" name="form_search[token]" value="">
 </form>
 XYZ;
 echo $html;
