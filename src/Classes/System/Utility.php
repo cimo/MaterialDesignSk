@@ -562,6 +562,34 @@ class Utility {
         echo "404";
     }
     
+    public function fileReadTail($path, $limit = 50) {
+        $fopen = fopen($path, "r");
+        
+        fseek($fopen, -1, SEEK_END);
+        
+        for ($a = 0, $lines = Array(); $a < $limit && ($char = fgetc($fopen)) !== false;) {
+            if ($char === "\n") {
+                if (isset($lines[$a]) == true) {
+                    $lines[$a][] = $char;
+                    $lines[$a] = implode("", array_reverse($lines[$a]));
+                    
+                    $a ++;
+                }
+            }
+            else
+                $lines[$a][] = $char;
+            
+            fseek($fopen, -2, SEEK_CUR);
+        }
+        
+        fclose($fopen);
+        
+        if (count($lines) > 0 && $a < $limit)
+            $lines[$a] = implode("", array_reverse($lines[$a]));
+        
+        return array_reverse($lines);
+    }
+    
     // Functions private
     private function arrayColumnFix() {
         if (function_exists("array_column") == false) {
