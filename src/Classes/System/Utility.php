@@ -104,6 +104,15 @@ class Utility {
             $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(21));
     }
     
+    public function checkToken($token) {
+        if (isset($_SESSION['token']) == true && $token == $_SESSION['token'])
+            return true;
+        
+        return false;
+    }
+    
+    // ---
+    
     public function configureCookie($name, $lifeTime, $secure, $httpOnly) {
         $currentCookieParams = session_get_cookie_params();
         
@@ -420,13 +429,6 @@ class Utility {
         return $result;
     }
     
-    public function checkToken($token) {
-        if (isset($_SESSION['token']) == true && $token == $_SESSION['token'])
-            return true;
-        
-        return false;
-    }
-    
     public function checkLanguage($settingRow) {
         if (isset($_SESSION['languageTextCode']) == false)
             $_SESSION['languageTextCode'] = $settingRow['language'];
@@ -588,6 +590,51 @@ class Utility {
             $lines[$a] = implode("", array_reverse($lines[$a]));
         
         return array_reverse($lines);
+    }
+    
+    public function loginAuthBasic($url, $username, $password) {
+        $curl = curl_init();
+        
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36");
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+        
+        $curlResponse = curl_exec($curl);
+        $curlError = curl_error($curl);
+        $curlInfo = curl_getinfo($curl);
+        
+        curl_close($curl);
+        
+        return $curlResponse;
+    }
+    
+    public function closeAjaxRequest($response, $memoryLimit = false) {
+        echo json_encode(Array(
+            'response' => $response
+        ));
+        
+        fastcgi_finish_request();
+        ignore_user_abort(true);
+        
+        if ($memoryLimit == true) {
+            set_time_limit(0);
+            ini_set("memory_limit", "-1");
+        }
+    }
+    
+    public function escapeScript($value) {
+        $pattern = "/<script.*?>|<\/script>|javascript:/i";
+        $replacement = "";
+        
+        if (preg_match_all($pattern, $value, $matches) !== false)
+            return preg_replace($pattern, $replacement, $value);
+        else
+            return $value;
     }
     
     // Functions private
