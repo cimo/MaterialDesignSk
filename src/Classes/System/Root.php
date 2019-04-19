@@ -1,6 +1,5 @@
 <?php
 require_once("Utility.php");
-require_once("Query.php");
 require_once("Ajax.php");
 
 class Root {
@@ -45,7 +44,7 @@ class Root {
         $this->response['path']['documentRoot'] = $_SERVER['DOCUMENT_ROOT'];
         $this->response['path']['root'] = $this->utility->getPathRoot();
         $this->response['path']['src'] = $this->utility->getPathSrc();
-        $this->response['path']['web'] = $this->utility->getPathWeb();
+        $this->response['path']['public'] = $this->utility->getPathPublic();
         
         $this->response['url']['root'] = $this->utility->getUrlRoot();
         

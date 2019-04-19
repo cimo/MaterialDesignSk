@@ -15,10 +15,10 @@ class Utility {
     
     private $pathRoot;
     private $pathSrc;
-    private $pathWeb;
+    private $pathPublic;
     
     private $urlRoot;
-    private $urlListener;
+    private $urlEventListener;
     
     private $supportSymlink;
     
@@ -50,16 +50,16 @@ class Utility {
         return $this->pathSrc;
     }
     
-    public function getPathWeb() {
-        return $this->pathWeb;
+    public function getPathPublic() {
+        return $this->pathPublic;
     }
     
     public function getUrlRoot() {
         return $this->urlRoot;
     }
     
-    public function getUrlListener() {
-        return $this->urlListener;
+    public function getUrlEventListener() {
+        return $this->urlEventListener;
     }
     
     public function getSupportSymlink() {
@@ -86,10 +86,10 @@ class Utility {
         
         $this->pathRoot = $_SERVER['DOCUMENT_ROOT'] . $this->config->getPathRoot();
         $this->pathSrc = "{$this->pathRoot}/src";
-        $this->pathWeb = "{$this->pathRoot}/public";
+        $this->pathPublic = "{$this->pathRoot}/public";
         
         $this->urlRoot = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . $this->config->getUrlRoot();
-        $this->urlListener = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . dirname($this->config->getUrlRoot()) . "/src/EventListener";
+        $this->urlEventListener = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . dirname($this->config->getUrlRoot()) . "/src/EventListener";
         
         $this->supportSymlink = $this->config->getSupportSymlink();
         

@@ -40,7 +40,7 @@ $websiteName = $root->getWebsiteName();
     </head>
     <body class="mdc-typography user_select_none">
         <div id="body_progress">
-            <?php include_once(dirname(__DIR__) . "/include/progress_bar.html.php"); ?>
+            <?php include(dirname(__DIR__) . "/include/progress_bar.html.php"); ?>
         </div>
         
         <header class="mdc-top-app-bar">
@@ -142,9 +142,9 @@ $websiteName = $root->getWebsiteName();
             </div>
         </footer>
         
-        <?php include_once(dirname(__DIR__) . "/include/loader.html.php"); ?>
-        <?php include_once(dirname(__DIR__) . "/include/flash_bag.html.php"); ?>
-        <?php include_once(dirname(__DIR__) . "/include/popup_easy.html.php"); ?>
+        <?php include(dirname(__DIR__) . "/include/loader.html.php"); ?>
+        <?php include(dirname(__DIR__) . "/include/flash_bag.html.php"); ?>
+        <?php include(dirname(__DIR__) . "/include/popup_easy.html.php"); ?>
         
         <script>
             var session = {
@@ -158,12 +158,12 @@ $websiteName = $root->getWebsiteName();
                 'documentRoot': "<?php echo $_SERVER['DOCUMENT_ROOT']; ?>",
                 'root': "<?php echo $utility->getPathRoot(); ?>",
                 'src': "<?php echo $utility->getPathSrc(); ?>",
-                'web': "<?php echo $utility->getPathWeb(); ?>"
+                'public': "<?php echo $utility->getPathPublic(); ?>"
             };
             
             var url = {
                 'root': "<?php echo $utility->getUrlRoot(); ?>",
-                'listener': "<?php echo $utility->getUrlListener(); ?>"
+                'eventListener': "<?php echo $utility->getUrlEventListener(); ?>"
             };
             
             var setting = {
