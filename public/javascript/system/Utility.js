@@ -1,3 +1,5 @@
+/* global materialDesign, mdc */
+
 var utility = new Utility();
 
 function Utility() {
@@ -305,10 +307,10 @@ function Utility() {
         $.each(options, function(key, val) {
             var optionValue = parseInt(val.value);
             var optionText = val.text.substr(0, val.text.indexOf("-|") + 2);
-            var idPageElementSelected = parseInt(xhr.response.values.idPage);
-            var idParentElementSelected = parseInt(xhr.response.values.idParent);
+            var pageIdElementSelected = parseInt(xhr.response.values.pageId);
+            var parentIdElementSelected = parseInt(xhr.response.values.parentId);
             
-            if (optionValue === idPageElementSelected || optionValue === idParentElementSelected) {
+            if (optionValue === pageIdElementSelected || optionValue === parentIdElementSelected) {
                 disabled = true;
                 optionLength = optionText.length;
             }
@@ -368,7 +370,7 @@ function Utility() {
         });
         
         if (window.location.href.indexOf("control_panel") === -1) {
-            var parameters = utility.urlParameters(session.languageTextCode);
+            var parameters = utility.urlParameters(window.session.languageTextCode);
             
             $(".menu_root_container").find(".target").removeClass("current");
             
@@ -401,13 +403,13 @@ function Utility() {
                 });
                 
                 $.each(elements, function(key, value) {
-                    progress = Math.ceil(key / elements.length);
+                    progress = key / elements.length;
 
                     linearProgressMdc.progress = progress;
                 });
             }
             
-            if (progress >= 1) {
+            if (progress >= 0.99) {
                 document.fonts.ready.then(function() {
                     $("#body_progress").fadeOut("slow");
                 });
@@ -419,13 +421,60 @@ function Utility() {
         $(document).on("click", ".material_upload button", function() {
             var button = $(this);
             var input = button.parent().find("input");
+            var name = "";
             
             input.click();
             
             input.on("change", "", function() {
-                button.parent().find("label").text(input[0].files[0].name);
+                if (input[0].files[0] !== undefined)
+                    name = input[0].files[0].name;
+                
+                button.parent().find("label").text(name);
             });
         });
+    };
+    
+    self.serializeJson = function(object) {
+        var elements = {};
+        
+        var serializeArray = object.serializeArray();
+        
+        var jsonString = JSON.stringify(serializeArray);
+        var json = JSON.parse(jsonString);
+        
+        var name = "";
+        
+        $.each(json, function(key, value) {
+            $.each(value, function(keySub, valueSub) {
+                if (keySub === "name") {
+                    var newName = valueSub.substring(valueSub.lastIndexOf("[") + 1, valueSub.lastIndexOf("]"));
+                    
+                    newName = newName.replace("_token", "token");
+                    
+                    name = newName;
+                }
+                else
+                    elements[name] = valueSub;
+            });
+        });
+        
+        return elements;
+    };
+    
+    self.unitFormat = function(bytes) {
+        if (bytes === 0)
+            return "0 Bytes";
+        
+        var byte = 1024;
+        var sizes = new Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+        
+        var value = Math.floor(Math.log(bytes) / Math.log(byte));
+        
+        return parseFloat((bytes / Math.pow(byte, value)).toFixed(2)) + " " + sizes[value];
+    };
+    
+    self.padZero = function(value) {
+        return (value < 10 ? "0" : "") + value;
     };
     
     // Functions private

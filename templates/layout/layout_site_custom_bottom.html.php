@@ -1,7 +1,7 @@
 <?php
 $html = <<<XYZ
 <script>
-    url['testCustom'] = ""
+    url['testCustom'] = "";
 </script>
 XYZ;
 echo $html;
