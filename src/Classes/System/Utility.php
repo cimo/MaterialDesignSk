@@ -162,7 +162,7 @@ class Utility {
         fclose($writing);
         
         if ($checked == true) 
-            @rename($filePath + ".tmp", $filePath);
+            rename($filePath + ".tmp", $filePath);
         else
             unlink($filePath + ".tmp");
     }
@@ -277,21 +277,21 @@ class Utility {
         return join(" ", $result);
     }
     
-    public function unitFormat($bytes) {
-        if ($bytes >= 1073741824)
-            $bytes = number_format($bytes / 1073741824, 2) . " GB";
-        else if ($bytes >= 1048576)
-            $bytes = number_format($bytes / 1048576, 2) . " MB";
-        else if ($bytes >= 1024)
-            $bytes = number_format($bytes / 1024, 2) . " KB";
-        else if ($bytes > 1)
-            $bytes = "$bytes bytes";
-        else if ($bytes == 1)
-            $bytes = "$bytes byte";
-        else
-            $bytes = "0 bytes";
-
-        return $bytes;
+    public function unitFormat($value) {
+        $result = "";
+        
+        if ($value == 0)
+            $result = "0 Bytes";
+        else {
+            $reference = 1024;
+            $sizes = Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+            
+            $index = floor(log($value) / log($reference));
+            
+            $result = round(floatval(($value / pow($reference, $index))), 2) . " " . $sizes[$index];
+        }
+        
+        return $result;
     }
     
     public function cutStringOnLength($value, $length) {
@@ -311,19 +311,17 @@ class Utility {
         return substr($string, $position, $length);
     }
     
-    public function arrayLike($elements, $like, $flat) {
+    public function arrayLike($elements, $like) {
         $result = Array();
         
-        if ($flat == true) {
-            foreach($elements as $key => $value) {
-                $pregGrep = preg_grep("~$like~i", $value);
-
-                if (empty($pregGrep) == false)
-                    $result[] = $elements[$key];
-            }
+        foreach ($elements as $key => $value) {
+            $result[$key] = preg_grep("~$like~i", $value);
+            
+            if (count($result[$key]) == 0)
+                unset($result[$key]);
+            else
+                $result[$key] = $value;
         }
-        else
-            $result = preg_grep("~$like~i", $elements);
         
         return $result;
     }
@@ -356,15 +354,21 @@ class Utility {
         return false;
     }
     
-    public function arrayExplodeFindValue($elementsFirst, $elementsSecond) {
-        $elementsFirstExplode = explode(",", $elementsFirst);
-        array_pop($elementsFirstExplode);
-
-        $elementsSecondExplode =  explode(",", $elementsSecond);
-        array_pop($elementsSecondExplode);
+    public function arrayExplodeFindValue($first, $second, $multi = true) {
+        $firstExplode = explode(",", $first);
+        array_pop($firstExplode);
         
-        if ($this->arrayFindValue($elementsFirstExplode, $elementsSecondExplode) == true)
-            return true;
+        if ($multi == true) {
+            $secondExplode =  explode(",", $second);
+            array_pop($secondExplode);
+            
+            if ($this->arrayFindValue($firstExplode, $secondExplode) == true)
+                return true;
+        }
+        else {
+            if (in_array($second, $firstExplode) == true)
+                return true;
+        }
         
         return false;
     }
@@ -514,6 +518,9 @@ class Utility {
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         
         $curlResponse = curl_exec($curl);
+        $curlError = curl_error($curl);
+        $curlInfo = curl_getinfo($curl);
+        
         curl_close($curl);
         
         if ($curlResponse == false)
@@ -541,20 +548,20 @@ class Utility {
     }
     
     public function download() {
-        if ($this->checkToken($_REQUEST['token']) == true) {
+        if (isset($_SESSION['download']) == true) {
             header("Content-Description: File Transfer");
-            header("Content-Disposition: attachment; filename=\"" . basename($_SESSION['download']['path']) . "\"");
+            header("Content-Disposition: attachment; filename=\"" . basename("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}") . "\"");
             header("Content-Transfer-Encoding: binary");
-            header("Content-Length: " . filesize($_SESSION['download']['path']));
+            header("Content-Length: " . filesize("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}"));
             header("Content-Type: {$_SESSION['download']['mime']}");
             header("Expires: 0");
             header("Cache-Control: must-revalidate, pre-check=0, post-check=0");
             header("Pragma: public");
             
-            readfile($_SESSION['download']['path']);
+            readfile("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}");
             
             if ($_SESSION['download']['remove'] == true)
-                unlink($_SESSION['download']['path']);
+                unlink("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}");
             
             unset($_SESSION['download']);
             
