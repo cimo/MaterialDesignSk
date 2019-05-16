@@ -8,7 +8,7 @@ All folders are organize for easy and fast develop.
 | INFO |
 |:---|
 | Cross browser and responsive (Chrome, Firefox, Edge, Opera, Safari) |
-| Cross platform (Windows, Linux, Mac, Android, Ios ) |
+| Cross platform (Windows, Linux, Mac, Android, Ios) |
 
 | ELEMENTS |
 |:---|
@@ -36,6 +36,6 @@ All folders are organize for easy and fast develop.
 
 | LIBRARY |
 |:---|
-Material design web https://material.io/develop/web/
+Material design web - https://material.io/develop/web/
 
 <b>By CIMO - https://www.reinventsoftware.org</b>

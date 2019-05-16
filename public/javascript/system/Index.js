@@ -9,6 +9,7 @@ $(document).ready(function() {
     utility.accordion("button");
     utility.menuRoot();
     utility.uploadFakeClick();
+    utility.blockMultiTab(false);
     
     // Material design
     materialDesign.init();
