@@ -7,7 +7,7 @@ ini_set("session.gc_probability", 0);
 
 session_write_close();
 session_name("materialDesignSk_dev");
-//session_save_path(dirname(__DIR__) . "/var/sessions");
+session_save_path(dirname(__DIR__) . "/var/sessions");
 
 if (session_id() == "")
     session_start();
