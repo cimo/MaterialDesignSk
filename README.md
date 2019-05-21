@@ -5,11 +5,13 @@ Starter kit with material design components.
 
 All folders are organize for easy and fast develop.
 
-## Info:
+| Info: |
+|:---|
 | Cross browser and responsive (Chrome, Firefox, Edge, Opera, Safari) |
 | Cross platform (Windows, Linux, Mac, Android, Ios) |
 
-## Elements:
+| Elements: |
+|:---|
 | Button |
 | Card |
 | Chip |
