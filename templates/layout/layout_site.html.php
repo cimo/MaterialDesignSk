@@ -149,6 +149,7 @@ $websiteName = $root->getWebsiteName();
         <script>
             var session = {
                 'token': "<?php echo $_SESSION['token']; ?>",
+                'name': "<?php echo session_name(); ?>",
                 'userInform': "<?php echo $_SESSION['userInform']; ?>",
                 'languageTextCode': "<?php echo $_SESSION['languageTextCode'] ?>",
                 'currentPageId': "0"
@@ -180,7 +181,8 @@ $websiteName = $root->getWebsiteName();
                 'index_7': "Close",
                 'index_8': "Connection error, please reload the page.",
                 'index_9': "Expand",
-                'index_10': "Collapse"
+                'index_10': "Collapse",
+                'index_11': "Multi tab are not allowed!"
             };
             
             var textWidgetDatePicker = {
