@@ -191,7 +191,7 @@ $websiteName = $root->getWebsiteName();
                 'label_3': "Confirm"
             };
         </script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery_3.3.1.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery_3.4.1.min.js"></script>
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-ui_1.12.1.min.js"></script>
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-mobile_1.5.0.min.js"></script>
         <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/material-components-web_custom.min.js"></script>
