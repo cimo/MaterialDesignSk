@@ -191,23 +191,23 @@ $websiteName = $root->getWebsiteName();
                 'label_3': "Confirm"
             };
         </script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery_3.4.1.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-ui_1.12.1.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/jquery-mobile_1.5.0.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/library/material-components-web_custom.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/jquery_3.4.1.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/jquery-ui_1.12.1.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/jquery-mobile_1.5.0.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/material-components-web_custom.min.js"></script>
         
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Utility.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/MaterialDesign.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetSearch.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/WidgetDatePicker.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Ajax.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Loader.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/FlashBag.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/PopupEasy.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Utility.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/MaterialDesign.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/WidgetSearch.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/WidgetDatePicker.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Ajax.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Loader.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/FlashBag.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/PopupEasy.min.js"></script>
         
         <?php include_once(__DIR__ . "/layout_site_custom_bottom.html.php"); ?>
         
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/javascript/system/Index_custom.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Index.min.js"></script>
+        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Index_custom.min.js"></script>
     </body>
 </html>
