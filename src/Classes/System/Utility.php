@@ -136,7 +136,7 @@ class Utility {
     
     public function searchInFile($filePath, $word, $replace) {
         $reading = fopen($filePath, "r");
-        $writing = fopen($filePath + ".tmp", "w");
+        $writing = fopen("{$filePath}.tmp", "w");
         
         $checked = false;
         
@@ -162,9 +162,9 @@ class Utility {
         fclose($writing);
         
         if ($checked == true) 
-            rename($filePath + ".tmp", $filePath);
+            rename("{$filePath}.tmp", $filePath);
         else
-            unlink($filePath + ".tmp");
+            unlink("{$filePath}.tmp");
     }
     
     public function removeDirRecursive($path, $parent) {
