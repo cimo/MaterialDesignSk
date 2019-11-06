@@ -442,69 +442,60 @@ class Utility {
     }
     
     public function checkSessionOverTime() {
-        if (isset($_SESSION['userTimestamp']) == false)
-            $_SESSION['userTimestamp'] = time();
+        $timeElapsed = 0;
+        $userOverTime = false;
+        $userOverRole = false;
         
-        if (isset($_SESSION['userInform']) == false)
-            $_SESSION['userInform'] = "";
-        
-        if (isset($_SESSION['userOver']) == false)
-            $_SESSION['userOver'] = false;
-        
-        if (isset($_SESSION['userLogin']) == false)
-            $_SESSION['userLogin'] = false;
-        
-        if (isset($_SESSION['token']) == true && isset($_COOKIE[session_name() . '_REMEMBERME']) == false && isset($_SESSION['userLogin']) == false) {
-            // Inactivity
+        if (isset($_SESSION['userTimestamp']) == true)
             $timeElapsed = time() - $_SESSION['userTimestamp'];
+        
+        if (isset($_SESSION['userOverCount']) == false)
+            $_SESSION['userOverCount'] = 0;
+        
+        if (($timeElapsed >= $this->sessionMaxIdleTime && isset($_COOKIE[session_name() . '_REMEMBERME']) == false) || (isset($_COOKIE[session_name()]) == true && isset($_SESSION['userTimestamp']) == false)) {
+            $userOverTime = true;
             
-            if ($_SESSION['userLogin'] == true && $timeElapsed >= $this->sessionMaxIdleTime) {
-                $_SESSION['userOver'] = true;
+            $_SESSION['userInform'] = "Session time is over, please login again.";
+        }
+        
+        if ($userOverTime == true || $userOverRole == true) {
+            if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
+                echo json_encode(Array(
+                    'userInform' => $_SESSION['userInform']
+                ));
                 
-                $_SESSION['userInform'] = "Session time is over, please login again.";
-            }
-            else {
                 $_SESSION['userTimestamp'] = time();
                 
-                $_SESSION['userLogin'] = true;
+                $_SESSION['userOverCount'] = 0;
+                
+                exit;
             }
-            
-            // Roles changed
-            //...
-            
-            if ($_SESSION['userOver'] == true) {
-                if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
-                    echo json_encode(Array(
-                        'userInform' => $_SESSION['userInform']
-                    ));
-                    
-                    exit;
-                }
-                else {
-                    $userInform = $_SESSION['userInform'];
-                    $userOver = $_SESSION['userOver'];
-                    
-                    $this->sessionUnset();
-                    
-                    $this->generateToken();
-                    
-                    $_SESSION['userInform'] = $userInform;
-                    $_SESSION['userOver'] = $userOver;
-                    
-                    return $this->urlRoot;
-                }
+            else {
+                $userInform = $_SESSION['userInform'];
+                
+                $this->sessionUnset();
+                
+                $this->generateToken();
+                
+                $_SESSION['userInform'] = $userInform;
+                
+                $_SESSION['userTimestamp'] = time();
+                
+                $_SESSION['userOverCount'] = 0;
+                
+                return $this->urlRoot;
             }
         }
-        else {
-            $_SESSION['userTimestamp'] = time();
-            
-            if ($_SESSION['userOver'] == false)
-                $_SESSION['userInform'] = "";
-            
-            $_SESSION['userOver'] = false;
-            
-            $_SESSION['userLogin'] = false;
-        }
+        
+        if ($_SESSION['userOverCount'] >= 1)
+            $_SESSION['userInform'] = "";
+        
+        $_SESSION['userTimestamp'] = time();
+        
+        $_SESSION['userOverCount'] ++;
+        
+        if ($_SESSION['userOverCount'] > 2)
+            $_SESSION['userOverCount'] = 2;
         
         return false;
     }
