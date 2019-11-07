@@ -452,13 +452,16 @@ class Utility {
         if (isset($_SESSION['userOverCount']) == false)
             $_SESSION['userOverCount'] = 0;
         
-        if (($timeElapsed >= $this->sessionMaxIdleTime && isset($_COOKIE[session_name() . '_REMEMBERME']) == false) || (isset($_COOKIE[session_name()]) == true && isset($_SESSION['userTimestamp']) == false)) {
+        if (($timeElapsed >= $this->sessionMaxIdleTime && isset($_COOKIE[session_name() . '_REMEMBERME']) == false) ||
+                (isset($_COOKIE[session_name() . '_logged']) == true && isset($_SESSION['userTimestamp']) == false)) {
             $userOverTime = true;
             
             $_SESSION['userInform'] = "Session time is over, please login again.";
         }
         
         if ($userOverTime == true || $userOverRole == true) {
+            setcookie(session_name() . "_logged", 0, time() - 3600, "/", $_SERVER['SERVER_NAME'], true, false);
+            
             if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
                 echo json_encode(Array(
                     'userInform' => $_SESSION['userInform']
@@ -487,15 +490,15 @@ class Utility {
             }
         }
         
-        if ($_SESSION['userOverCount'] >= 1)
+        if ($_SESSION['userOverCount'] >= 1) {
+            $_SESSION['userOverCount'] = 0;
+            
             $_SESSION['userInform'] = "";
-        
-        $_SESSION['userTimestamp'] = time();
+        }
         
         $_SESSION['userOverCount'] ++;
         
-        if ($_SESSION['userOverCount'] > 2)
-            $_SESSION['userOverCount'] = 2;
+        $_SESSION['userTimestamp'] = time();
         
         return false;
     }
