@@ -437,9 +437,6 @@ table {
     margin-bottom: 10px;
 }
 .cp_system_info {
-    overflow-y: scroll;
-    height: 510px;
-    
     .mdc-list-item {
         height: auto;
     }
@@ -630,6 +627,9 @@ table {
     }
 }
 
+.download_detail_text {
+    display: inline-block;
+}
 .download_detail_container {
     display: none;
     border: 1px dotted #000000;
@@ -649,10 +649,50 @@ table {
     border: 1px solid #000000;
 }
 
-.upload_image_container {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 5px;
+.upload_container {
+    .input {
+        margin: 0 0 5px 5px;
+        
+        .form_row {
+            display: inline-block;
+            
+            .material_upload {
+                .mdc-button {
+                    padding: 0 !important;
+                    min-width: 35px !important;
+                }
+                
+                .material-icons {
+                    margin: 0 !important;
+                }
+            }
+            
+            .mdc-form-field {
+                .mdc-checkbox {
+                    margin-top: 5px !important;
+                }
+
+                label {
+                    margin-top: 5px !important;
+                }
+            }
+        }
+    }
+}
+
+.attemptLogin_reset_text {
+    margin-bottom: 0;
+}
+
+.square_code {
+    background-color: #c6c6c6;
+    border: 1px dotted #000000;
+    padding: 10px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
 }
 
 #body_progress {
@@ -769,11 +809,13 @@ table {
     }
 }
 
-#cp_microservice_deploy_render_result {
-    margin-top: 10px;
+#unit_test_code_row .mdc-text-field {
+    width: 100%;
 }
-#cp_microservice_deploy_ssh_connection_result {
-    margin-top: 20px;
+#form_microservice_unit_test_code {
+    width: 100%;
+    height: 500px;
+    overflow-y: scroll;
 }
 
 #form_pageComment {
@@ -804,6 +846,13 @@ table {
             }
         }
     }
+}
+
+#cp_microservice_deploy_render_result {
+    margin-top: 10px;
+}
+#cp_microservice_deploy_ssh_connection_result {
+    margin-top: 20px;
 }
 
 :root {
