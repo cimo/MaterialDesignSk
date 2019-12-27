@@ -1,2 +1,2 @@
 <?php
-header("Location: ../templates/render/index.html.php");
+include_once(dirname(__DIR__) . "/templates/render/index.html.php");

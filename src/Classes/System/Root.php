@@ -1,12 +1,12 @@
 <?php
-require_once("Utility.php");
+require_once("Helper.php");
 require_once("Ajax.php");
 
 class Root {
     // Vars
     private $response;
     
-    private $utility;
+    private $helper;
     private $query;
     private $ajax;
     
@@ -26,29 +26,33 @@ class Root {
     public function __construct() {
         $this->response = Array();
         
-        $this->utility = new Utility();
-        $this->query = $this->utility->getQuery();
+        $this->helper = new Helper();
+        $this->query = $this->helper->getQuery();
         $this->ajax = new Ajax();
         
         // Logic
+        $this->helper->xssProtection();
+        
         $this->settingRow = $this->query->selectSettingDatabase();
         
-        $this->utility->generateToken();
+        $this->helper->generateToken();
         
-        $this->utility->checkLanguage($this->settingRow);
+        $this->helper->checkLanguage($this->settingRow);
         
-        $this->utility->configureCookie(session_name(), 0, true, true);
+        $this->helper->configureCookie(session_name(), 0, true, true);
         
-        $url = $this->utility->checkSessionOverTime();
+        $url = $this->helper->checkSessionOverTime();
         
         $this->response['path']['documentRoot'] = $_SERVER['DOCUMENT_ROOT'];
-        $this->response['path']['root'] = $this->utility->getPathRoot();
-        $this->response['path']['src'] = $this->utility->getPathSrc();
-        $this->response['path']['public'] = $this->utility->getPathPublic();
+        $this->response['path']['root'] = $this->helper->getPathRoot();
+        $this->response['path']['src'] = $this->helper->getPathSrc();
+        $this->response['path']['public'] = $this->helper->getPathPublic();
         
-        $this->response['url']['root'] = $this->utility->getUrlRoot();
+        $this->response['url']['root'] = $this->helper->getUrlRoot();
         
-        $this->websiteName = $this->utility->getWebsiteName();
+        $this->websiteName = $this->helper->getWebsiteName();
+        
+        header("{$_SESSION['xssProtectionTag']}: {$_SESSION['xssProtectionRule']}");
         
         if ($url != false)
             header("Location: $url");

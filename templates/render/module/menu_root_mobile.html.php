@@ -1,7 +1,7 @@
 <?php
 $html = <<<XYZ
 <nav class="menu_root_container">
-    <a class="mdc-list-item current" href="{$utility->getUrlRoot()}/../templates/render/index.html.php?pageAction=material_design">
+    <a class="mdc-list-item current" href="{$helper->getUrlRoot()}/../templates/render/index.html.php?pageAction=material_design">
         <span>Home</span>
         <i class="mdc-list-item__graphic material-icons parent_icon" style="visibility: hidden; width: 0;">toc</i>
     </a>

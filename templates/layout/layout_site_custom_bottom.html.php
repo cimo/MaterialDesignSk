@@ -1,6 +1,6 @@
 <?php
 $html = <<<XYZ
-<script>
+<script nonce="{$_SESSION['xssProtectionValue']}">
     url['testCustom'] = "";
 </script>
 XYZ;

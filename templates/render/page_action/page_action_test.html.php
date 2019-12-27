@@ -3,6 +3,6 @@ $_SESSION['pageTitle'] = "Page test";
 $_SESSION['pageArgument'] = "Content test.";
 
 $html = <<<XYZ
-<script src="{$utility->getUrlRoot()}/js/page_action/PageActionTest.js")}}"></script>
+<script nonce="{$_SESSION['xssProtectionValue']}" src="{$helper->getUrlRoot()}/js/page_action/PageActionTest.js")}}"></script>
 XYZ;
 echo $html;

@@ -3,7 +3,7 @@ $html = <<<XYZ
 <nav class="menu_root_container">
     <ul>     
         <li class="parent">
-            <a class="target current" href="{$utility->getUrlRoot()}/../templates/render/index.html.php?pageAction=material_design">
+            <a class="target current" href="{$helper->getUrlRoot()}/../templates/render/index.html.php?pageAction=material_design">
                 <span>Home</span>
                 <i class="material-icons" style="visibility: hidden; width: 0;">keyboard_arrow_down</i>
             </a>

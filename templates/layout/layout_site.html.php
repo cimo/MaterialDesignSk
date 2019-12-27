@@ -1,8 +1,8 @@
 <?php
-require_once(dirname(dirname(__DIR__)) . "/src/Classes/System/Utility.php");
+require_once(dirname(dirname(__DIR__)) . "/src/Classes/System/Helper.php");
 require_once(dirname(dirname(__DIR__)) . "/src/Classes/System/Root.php");
 
-$utility = new Utility();
+$helper = new Helper();
 $root = new Root();
 $settingRow = $root->getSettingRow();
 $websiteName = $root->getWebsiteName();
@@ -14,27 +14,26 @@ $websiteName = $root->getWebsiteName();
         
         <!-- Meta -->
         <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1">
         <meta name="description" content="..."/>
         <meta name="keywords" content="..."/>
         <meta name="robots" content="index, follow"/>
         
         <!-- Favicon -->
-        <link href="<?php echo $utility->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/favicon.ico" rel="icon" type="image/x-icon">
+        <link href="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/favicon.ico" rel="icon" type="image/x-icon">
         
         <!-- Css -->
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/jquery-ui_1.12.1.min.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/jquery-ui_1.12.1_structure.min.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/Roboto+Mono_custom.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/Roboto_300_400_500_custom.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/material-icons_custom.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/library/material-components-web_custom.min.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/library/jquery-ui_1.12.1.min.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/library/jquery-ui_1.12.1_structure.min.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/library/Roboto+Mono_custom.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/library/Roboto_300_400_500_custom.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/library/material-icons_custom.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/library/material-components-web_custom.min.css" rel="stylesheet"/>
         
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/<?php echo $settingRow['template']; ?>.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/loader.css" rel="stylesheet"/>
-        <link href="<?php echo $utility->getUrlRoot(); ?>/css/system/widget.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/<?php echo $settingRow['template']; ?>.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/loader.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/widget.css" rel="stylesheet"/>
         
         <?php include_once(__DIR__ . "/layout_site_custom_top.html.php"); ?>
     </head>
@@ -54,11 +53,11 @@ $websiteName = $root->getWebsiteName();
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                     <a class="material-icons mdc-top-app-bar__navigation-icon menu_root_mobile display_mobile" href="javascript:void(0)">menu</a>
                     <div class="display_desktop">
-                        <img class="logo_main_big" src="<?php echo $utility->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
+                        <img class="logo_main_big" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
                         <span class="mdc-top-app-bar__title"><?php echo $websiteName; ?></span>
                     </div>
                     <span class="mdc-top-app-bar__title display_mobile">
-                        <img class="logo_main_small" src="<?php echo $utility->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
+                        <img class="logo_main_small" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
                     </span>
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
@@ -72,7 +71,7 @@ $websiteName = $root->getWebsiteName();
                 <nav class="mdc-drawer__drawer">
                     <header class="mdc-drawer__header">
                         <div class="mdc-drawer__header-content">
-                            <img class="logo_main_big" src="<?php echo $utility->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
+                            <img class="logo_main_big" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
                             <span><?php echo $websiteName; ?></span>
                         </div>
                     </header>
@@ -109,7 +108,7 @@ $websiteName = $root->getWebsiteName();
                         ?>
                             <div class="sortable_column">
                                 <div class="maintenance_container">
-                                    <img src="<?php echo $utility->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/maintenance.svg" alt="maintenance.svg"/>
+                                    <img src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/maintenance.svg" alt="maintenance.svg"/>
                                     <p>WEBSITE CURRENTLY</p>
                                     <p>UNDER MAINTENANCE</p>
                                 </div>
@@ -146,25 +145,26 @@ $websiteName = $root->getWebsiteName();
         <?php include(dirname(__DIR__) . "/include/flash_bag.html.php"); ?>
         <?php include(dirname(__DIR__) . "/include/popup_easy.html.php"); ?>
         
-        <script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?>>
             var session = {
                 'token': "<?php echo $_SESSION['token']; ?>",
                 'name': "<?php echo session_name(); ?>",
                 'userInform': "<?php echo $_SESSION['userInform']; ?>",
                 'languageTextCode': "<?php echo $_SESSION['languageTextCode'] ?>",
-                'currentPageId': "0"
+                'currentPageId': "0",
+                'xssProtectionValue': "<?php echo $_SESSION['xssProtectionValue'] ?>"
             };
             
             var path = {
                 'documentRoot': "<?php echo $_SERVER['DOCUMENT_ROOT']; ?>",
-                'root': "<?php echo $utility->getPathRoot(); ?>",
-                'src': "<?php echo $utility->getPathSrc(); ?>",
-                'public': "<?php echo $utility->getPathPublic(); ?>"
+                'root': "<?php echo $helper->getPathRoot(); ?>",
+                'src': "<?php echo $helper->getPathSrc(); ?>",
+                'public': "<?php echo $helper->getPathPublic(); ?>"
             };
             
             var url = {
-                'root': "<?php echo $utility->getUrlRoot(); ?>",
-                'eventListener': "<?php echo $utility->getUrlEventListener(); ?>"
+                'root': "<?php echo $helper->getUrlRoot(); ?>",
+                'eventListener': "<?php echo $helper->getUrlEventListener(); ?>"
             };
             
             var setting = {
@@ -191,23 +191,23 @@ $websiteName = $root->getWebsiteName();
                 'label_3': "Confirm"
             };
         </script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/jquery_3.4.1.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/jquery-ui_1.12.1.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/jquery-mobile_1.5.0.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/library/material-components-web_custom.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/jquery_3.4.1.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/jquery-ui_1.12.1.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/jquery-mobile_1.5.0.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/material-components-web_custom.min.js"></script>
         
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Utility.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/MaterialDesign.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/WidgetSearch.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/WidgetDatePicker.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Ajax.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Loader.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/FlashBag.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/PopupEasy.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Helper.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/MaterialDesign.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/WidgetSearch.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/WidgetDatePicker.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Ajax.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Loader.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/FlashBag.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/PopupEasy.min.js"></script>
         
         <?php include_once(__DIR__ . "/layout_site_custom_bottom.html.php"); ?>
         
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Index.min.js"></script>
-        <script src="<?php echo $utility->getUrlRoot(); ?>/js/system/Index_custom.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Index.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Index_custom.min.js"></script>
     </body>
 </html>

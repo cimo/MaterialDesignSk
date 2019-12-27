@@ -36,7 +36,7 @@ $html = <<<XYZ
 <div>
     <div style="display: inline-block;">
         <div class="mdc-card" style="width: 250px; margin: 10px;">
-            <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('{$utility->getUrlRoot()}/images/templates/{$settingRow['template']}/16-9.jpg');"></div>
+            <div class="mdc-card__media mdc-card__media--16-9" style="background-image: url('{$helper->getUrlRoot()}/images/templates/{$settingRow['template']}/16-9.jpg');"></div>
             <div style="padding: 10px;">
                 <h1 class="mdc-typography--headline6"><span>Title</span></h1>
                 <p>Content</p>
@@ -61,7 +61,7 @@ $html = <<<XYZ
     <div style="display: inline-block;">
         <div class="mdc-card" style="border-radius: 24px 4px; width: 250px; margin: 10px;">
             <div style="display: flex; border-top-left-radius: inherit;">
-                <div class="mdc-card__media mdc-card__media--square" style="background-image: url('{$utility->getUrlRoot()}/images/templates/{$settingRow['template']}/1-1.jpg'); width: 110px; border-top-left-radius: inherit;"></div>
+                <div class="mdc-card__media mdc-card__media--square" style="background-image: url('{$helper->getUrlRoot()}/images/templates/{$settingRow['template']}/1-1.jpg'); width: 110px; border-top-left-radius: inherit;"></div>
                 <div style="padding: 10px;">
                     <h1 class="mdc-typography--headline6"><span>Title</span></h1>
                     <p>Content</p>

@@ -1,15 +1,15 @@
-/* global utility, materialDesign, widgetSearch, widgetDatePicker, flashBag */
+/* global helper, materialDesign, widgetSearch, widgetDatePicker, flashBag */
 
-utility.init();
-utility.bodyProgress();
+helper.init();
+helper.bodyProgress();
 
 $(document).ready(function() {
-    utility.checkMobile(true);
-    utility.linkPreventDefault();
-    utility.accordion("button");
-    utility.menuRoot();
-    utility.uploadFakeClick();
-    utility.blockMultiTab(true);
+    helper.checkMobile(true);
+    helper.linkPreventDefault();
+    helper.accordion("button");
+    helper.menuRoot();
+    helper.uploadFakeClick();
+    helper.blockMultiTab(true);
     
     // Material design
     materialDesign.init();

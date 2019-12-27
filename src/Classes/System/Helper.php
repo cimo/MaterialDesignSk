@@ -3,7 +3,7 @@ require_once(dirname(dirname(__DIR__)) . "/Config.php");
 require_once("Database.php");
 require_once("Query.php");
 
-class Utility {
+class Helper {
     // Vars
     private $sessionMaxIdleTime;
     
@@ -97,6 +97,14 @@ class Utility {
         $this->websiteName = $this->config->getName();
         
         $this->arrayColumnFix();
+    }
+    
+    public function xssProtection() {
+        $nonceCsp = base64_encode(random_bytes(20));
+        
+        $_SESSION['xssProtectionTag'] = "Content-Security-Policy";
+        $_SESSION['xssProtectionRule'] = "script-src 'strict-dynamic' 'nonce-{$nonceCsp}' 'unsafe-inline' http: https:; object-src 'none'; base-uri 'none';";
+        $_SESSION['xssProtectionValue'] = $nonceCsp;
     }
     
     public function generateToken() {
