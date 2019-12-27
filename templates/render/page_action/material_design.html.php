@@ -331,11 +331,11 @@ $html = <<<XYZ
 <h2 class="mdc-typography--headline6">Tab</h2>
 <div>
     <nav class="mdc-tab-bar mdc-tab-bar--icons-with-text">
-        <a class="mdc-tab mdc-tab--with-icon-and-text" href="javascript:void(0)">
+        <a class="mdc-tab mdc-tab--with-icon-and-text" href="#">
             <i class="material-icons mdc-tab__icon" aria-hidden="true">person</i>
             <span class="mdc-tab__icon-text">Item a</span>
         </a>
-        <a class="mdc-tab mdc-tab--with-icon-and-text" href="javascript:void(0)">
+        <a class="mdc-tab mdc-tab--with-icon-and-text" href="#">
             <i class="material-icons mdc-tab__icon" aria-hidden="true">account_balance</i>
             <span class="mdc-tab__icon-text">Item b</span>
         </a>
@@ -343,24 +343,24 @@ $html = <<<XYZ
     </nav>
     <div class="mdc-tab-bar-scroller" style="margin-top: 20px;">
         <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--back">
-            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="label">navigate_before</a>
+            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="#" aria-label="label">navigate_before</a>
         </div>
         <div class="mdc-tab-bar-scroller__scroll-frame">
             <nav class="mdc-tab-bar mdc-tab-bar-scroller__scroll-frame__tabs">
-                <a class="mdc-tab" href="javascript:void(0)">Item a</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item b</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item c</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item d</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item e</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item f</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item g</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item h</a>
-                <a class="mdc-tab" href="javascript:void(0)">Item i</a>
+                <a class="mdc-tab" href="#">Item a</a>
+                <a class="mdc-tab" href="#">Item b</a>
+                <a class="mdc-tab" href="#">Item c</a>
+                <a class="mdc-tab" href="#">Item d</a>
+                <a class="mdc-tab" href="#">Item e</a>
+                <a class="mdc-tab" href="#">Item f</a>
+                <a class="mdc-tab" href="#">Item g</a>
+                <a class="mdc-tab" href="#">Item h</a>
+                <a class="mdc-tab" href="#">Item i</a>
                 <span class="mdc-tab-bar__indicator"></span>
             </nav>
         </div>
         <div class="mdc-tab-bar-scroller__indicator mdc-tab-bar-scroller__indicator--forward">
-            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="javascript:void(0)" aria-label="label">navigate_next</a>
+            <a class="mdc-tab-bar-scroller__indicator__inner material-icons" href="#" aria-label="label">navigate_next</a>
         </div>
     </div>
 </div>

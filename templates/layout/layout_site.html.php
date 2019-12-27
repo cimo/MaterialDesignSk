@@ -51,7 +51,7 @@ $websiteName = $root->getWebsiteName();
                     ?>
                 </div>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                    <a class="material-icons mdc-top-app-bar__navigation-icon menu_root_mobile display_mobile" href="javascript:void(0)">menu</a>
+                    <a class="material-icons mdc-top-app-bar__navigation-icon menu_root_mobile display_mobile" href="#">menu</a>
                     <div class="display_desktop">
                         <img class="logo_main_big" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
                         <span class="mdc-top-app-bar__title"><?php echo $websiteName; ?></span>
@@ -63,8 +63,8 @@ $websiteName = $root->getWebsiteName();
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
                     <?php include_once(dirname(__DIR__) . "/render/module/widget_search.html.php"); ?>
                     
-                    <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="label" alt="Language">language</a>
-                    <a href="javascript:void(0)" class="material-icons mdc-top-app-bar__action-item" aria-label="label" alt="Account">account_circle</a>
+                    <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="label" alt="Language">language</a>
+                    <a href="#" class="material-icons mdc-top-app-bar__action-item" aria-label="label" alt="Account">account_circle</a>
                 </section>
             </div>
             <aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
