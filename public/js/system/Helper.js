@@ -104,6 +104,40 @@ function Helper() {
         return split;
     };
     
+    self.urlParameterValue = function(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        
+        var parameters = regex.exec(window.location.search);
+        
+        var result = parameters === null ? "" : decodeURIComponent(parameters[1].replace(/\+/g, " "));
+        
+        return result;
+    };
+    
+    self.urlParameterRemove = function(url, target) {
+        var result = url.split("?")[0];
+        var parameter;
+        var parameters = [];
+        var query = (url.indexOf("?") !== -1) ? url.split("?")[1] : "";
+        
+        if (query !== "") {
+            parameters = query.split("&");
+            
+            for (var i = parameters.length - 1; i >= 0; i -= 1) {
+                parameter = parameters[i].split("=")[0];
+                
+                if (target === parameter)
+                    parameters.splice(i, 1);
+            }
+            
+            result = result + "?" + parameters.join("&");
+        }
+        
+        return result;
+    };
+    
     self.removeElementAndResetIndex = function(element, index) {
         element.length = Object.keys(element).length;
         element.splice = [].splice;
@@ -438,7 +472,7 @@ function Helper() {
             result = "0 Bytes";
         else {
             var reference = 1024;
-            var sizes = new Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+            var sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
             
             var index = Math.floor(Math.log(value) / Math.log(reference));
             
@@ -486,14 +520,14 @@ function Helper() {
             var cookieValues = self.readCookie(window.session.name + "_blockMultiTab");
             
             if (cookieValues === null) {
-                self.createCookie(window.session.name + "_blockMultiTab", {"active":true}, "Fri, 31 Dec 9999 23:59:59 GMT", true);
+                self.createCookie(window.session.name + "_blockMultiTab", 1, "Fri, 31 Dec 9999 23:59:59 GMT", true);
                 
                 $(window).on("unload", "", function(event) {
                     self.removeCookie(window.session.name + "_blockMultiTab");
                 });
             }
             else {
-                $("body").html("<h1 style=\"margin: 10px; text-align: center;\">"
+                $("body").find(".mdc-layout-grid.main").html("<h1 style=\"position: absolute; top: 20%; left: 0; right: 0; text-align: center;\">"
                     + window.text.index_11 +
                 "</h1>\n\
                 <script nonce=\"" + window.session.xssProtectionValue + "\">\n\

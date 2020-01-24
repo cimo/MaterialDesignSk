@@ -1,18 +1,23 @@
-/* global helper, materialDesign, widgetSearch, widgetDatePicker, flashBag */
-
-helper.init();
-helper.bodyProgress();
+/* global ajax, flashBag, helper, loader, materialDesign, popupEasy, widgetDatePicker, widgetSearch */
 
 $(document).ready(function() {
+    ajax.init();
+    flashBag.init();
+    helper.init();
+    loader.init();
+    materialDesign.init();
+    popupEasy.init();
+    widgetDatePicker.init();
+    widgetSearch.init();
+    
     helper.checkMobile(true);
     helper.linkPreventDefault();
     helper.accordion("button");
     helper.menuRoot();
     helper.uploadFakeClick();
     helper.blockMultiTab(true);
+    helper.bodyProgress();
     
-    // Material design
-    materialDesign.init();
     materialDesign.button();
     materialDesign.fabButton();
     materialDesign.iconButton();
@@ -32,12 +37,9 @@ $(document).ready(function() {
     materialDesign.tabBar();
     materialDesign.fix();
     
-    // Widget
-    widgetSearch.init();
     widgetSearch.create();
     widgetSearch.changeView();
     
-    widgetDatePicker.init();
     widgetDatePicker.setLanguage("en");
     //widgetDatePicker.setCurrentYear(1984);
     //widgetDatePicker.setCurrentMonth(4);
@@ -45,7 +47,6 @@ $(document).ready(function() {
     widgetDatePicker.setInputFill(".widget_datePicker_input");
     widgetDatePicker.create();
     
-    flashBag.init();
     flashBag.setElement(materialDesign.getSnackbarMdc());
     flashBag.sessionActivity();
     
