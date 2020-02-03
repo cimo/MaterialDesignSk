@@ -1,3 +1,5 @@
+"use strict";
+
 /* global ajax, flashBag, helper, loader, materialDesign, popupEasy, widgetDatePicker, widgetSearch */
 
 $(document).ready(function() {

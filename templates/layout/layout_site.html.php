@@ -147,7 +147,9 @@ $websiteName = $root->getWebsiteName();
         <?php include(dirname(__DIR__) . "/include/popup_easy.html.php"); ?>
         
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?>>
-            var session = {
+            "use strict";
+            
+            window.session = {
                 'token': "<?php echo $_SESSION['token']; ?>",
                 'name': "<?php echo session_name(); ?>",
                 'userInform': "<?php echo $_SESSION['userInform']; ?>",
@@ -156,19 +158,19 @@ $websiteName = $root->getWebsiteName();
                 'xssProtectionValue': "<?php echo $_SESSION['xssProtectionValue'] ?>"
             };
             
-            var path = {
+            window.path = {
                 'documentRoot': "<?php echo $_SERVER['DOCUMENT_ROOT']; ?>",
                 'root': "<?php echo $helper->getPathRoot(); ?>",
                 'src': "<?php echo $helper->getPathSrc(); ?>",
                 'public': "<?php echo $helper->getPathPublic(); ?>"
             };
             
-            var url = {
+            window.url = {
                 'root': "<?php echo $helper->getUrlRoot(); ?>",
                 'eventListener': "<?php echo $helper->getUrlEventListener(); ?>"
             };
             
-            var setting = {
+            window.setting = {
                 'widthMobile': 839,
                 'widthDesktop': 840,
                 'template': "<?php echo $settingRow['template']; ?>",
@@ -176,7 +178,7 @@ $websiteName = $root->getWebsiteName();
                 'websiteActive': "<?php echo $settingRow['website_active']; ?>"
             };
             
-            var text = {
+            window.text = {
                 'index_5': "Warning!",
                 'index_6': "Ok",
                 'index_7': "Close",
@@ -186,7 +188,7 @@ $websiteName = $root->getWebsiteName();
                 'index_11': "Multi tab are not allowed!"
             };
             
-            var textWidgetDatePicker = {
+            window.textWidgetDatePicker = {
                 'label_1': "Today",
                 'label_2': "Clear",
                 'label_3': "Confirm"
