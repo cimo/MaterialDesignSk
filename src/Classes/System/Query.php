@@ -11,13 +11,13 @@ class Query {
     }
     
     public function selectSettingDatabase() {
-        $row = Array();
+        $rows = Array();
         
-        $row['template'] = "basic";
-        $row['language'] = "en";
-        $row['website_active'] = "1";
+        $rows['template'] = "basic";
+        $rows['language'] = "en";
+        $rows['website_active'] = "1";
         
-        return $row;
+        return $rows;
     }
     
     // Functions private

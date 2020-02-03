@@ -64,12 +64,12 @@ function MaterialDesign() {
         if ($(".mdc-dialog").length > 0) {
             dialogMdc = new mdc.dialog.MDCDialog.attachTo($(".mdc-dialog")[0]);
 
-            $(".show_dialog").on("click", "", function(event) {
+            /*$(".show_dialog").on("click", "", function(event) {
                 dialogMdc.lastFocusedTarget = event.target;
                 dialogMdc.show();
             });
 
-            /*dialogMdc.listen("MDCDialog:accept", function() {
+            dialogMdc.listen("MDCDialog:accept", function() {
                 console.log("Dialog - Accepted");
             });
 
@@ -146,10 +146,10 @@ function MaterialDesign() {
             }
         });
         
-        $.each($(".mdc-text-field"), function(key, value) {
+        /*$.each($(".mdc-text-field"), function(key, value) {
             $(value).find(".mdc-text-field__input");
             $(value).parent().find(".mdc-text-field-helper-text");
-        });
+        });*/
     };
     
     self.linearProgress = function(tag, start, end, buffer) {
@@ -199,7 +199,7 @@ function MaterialDesign() {
             snackbarMdc = new mdc.snackbar.MDCSnackbar.attachTo(value);
         });
         
-        $(".show_snackbar").on("click", "", function(event) {
+        /*$(".show_snackbar").on("click", "", function(event) {
             var snackbarDataObj = {
                 message: "Text",
                 actionText: "Close",
@@ -207,7 +207,7 @@ function MaterialDesign() {
             };
 
             snackbarMdc.show(snackbarDataObj);
-        });
+        });*/
     };
     
     self.tabBar = function() {
@@ -358,7 +358,7 @@ function MaterialDesign() {
                     else if ($(valueSub).prop("href").indexOf(parameters[1]) !== -1 && parseInt(parameters[1]) > 5) {
                         $(valueSub).addClass("mdc-list-item--activated");
                         
-                        $(valueSub).parentsUntil($(".menu_root_container"), ".children_container" ).show();
+                        $(valueSub).parentsUntil($(".menu_root_container"), ".children_container").show();
 
                         return false;
                     }

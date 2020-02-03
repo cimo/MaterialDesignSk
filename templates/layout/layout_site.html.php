@@ -4,7 +4,8 @@ require_once(dirname(dirname(__DIR__)) . "/src/Classes/System/Root.php");
 
 $helper = new Helper();
 $root = new Root();
-$settingRow = $root->getSettingRow();
+
+$settingRow = $helper->getSettingRow();
 $websiteName = $root->getWebsiteName();
 ?>
 <!DOCTYPE html>

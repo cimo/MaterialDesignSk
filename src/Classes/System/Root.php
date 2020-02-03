@@ -14,10 +14,6 @@ class Root {
     private $websiteName;
     
     // Properties
-    public function getSettingRow() {
-        return $this->settingRow;
-    }
-    
     public function getWebsiteName() {
         return $this->websiteName;
     }
@@ -33,13 +29,13 @@ class Root {
         // Logic
         $this->helper->xssProtection();
         
-        $this->settingRow = $this->query->selectSettingDatabase();
+        $this->settingRow = $this->helper->getSettingRow();
         
         $this->helper->generateToken();
         
-        $this->helper->checkLanguage($this->settingRow);
+        $this->helper->checkLanguage();
         
-        $this->helper->configureCookie(session_name(), 0, true, true);
+        $this->helper->createCookie(session_name(), "", 0, true, true);
         
         $url = $this->helper->checkSessionOverTime();
         

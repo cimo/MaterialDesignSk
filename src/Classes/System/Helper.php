@@ -11,6 +11,8 @@ class Helper {
     private $database;
     private $query;
     
+    private $settingRow;
+    
     private $protocol;
     
     private $pathRoot;
@@ -26,16 +28,26 @@ class Helper {
     private $websiteName;
     
     // Properties
-    public function getSessionMaxIdleTime() {
-        return $this->sessionMaxIdleTime;
-    }
-    
     public function getDatabase() {
         return $this->database;
     }
     
+    public function getUrlEventListener() {
+        return $this->urlEventListener;
+    }
+    
+    // ---
+    
+    public function getSessionMaxIdleTime() {
+        return $this->sessionMaxIdleTime;
+    }
+    
     public function getQuery() {
         return $this->query;
+    }
+    
+    public function getSettingRow() {
+        return $this->settingRow;
     }
     
     public function getProtocol() {
@@ -58,10 +70,6 @@ class Helper {
         return $this->urlRoot;
     }
     
-    public function getUrlEventListener() {
-        return $this->urlEventListener;
-    }
-    
     public function getSupportSymlink() {
         return $this->supportSymlink;
     }
@@ -82,6 +90,8 @@ class Helper {
         $this->database = new Database($this->config);
         $this->query = new Query($this->database);
         
+        $this->settingRow = $this->query->selectSettingDatabase();
+        
         $this->protocol = $this->config->getProtocol();
         
         $this->pathRoot = $_SERVER['DOCUMENT_ROOT'] . $this->config->getPathRoot();
@@ -99,14 +109,6 @@ class Helper {
         $this->arrayColumnFix();
     }
     
-    public function xssProtection() {
-        $nonceCsp = base64_encode(random_bytes(20));
-        
-        $_SESSION['xssProtectionTag'] = "Content-Security-Policy";
-        $_SESSION['xssProtectionRule'] = "script-src 'strict-dynamic' 'nonce-{$nonceCsp}' 'unsafe-inline' http: https:; object-src 'none'; base-uri 'none';";
-        $_SESSION['xssProtectionValue'] = $nonceCsp;
-    }
-    
     public function generateToken() {
         if (isset($_SESSION['token']) == false)
             $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(21));
@@ -121,13 +123,29 @@ class Helper {
     
     // ---
     
-    public function configureCookie($name, $lifeTime, $secure, $httpOnly) {
+    public function xssProtection() {
+        $nonceCsp = base64_encode(random_bytes(20));
+        
+        $_SESSION['xssProtectionTag'] = "Content-Security-Policy";
+        $_SESSION['xssProtectionRule'] = "script-src 'strict-dynamic' 'nonce-{$nonceCsp}' 'unsafe-inline' http: https:; object-src 'none'; base-uri 'none';";
+        $_SESSION['xssProtectionValue'] = $nonceCsp;
+    }
+    
+    public function createCookie($name, $value, $expire, $secure, $httpOnly) {
         $currentCookieParams = session_get_cookie_params();
         
-        $value = isset($_COOKIE[$name]) == true ? $_COOKIE[$name] : session_id();
+        if ($value == null)
+            $value = isset($_COOKIE[$name]) == true ? $_COOKIE[$name] : session_id();
         
-        if (isset($_COOKIE[$name]) == true)
-            setcookie($name, $value, $lifeTime, $currentCookieParams['path'], $currentCookieParams['domain'], $secure, $httpOnly);
+        setcookie($name, $value, $expire, $currentCookieParams['path'], $currentCookieParams['domain'], $secure, $httpOnly);
+    }
+    
+    public function removeCookie($name) {
+        if (isset($_COOKIE[$name]) == true) {
+            $currentCookieParams = session_get_cookie_params();
+            
+            setcookie($name, null, time() - 3600, $currentCookieParams['path'], $currentCookieParams['domain'], false, false);
+        }
     }
     
     public function sessionUnset() {
@@ -323,7 +341,7 @@ class Helper {
         $result = Array();
         
         foreach ($elements as $key => $value) {
-            $result[$key] = preg_grep("~$like~i", $value);
+            $result[$key] = preg_grep("~{$like}~i", $value);
             
             if (count($result[$key]) == 0)
                 unset($result[$key]);
@@ -441,74 +459,73 @@ class Helper {
         return $result;
     }
     
-    public function checkLanguage($settingRow) {
+    public function checkLanguage() {
         if (isset($_SESSION['languageTextCode']) == false)
-            $_SESSION['languageTextCode'] = $settingRow['language'];
+            $_SESSION['languageTextCode'] = $this->settingRow['language'];
         
         if (isset($_REQUEST["languageTextCode"]) == true)
             $_SESSION['languageTextCode'] = $_REQUEST["languageTextCode"];
     }
     
     public function checkSessionOverTime() {
-        $timeElapsed = 0;
-        $userOverTime = false;
-        $userOverRole = false;
-        
-        if (isset($_SESSION['userTimestamp']) == true)
-            $timeElapsed = time() - $_SESSION['userTimestamp'];
-        
-        if (isset($_SESSION['userOverCount']) == false)
-            $_SESSION['userOverCount'] = 0;
-        
-        if (($timeElapsed >= $this->sessionMaxIdleTime && isset($_COOKIE[session_name() . '_REMEMBERME']) == false) ||
-                (isset($_COOKIE[session_name() . '_logged']) == true && isset($_SESSION['userTimestamp']) == false)) {
-            $userOverTime = true;
+        if (isset($_SESSION['currentUser']) == true) {
+            $timeElapsed = time() - intval($_SESSION['userOvertime']);
+            $userOverRole = false;
             
-            $_SESSION['userInform'] = "Session time is over, please login again.";
-        }
-        
-        if ($userOverTime == true || $userOverRole == true) {
-            setcookie(session_name() . "_logged", 0, time() - 3600, "/", $_SERVER['SERVER_NAME'], true, false);
+            if (isset($_SESSION['userOvertime']) == false)
+                $timeElapsed = 0;
             
-            if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
-                echo json_encode(Array(
-                    'userInform' => $_SESSION['userInform']
-                ));
-                
-                $_SESSION['userTimestamp'] = time();
-                
-                $_SESSION['userOverCount'] = 0;
-                
-                exit;
+            $currentUser = $_SESSION['currentUser'];
+            
+            if (is_string($currentUser) == false) {
+                // Role changed
             }
-            else {
-                $userInform = $_SESSION['userInform'];
-                
-                $this->sessionUnset();
-                
-                $this->generateToken();
-                
-                $_SESSION['userInform'] = $userInform;
-                
-                $_SESSION['userTimestamp'] = time();
-                
-                $_SESSION['userOverCount'] = 0;
-                
-                return $this->urlRoot;
-            }
-        }
-        
-        if ($_SESSION['userOverCount'] >= 1) {
-            $_SESSION['userOverCount'] = 0;
             
-            $_SESSION['userInform'] = "";
+            if ($timeElapsed >= $this->sessionMaxIdleTime || $userOverRole == true) {
+                $_SESSION['userInform'] = "Session time is over, please login again.";
+                
+                if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
+                    echo json_encode(Array(
+                        'userInform' => $_SESSION['userInform']
+                    ));
+                    
+                    exit;
+                }
+                else {
+                    unset($_SESSION['userOvertime']);
+                    
+                    return $this->forceLogout();
+                }
+            }
+            
+            $_SESSION['userOvertime'] = time();
         }
-        
-        $_SESSION['userOverCount'] ++;
-        
-        $_SESSION['userTimestamp'] = time();
+        else {
+            if (isset($_SESSION['forceLogout']) == true && $_SESSION['forceLogout'] == 2) {
+                $_SESSION['userInform'] = "";
+                
+                unset($_SESSION['forceLogout']);
+            }
+            
+            if (isset($_SESSION['userInform']) == true && $_SESSION['forceLogout'] != "")
+                $_SESSION['forceLogout'] = 2;
+        }
         
         return false;
+    }
+    
+    public function forceLogout() {
+        $userInform = $_SESSION['userInform'];
+        
+        $this->sessionUnset();
+        
+        $this->generateToken();
+        
+        $_SESSION['userInform'] = $userInform;
+        
+        $_SESSION['forceLogout'] = 1;
+        
+        return $this->urlRoot;
     }
     
     public function checkHost($host) {
