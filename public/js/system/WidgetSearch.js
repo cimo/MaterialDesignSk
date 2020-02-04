@@ -6,11 +6,11 @@ const widgetSearch = new WidgetSearch();
 
 function WidgetSearch() {
     // Vars
-    let self = this;
+    const self = this;
     
     let widgetSearchButtonOpen;
     let widgetSearchButtonClose;
-    let widgetSearchInput;
+    let widgetSearchButtonInput;
     let topAppBarSectionStart;
     
     // Properties
@@ -19,7 +19,7 @@ function WidgetSearch() {
     self.init = function() {
         widgetSearchButtonOpen = null;
         widgetSearchButtonClose = null;
-        widgetSearchInput = null;
+        widgetSearchButtonInput = null;
         topAppBarSectionStart = null;
     };
     
