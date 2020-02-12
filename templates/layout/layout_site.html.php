@@ -194,6 +194,7 @@ $websiteName = $root->getWebsiteName();
                 'label_3': "Confirm"
             };
         </script>
+        
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/jquery_3.4.1.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/jquery-ui_1.12.1.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/library/jquery-mobile_1.5.0.min.js"></script>

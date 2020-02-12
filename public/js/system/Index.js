@@ -1,16 +1,25 @@
 "use strict";
 
-/* global ajax, flashBag, helper, loader, materialDesign, popupEasy, widgetDatePicker, widgetSearch */
+/* global */
 
-$(document).ready(function() {
-    ajax.init();
-    flashBag.init();
-    helper.init();
-    loader.init();
-    materialDesign.init();
-    popupEasy.init();
-    widgetDatePicker.init();
-    widgetSearch.init();
+let ajax = null;
+let flashBag = null;
+let helper = null;
+let loader = null;
+let materialDesign = null;
+let popupEasy = null;
+let widgetDatePicker = null;
+let widgetSearch = null;
+
+$(document).ready(() => {
+    ajax = new Ajax();
+    flashBag = new FlashBag();
+    helper = new Helper();
+    loader = new Loader();
+    materialDesign = new MaterialDesign();
+    popupEasy = new PopupEasy();
+    widgetDatePicker = new WidgetDatePicker();
+    widgetSearch = new WidgetSearch();
     
     helper.checkMobile(true);
     helper.linkPreventDefault();
@@ -39,23 +48,26 @@ $(document).ready(function() {
     materialDesign.tabBar();
     materialDesign.fix();
     
+    flashBag.setElement = materialDesign.getSnackbarMdc;
+    flashBag.sessionActivity();
+    
+    widgetDatePicker.setLanguage = "en";
+    //widgetDatePicker.setCurrentYear = 1984;
+    //widgetDatePicker.setCurrentMonth = 4;
+    //widgetDatePicker.setCurrentDay = 11;
+    widgetDatePicker.setInputFill = ".widget_datePicker_input";
+    widgetDatePicker.create();
+    
     widgetSearch.create();
     widgetSearch.changeView();
     
-    widgetDatePicker.setLanguage("en");
-    //widgetDatePicker.setCurrentYear(1984);
-    //widgetDatePicker.setCurrentMonth(4);
-    //widgetDatePicker.setCurrentDay(11);
-    widgetDatePicker.setInputFill(".widget_datePicker_input");
-    widgetDatePicker.create();
-    
-    flashBag.setElement(materialDesign.getSnackbarMdc());
-    flashBag.sessionActivity();
-    
-    $(window).resize(function() {
+    $(window).on("resize", "", (event) => {
         materialDesign.refresh();
         materialDesign.fix();
         
         widgetSearch.changeView();
+    });
+    
+    $(window).on("orientationchange", "", (event) => {
     });
 });
