@@ -740,6 +740,12 @@ table {
     }
 }
 
+#menu_user {
+    .session_over {
+        display: none;
+    }
+}
+
 #language_text_container {
     .mdc-list-item {
         span {

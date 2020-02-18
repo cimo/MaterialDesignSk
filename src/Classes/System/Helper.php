@@ -148,18 +148,6 @@ class Helper {
         }
     }
     
-    public function sessionUnset() {
-        session_unset();
-        
-        $cookies = Array(
-            session_name() . "_REMEMBERME"
-        );
-        
-        foreach ($cookies as $value) {
-            unset($_COOKIE[$value]);
-        }
-    }
-    
     public function removeDirRecursive($path, $parent) {
         if (file_exists($path) == true) {
             $rdi = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
@@ -437,25 +425,22 @@ class Helper {
     }
     
     public function checkSessionOverTime() {
-        if (isset($_SESSION['currentUser']) == true) {
+        $currentUser = isset($_SESSION['currentUser']) == true ? $_SESSION['currentUser'] : null;
+        
+        if ($currentUser != null) {
             $timeElapsed = time() - intval($_SESSION['userOvertime']);
             $userOverRole = false;
             
             if (isset($_SESSION['userOvertime']) == false)
                 $timeElapsed = 0;
             
-            $currentUser = $_SESSION['currentUser'];
-            
-            if (is_string($currentUser) == false) {
-                // Role changed
-            }
-            
-            if ($timeElapsed >= $this->sessionMaxIdleTime || $userOverRole == true) {
+            if (($timeElapsed >= $this->sessionMaxIdleTime && isset($_COOKIE[session_name() . "_remember_me"]) == false) || $userOverRole == true) {
                 $_SESSION['userInform'] = "Session time is over, please login again.";
                 
                 if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
                     echo json_encode(Array(
-                        'userInform' => $_SESSION['userInform']
+                        'userInform' => $_SESSION['userInform'],
+                        'sessionOver' => true
                     ));
                     
                     exit;
@@ -470,14 +455,20 @@ class Helper {
             $_SESSION['userOvertime'] = time();
         }
         else {
-            if (isset($_SESSION['forceLogout']) == true && $_SESSION['forceLogout'] == 2) {
-                $_SESSION['userInform'] = "";
+            if (isset($_COOKIE[session_name() . "_login"]) == true) {
+                $_SESSION['userInform'] = "Session time is over, please login again.";
                 
-                unset($_SESSION['forceLogout']);
+                unset($_COOKIE[session_name() . "_login"]);
             }
-            
-            if (isset($_SESSION['userInform']) == true && $_SESSION['forceLogout'] != "")
-                $_SESSION['forceLogout'] = 2;
+            else {
+                if (isset($_SESSION['checkSessionOverTimeCount']) == true) {
+                    $_SESSION['userInform'] = "";
+                    
+                    unset($_SESSION['checkSessionOverTimeCount']);
+                }
+                else if (isset($_SESSION['checkSessionOverTimeCount']) == false && isset($_SESSION['userInform']) == true && $_SESSION['userInform'] != "")
+                    $_SESSION['checkSessionOverTimeCount'] = true;
+            }
         }
         
         return false;
@@ -486,13 +477,11 @@ class Helper {
     public function forceLogout() {
         $userInform = $_SESSION['userInform'];
         
-        $this->sessionUnset();
+        session_unset();
         
         $this->generateToken();
         
         $_SESSION['userInform'] = $userInform;
-        
-        $_SESSION['forceLogout'] = 1;
         
         return $this->urlRoot;
     }
@@ -622,15 +611,14 @@ class Helper {
         return array_reverse($lines);
     }
     
-    public function writeLog($name, $message, $elements = null) {
-        $logPath = "{$this->pathSrc}/files/microservice/api/sanyo/" . str_replace(" ", "_", $name) . ".log";
+    public function writeLog($path, $name, $message, $elements = null) {
+        $logPath = "{$path}/" . str_replace(" ", "_", $name) . ".log";
         
         file_put_contents($logPath, date("Y-m-d H:i:s") . " - IP[{$_SERVER['REMOTE_ADDR']}]: {$message}", FILE_APPEND);
         
         if ($elements != null && (is_array($elements) == true || is_object($elements) == true))
             file_put_contents($logPath, print_r($elements, true), FILE_APPEND);
     }
-    
     
     public function loginAuthBasic($url, $username, $password) {
         $curl = curl_init();
