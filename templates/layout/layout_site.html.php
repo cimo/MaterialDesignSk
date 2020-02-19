@@ -34,6 +34,7 @@ $websiteName = $root->getWebsiteName();
         
         <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/<?php echo $settingRow['template']; ?>.css" rel="stylesheet"/>
         <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/loader.css" rel="stylesheet"/>
+        <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/process_lock.css" rel="stylesheet"/>
         <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/widget.css" rel="stylesheet"/>
         
         <?php include_once(__DIR__ . "/layout_site_custom_top.html.php"); ?>
@@ -167,6 +168,7 @@ $websiteName = $root->getWebsiteName();
             
             window.url = {
                 'root': "<?php echo $helper->getUrlRoot(); ?>",
+                'processLockListener': "<?php echo $helper->getUrlRoot(); ?>/listener/processLockListener.php",
                 'eventListener': "<?php echo $helper->getUrlEventListener(); ?>"
             };
             
@@ -208,6 +210,7 @@ $websiteName = $root->getWebsiteName();
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Loader.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/FlashBag.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/PopupEasy.min.js"></script>
+        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/ProcessLock.min.js"></script>
         
         <?php include_once(__DIR__ . "/layout_site_custom_bottom.html.php"); ?>
         

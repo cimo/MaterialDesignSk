@@ -2,9 +2,9 @@
 
 /* global */
 
+let helper = null;
 let ajax = null;
 let flashBag = null;
-let helper = null;
 let loader = null;
 let materialDesign = null;
 let popupEasy = null;
@@ -12,9 +12,9 @@ let widgetDatePicker = null;
 let widgetSearch = null;
 
 $(document).ready(() => {
+    helper = new Helper();
     ajax = new Ajax();
     flashBag = new FlashBag();
-    helper = new Helper();
     loader = new Loader();
     materialDesign = new MaterialDesign();
     popupEasy = new PopupEasy();

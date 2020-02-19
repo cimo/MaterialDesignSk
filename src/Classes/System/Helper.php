@@ -665,6 +665,47 @@ class Helper {
             return $value;
     }
     
+    public function createProcessLock($path, $total = 0) {
+        file_put_contents($path, "");
+        
+        $_SESSION['processLockPath'] = $path;
+        
+        if ($total > 0)
+            $_SESSION['processLockTotal'] = $total;
+    }
+    
+    public function populateProcessLock($content) {
+        $path = $_SESSION['processLockPath'];
+        $total = $_SESSION['processLockTotal'];
+        
+        if ($path != null) {
+            if ($total == null)
+                file_put_contents($path, $content);
+            else
+                file_put_contents($path, "$total|$content");
+        }
+    }
+    
+    public function responseProcessLock($response, $name = "") {
+        if ($name != "")
+            $response['processLock']['name'] = "{$name}_lock";
+        else
+            $response['messages']['error'] = "Process in progress, please try later.";
+        
+        return $response;
+    }
+    
+    public function removeProcessLock() {
+        $path = $_SESSION['processLockPath'];
+        
+        if (file_exists($path) == true) {
+            unlink($path);
+            
+            unset($_SESSION['processLockPath']);
+            unset($_SESSION['processLockTotal']);
+        }
+    }
+    
     // Functions private
     private function arrayColumnFix() {
         if (function_exists("array_column") == false) {
