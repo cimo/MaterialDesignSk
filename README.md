@@ -31,6 +31,6 @@ All folders are organize for easy and fast develop.
 
 | Library: |
 |:---|
-| Material design web - https://material.io/develop/web/ |
+| Material design web - https://material.io/develop/web |
 
 <b>By CIMO - https://reinventsoftware.org</b>
