@@ -34,3 +34,7 @@ All folders are organize for easy and fast develop.
 | Material design web - https://material.io/develop/web |
 
 <b>By CIMO - https://reinventsoftware.org</b>
+
+Supported By:
+
+![Image of supporter](https://avatars0.githubusercontent.com/u/878437?s=200&v=4)
