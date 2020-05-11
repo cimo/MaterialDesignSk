@@ -47,7 +47,6 @@ Temporary Items
 .apdisk
 
 # cimo
-nbproject
 public/.sass-cache
 src/Config.php
 var/sessions/*
