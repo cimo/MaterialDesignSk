@@ -5,24 +5,25 @@
 class FlashBag {
     // Properties
     set setElement(value) {
-        this.element = value;
+        this.snackbarMdc = value;
     }
     
     // Functions public
     constructor() {
-        this.element = null;
+        this.snackbarMdc = null;
     }
     
     show = (message) => {
+        if ($("#flashBag").attr("aria-hidden") !== "true" || $("#flashBag").hasClass("mdc-snackbar mdc-snackbar--active") === true)
+            $("#flashBag").find(".mdc-snackbar__action-button").click();
+        
         let snackbarDataObj = {
             message: message,
             actionText: window.text.index_7,
             actionHandler: () => {}
         };
         
-        this.element.show(snackbarDataObj);
-        
-        $("#flashBag").find(".mdc-snackbar__action-button").removeAttr("aria-hidden");
+        this.snackbarMdc.show(snackbarDataObj);
     }
     
     sessionActivity = () => {

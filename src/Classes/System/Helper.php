@@ -2,16 +2,20 @@
 require_once(dirname(dirname(__DIR__)) . "/Config.php");
 require_once("Database.php");
 require_once("Query.php");
+require_once("QueryCustom.php");
 
 class Helper {
     // Vars
     private $sessionMaxIdleTime;
     
     private $config;
-    private $database;
+    private $databse;
     private $query;
+    private $queryCustom;
     
     private $settingRow;
+
+    private $languageFormat;
     
     private $protocol;
     
@@ -26,24 +30,25 @@ class Helper {
     
     private $websiteFile;
     private $websiteName;
+
+    private $sshConnection;
+    private $sshSudo;
     
     // Properties
+    public function getSessionMaxIdleTime() {
+        return $this->sessionMaxIdleTime;
+    }
+
     public function getDatabase() {
         return $this->database;
     }
     
-    public function getUrlEventListener() {
-        return $this->urlEventListener;
-    }
-    
-    // ---
-    
-    public function getSessionMaxIdleTime() {
-        return $this->sessionMaxIdleTime;
-    }
-    
     public function getQuery() {
         return $this->query;
+    }
+
+    public function getQueryCustom() {
+        return $this->queryCustom;
     }
     
     public function getSettingRow() {
@@ -69,6 +74,10 @@ class Helper {
     public function getUrlRoot() {
         return $this->urlRoot;
     }
+
+    public function getUrlEventListener() {
+        return $this->urlEventListener;
+    }
     
     public function getSupportSymlink() {
         return $this->supportSymlink;
@@ -84,28 +93,39 @@ class Helper {
       
     // Functions public
     public function __construct() {
-        $this->sessionMaxIdleTime = 3600;
+        $this->sessionMaxIdleTime = ini_get("session.gc_maxlifetime");
         
         $this->config = new Config();
         $this->database = new Database($this->config);
         $this->query = new Query($this->database);
+        $this->queryCustom = new QueryCustom($this->database);
         
         $this->settingRow = $this->query->selectSettingDatabase();
+
+        $languageRow = $this->query->selectLanguageDatabase($this->settingRow['language']);
+        $this->languageFormat = $languageRow['date'];
+
+        $serverRoot = isset($_SERVER['DOCUMENT_ROOT']) == true ? $_SERVER['DOCUMENT_ROOT'] : $this->settingRow['server_root'];
+        $serverHost = isset($_SERVER['HTTP_HOST']) == true ? $_SERVER['HTTP_HOST'] : $this->settingRow['server_host'];
         
         $this->protocol = $this->config->getProtocol();
         
-        $this->pathRoot = $_SERVER['DOCUMENT_ROOT'] . $this->config->getPathRoot();
+        $this->pathRoot = $serverRoot . $this->config->getPathRoot();
         $this->pathSrc = "{$this->pathRoot}/src";
         $this->pathPublic = "{$this->pathRoot}/public";
+        $this->pathLock = "{$this->pathRoot}/src/files/lock";
         
-        $this->urlRoot = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . $this->config->getUrlRoot();
-        $this->urlEventListener = $this->config->getProtocol() . $_SERVER['HTTP_HOST'] . dirname($this->config->getUrlRoot()) . "/src/EventListener";
+        $this->urlRoot = $this->config->getProtocol() . $serverHost . $this->config->getUrlRoot();
+        $this->urlEventListener = $this->config->getProtocol() . $serverHost . $this->config->getUrlRoot() . "/event_listener";
         
         $this->supportSymlink = $this->config->getSupportSymlink();
-        
+
         $this->websiteFile = $this->config->getFile();
         $this->websiteName = $this->config->getName();
-        
+
+        $this->sshConnection = false;
+        $this->sshSudo = "";
+
         $this->arrayColumnFix();
     }
     
@@ -120,9 +140,7 @@ class Helper {
         
         return false;
     }
-    
-    // ---
-    
+
     public function xssProtection() {
         $nonceCsp = base64_encode(random_bytes(20));
         
@@ -130,582 +148,25 @@ class Helper {
         $_SESSION['xssProtectionRule'] = "script-src 'strict-dynamic' 'nonce-{$nonceCsp}' 'unsafe-inline' http: https:; object-src 'none'; base-uri 'none';";
         $_SESSION['xssProtectionValue'] = $nonceCsp;
     }
-    
+
     public function createCookie($name, $value, $expire, $secure, $httpOnly) {
         $currentCookieParams = session_get_cookie_params();
-        
+
         if ($value == null)
             $value = isset($_COOKIE[$name]) == true ? $_COOKIE[$name] : session_id();
-        
+
         setcookie($name, $value, $expire, $currentCookieParams['path'], $currentCookieParams['domain'], $secure, $httpOnly);
     }
-    
-    public function removeCookie($name) {
-        if (isset($_COOKIE[$name]) == true) {
-            $currentCookieParams = session_get_cookie_params();
-            
-            setcookie($name, null, time() - 3600, $currentCookieParams['path'], $currentCookieParams['domain'], false, false);
-        }
-    }
-    
-    public function removeDirRecursive($path, $parent) {
-        if (file_exists($path) == true) {
-            $rdi = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
-            $rii = new RecursiveIteratorIterator($rdi, RecursiveIteratorIterator::CHILD_FIRST);
 
-            foreach ($rii as $file) {
-                if (file_exists($file->getRealPath()) == true) {
-                    if ($file->isDir() == true)
-                        rmdir($file->getRealPath());
-                    else
-                        unlink($file->getRealPath());
-                }
-                else if (is_link($file->getPathName()) == true)
-                    unlink($file->getPathName());
-            }
-
-            if ($parent == true)
-                rmdir($path);
-        }
-    }
-    
-    public function generateRandomString($length) {
-        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $charactersLength = strlen($characters);
-        $randomString = "";
-        
-        for ($a = 0; $a < $length; $a ++)
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        
-        return $randomString;
-    }
-    
-    public function sendEmail($to, $subject, $message, $from) {
-        $headers  = "MIME-Version: 1.0 \r\n";
-        $headers .= "Content-type: text/html; charset=UTF-8 \r\n";
-        $headers .= "From: $from \r\n Reply-To: $from";
-
-        mail($to, $subject, $message, $headers);
-    }
-    
-    public function clientIp() {
-        $ip = "";
-        
-        if (getenv("HTTP_CLIENT_IP"))
-            $ip = getenv("HTTP_CLIENT_IP");
-        else if(getenv("HTTP_X_FORWARDED_FOR"))
-            $ip = getenv("HTTP_X_FORWARDED_FOR");
-        else if(getenv("HTTP_X_FORWARDED"))
-            $ip = getenv("HTTP_X_FORWARDED");
-        else if(getenv("HTTP_FORWARDED_FOR"))
-            $ip = getenv("HTTP_FORWARDED_FOR");
-        else if(getenv("HTTP_FORWARDED"))
-           $ip = getenv("HTTP_FORWARDED");
-        else if(getenv("REMOTE_ADDR"))
-            $ip = getenv("REMOTE_ADDR");
-        else
-            $ip = "UNKNOWN";
-        
-        return $ip;
-    }
-    
-    public function dateFormat($date) {
-        $newData = Array("", "");
-        
-        $dateExplode = explode(" ", $date);
-        
-        if (count($dateExplode) == 0)
-            $dateExplode = $newData;
-        else {
-            $sessionLanguageDate = $_SESSION['languageDate'];
-            
-            $languageDate = isset($sessionLanguageDate) == false ? "Y-m-d" : $sessionLanguageDate;
-            
-            if (strpos($dateExplode[0], "0000") === false)
-                $dateExplode[0] = date($languageDate, strtotime($dateExplode[0]));
-        }
-        
-        return $dateExplode;
-    }
-    
-    public function timeFormat($type, $time) {
-        if ($time == 0)
-            return "0s";
-        
-        $result = Array();
-        
-        if ($type == "micro") {
-            $elements = Array(
-                'y' => $time / 31556926 % 12,
-                'w' => $time / 604800 % 52,
-                'd' => $time / 86400 % 7,
-                'h' => $time / 3600 % 24,
-                'm' => $time / 60 % 60,
-                's' => $time % 60
-            );
-        }
-        else if ($type == "seconds") {
-            $elements = Array(
-                'h' => floor($time / 3600),
-                'm' => floor($time / 60),
-                's' => $time % 60 == 0 ? round($time, 2) : $time % 60
-            );
-        }
-
-        foreach ($elements as $key => $value) {
-            if ($value > 0)
-                $result[] = $value . $key;
-        }
-
-        return join(" ", $result);
-    }
-    
-    public function unitFormat($value) {
-        $result = "";
-        
-        if ($value == 0)
-            $result = "0 Bytes";
-        else {
-            $reference = 1024;
-            $sizes = Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
-            
-            $index = floor(log($value) / log($reference));
-            
-            $result = round(floatval(($value / pow($reference, $index))), 2) . " " . $sizes[$index];
-        }
-        
-        return $result;
-    }
-    
-    public function cutStringOnLength($value, $length) {
-        return strlen($value) > $length ? substr(value, 0, $length) . "..." : $value;
-    }
-    
-    public function takeStringBetween($string, $start, $end) {
-        $string = " " . $string;
-        $position = strpos($string, $start);
-        
-        if ($position == 0)
-            return "";
-        
-        $position += strlen($start);
-        $length = strpos($string, $end, $position) - $position;
-        
-        return substr($string, $position, $length);
-    }
-    
-    public function arrayLike($elements, $like) {
-        $result = Array();
-        
-        foreach ($elements as $key => $value) {
-            $result[$key] = preg_grep("~{$like}~i", $value);
-            
-            if (count($result[$key]) == 0)
-                unset($result[$key]);
-            else
-                $result[$key] = $value;
-        }
-        
-        return $result;
-    }
-    
-    public function arrayMoveElement(&$array, $a, $b) {
-        $out = array_splice($array, $a, 1);
-        array_splice($array, $b, 0, $out);
-    }
-    
-    public function arrayFindValue($elements, $subElements) {
-        $result = false;
-        
-        foreach ($elements as $key => $value) {
-            if (in_array($value, $subElements) == true) {
-                $result = true;
-                
-                break;
-            }
-        }
-        
-        return $result;
-    }
-    
-    public function arrayFindKeyWithValue($elements, $label, $item) {
-        foreach ($elements as $key => $value) {
-            if ($value[$label] == $item )
-                return $key;
-        }
-        
-        return false;
-    }
-    
-    public function arrayExplodeFindValue($first, $second, $multi = true) {
-        $firstExplode = explode(",", $first);
-        array_pop($firstExplode);
-        
-        if ($multi == true) {
-            $secondExplode =  explode(",", $second);
-            array_pop($secondExplode);
-            
-            if ($this->arrayFindValue($firstExplode, $secondExplode) == true)
-                return true;
-        }
-        else {
-            if (in_array($second, $firstExplode) == true)
-                return true;
-        }
-        
-        return false;
-    }
-    
-    public function arrayUniqueMulti($elements, $index, $fix = true) {
-        $results = Array();
-        
-        $a = 0;
-        $keys = Array();
-        
-        foreach ($elements as $key => $value) {
-            if (in_array($value[$index], $keys) == false) {
-                $results[$a] = $value;
-                
-                $keys[$a] = $value[$index];
-            }
-            
-            $a ++;
-        }
-        
-        if ($fix == true)
-            $results = array_values($results);
-        
-        return $results;
-    }
-    
-    public function arrayCombine($elementsA, $elementsB) {
-        $count = min(count($elementsA), count($elementsB));
-        
-        return array_combine(array_slice($elementsA, 0, $count), array_slice($elementsB, 0, $count));
-    }
-    
-    public function urlParameters($completeUrl, $baseUrl) {
-        $lastPath = substr($completeUrl, strpos($completeUrl, $baseUrl) + strlen($baseUrl));
-        $lastPathExplode = explode("/", $lastPath);
-        array_shift($lastPathExplode);
-        
-        return $lastPathExplode;
-    }
-    
-    public function requestParametersParse($parameters) {
-        $result = Array();
-        $matches = Array();
-        
-        foreach ($parameters as $key => $value) {
-            if (is_object($value) == false)
-                $result[$key] = $value;
-            else {
-                preg_match("#\[(.*?)\]#", $value->name, $matches);
-                
-                $keyTmp = "";
-                
-                if (count($matches) == 0)
-                    $keyTmp = $value->name;
-                else
-                    $keyTmp = $matches[1];
-                    
-                $result[$keyTmp] = $value->value;
-            }
-        }
-        
-        return $result;
-    }
-    
     public function checkLanguage() {
-        if (isset($_SESSION['languageTextCode']) == false)
-            $_SESSION['languageTextCode'] = $this->settingRow['language'];
-        
-        if (isset($_REQUEST["languageTextCode"]) == true)
-            $_SESSION['languageTextCode'] = $_REQUEST["languageTextCode"];
-    }
-    
-    public function checkSessionOverTime() {
-        $currentUser = isset($_SESSION['currentUser']) == true ? $_SESSION['currentUser'] : null;
-        
-        if ($currentUser != null) {
-            $timeElapsed = time() - intval($_SESSION['userOvertime']);
-            $userOverRole = false;
-            
-            if (isset($_SESSION['userOvertime']) == false)
-                $timeElapsed = 0;
-            
-            if (($timeElapsed >= $this->sessionMaxIdleTime && isset($_COOKIE[session_name() . "_remember_me"]) == false) || $userOverRole == true) {
-                $_SESSION['userInform'] = "Session time is over, please login again.";
-                
-                if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) == false && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest") {
-                    echo json_encode(Array(
-                        'userInform' => $_SESSION['userInform'],
-                        'sessionOver' => true
-                    ));
-                    
-                    exit;
-                }
-                else {
-                    unset($_SESSION['userOvertime']);
-                    
-                    return $this->forceLogout();
-                }
-            }
-            
-            $_SESSION['userOvertime'] = time();
-        }
-        else {
-            if (isset($_COOKIE[session_name() . "_login"]) == true) {
-                $_SESSION['userInform'] = "Session time is over, please login again.";
-                
-                unset($_COOKIE[session_name() . "_login"]);
-            }
-            else {
-                if (isset($_SESSION['checkSessionOverTimeCount']) == true) {
-                    $_SESSION['userInform'] = "";
-                    
-                    unset($_SESSION['checkSessionOverTimeCount']);
-                }
-                else if (isset($_SESSION['checkSessionOverTimeCount']) == false && isset($_SESSION['userInform']) == true && $_SESSION['userInform'] != "")
-                    $_SESSION['checkSessionOverTimeCount'] = true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public function forceLogout() {
-        $userInform = $_SESSION['userInform'];
-        
-        session_unset();
-        
-        $this->generateToken();
-        
-        $_SESSION['userInform'] = $userInform;
-        
-        return $this->urlRoot;
-    }
-    
-    public function checkHost($host) {
-        $curl = curl_init();
-        
-        curl_setopt($curl, CURLOPT_URL, $host);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36");
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-        
-        $curlResponse = curl_exec($curl);
-        $curlError = curl_error($curl);
-        $curlInfo = curl_getinfo($curl);
-        
-        curl_close($curl);
-        
-        if ($curlResponse == false)
-            return false;
-        
-        return true;
-    }
-    
-    public function replaceString4byte($string, $replacement, $remove = false) {
-        $isFind = false;
-        
-        // A -> 1-3 | B -> 4-15 | C -> 16
-        $newString = preg_replace("%(?:\xF0[\x90-\xBF][\x80-\xBF]{2} | [\xF1-\xF3][\x80-\xBF]{3} | \xF4[\x80-\x8F][\x80-\xBF]{2})%xs", $replacement, $string);    
-        
-        if (strpos($newString, $replacement) !== false)
-            $isFind = $string;
-        
-        if ($remove == true)
-            $newString = str_replace($replacement, "", $newString);
-        
-        return Array(
-            $newString,
-            $isFind
-        );
-    }
-    
-    public function download() {
-        if (isset($_SESSION['download']) == true) {
-            header("Content-Description: File Transfer");
-            header("Content-Disposition: attachment; filename=\"" . basename("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}") . "\"");
-            header("Content-Transfer-Encoding: binary");
-            header("Content-Length: " . filesize("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}"));
-            header("Content-Type: {$_SESSION['download']['mime']}");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, pre-check=0, post-check=0");
-            header("Pragma: public");
-            
-            readfile("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}");
-            
-            if ($_SESSION['download']['remove'] == true)
-                unlink("{$_SESSION['download']['path']}/{$_SESSION['download']['name']}");
-            
-            unset($_SESSION['download']);
-            
-            return;
-        }
-        
-        echo "404";
+        $_SESSION['languageTextCode'] = $this->settingRow['language'];
+
+        if (isset($_REQUEST['languageTextCode']) != false)
+            $_SESSION['languageTextCode'] = $_REQUEST['languageTextCode'];
+        else if (isset($_REQUEST['_locale']) != false)
+            $_SESSION['languageTextCode'] = $_REQUEST['_locale'];
     }
 
-    public function fileSearchInside($filePath, $word, $replace) {
-        $reading = fopen($filePath, "r");
-        $writing = fopen("{$filePath}.tmp", "w");
-        
-        $checked = false;
-        
-        while (feof($reading) == false) {
-            $line = fgets($reading);
-            
-            if (stristr($line, $word) != false) {
-                $line = $replace;
-                
-                $checked = true;
-            }
-            
-            if (feof($reading) == true && $replace == null) {
-                $line = "$word\n";
-
-                $checked = true;
-            }
-            
-            fwrite($writing, $line);
-        }
-        
-        fclose($reading);
-        fclose($writing);
-        
-        if ($checked == true) 
-            rename("{$filePath}.tmp", $filePath);
-        else
-            unlink("{$filePath}.tmp");
-    }
-    
-    public function fileReadTail($path, $limit = 50) {
-        $fopen = fopen($path, "r");
-        
-        fseek($fopen, -1, SEEK_END);
-        
-        for ($a = 0, $lines = Array(); $a < $limit && ($char = fgetc($fopen)) !== false;) {
-            if ($char === "\n") {
-                if (isset($lines[$a]) == true) {
-                    $lines[$a][] = $char;
-                    $lines[$a] = implode("", array_reverse($lines[$a]));
-                    
-                    $a ++;
-                }
-            }
-            else
-                $lines[$a][] = $char;
-            
-            fseek($fopen, -2, SEEK_CUR);
-        }
-        
-        fclose($fopen);
-        
-        if (count($lines) > 0 && $a < $limit)
-            $lines[$a] = implode("", array_reverse($lines[$a]));
-        
-        return array_reverse($lines);
-    }
-    
-    public function writeLog($path, $name, $message, $elements = null) {
-        $logPath = "{$path}/" . str_replace(" ", "_", $name) . ".log";
-        
-        file_put_contents($logPath, date("Y-m-d H:i:s") . " - IP[{$_SERVER['REMOTE_ADDR']}]: {$message}", FILE_APPEND);
-        
-        if ($elements != null && (is_array($elements) == true || is_object($elements) == true))
-            file_put_contents($logPath, print_r($elements, true), FILE_APPEND);
-    }
-    
-    public function loginAuthBasic($url, $username, $password) {
-        $curl = curl_init();
-        
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.2309.372 Safari/537.36");
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
-        
-        $curlResponse = curl_exec($curl);
-        $curlError = curl_error($curl);
-        $curlInfo = curl_getinfo($curl);
-        
-        curl_close($curl);
-        
-        return $curlResponse;
-    }
-    
-    public function closeAjaxRequest($response, $memoryLimit = false) {
-        echo json_encode(Array(
-            'response' => $response
-        ));
-        
-        fastcgi_finish_request();
-        ignore_user_abort(true);
-        
-        if ($memoryLimit == true) {
-            set_time_limit(0);
-            ini_set("memory_limit", "-1");
-        }
-    }
-    
-    public function escapeScript($value) {
-        $pattern = "/<script.*?>|<\/script>|javascript:/i";
-        $replacement = "";
-        
-        if (preg_match_all($pattern, $value, $matches) !== false)
-            return preg_replace($pattern, $replacement, $value);
-        else
-            return $value;
-    }
-    
-    public function createProcessLock($path, $total = 0) {
-        file_put_contents($path, "");
-        
-        $_SESSION['processLockPath'] = $path;
-        
-        if ($total > 0)
-            $_SESSION['processLockTotal'] = $total;
-    }
-    
-    public function populateProcessLock($content) {
-        $path = $_SESSION['processLockPath'];
-        $total = $_SESSION['processLockTotal'];
-        
-        if ($path != null) {
-            if ($total == null)
-                file_put_contents($path, $content);
-            else
-                file_put_contents($path, "$total|$content");
-        }
-    }
-    
-    public function responseProcessLock($response, $name = "") {
-        if ($name != "")
-            $response['processLock']['name'] = "{$name}_lock";
-        else
-            $response['messages']['error'] = "Process in progress, please try later.";
-        
-        return $response;
-    }
-    
-    public function removeProcessLock() {
-        $path = $_SESSION['processLockPath'];
-        
-        if (file_exists($path) == true) {
-            unlink($path);
-            
-            unset($_SESSION['processLockPath']);
-            unset($_SESSION['processLockTotal']);
-        }
-    }
-    
     // Functions private
     private function arrayColumnFix() {
         if (function_exists("array_column") == false) {

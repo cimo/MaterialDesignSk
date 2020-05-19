@@ -14,5 +14,5 @@ const deferred = (callback) => {
     }
 };
 
-deferred($(document).ready(() => {
-}));
+deferred(() => {
+});

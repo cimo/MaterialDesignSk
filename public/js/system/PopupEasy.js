@@ -4,40 +4,29 @@
 
 class PopupEasy {
     // Properties
+    set setElement(value) {
+        this.dialogMdc = value;
+    }
     
     // Functions public
     constructor() {
         this.dialogMdc = null;
     }
     
-    create = (title, message, callbackOk, callbackCancel) => {
+    show = (title, message, callbackOk, callbackCancel) => {
         $(".mdc-dialog").find(".mdc-dialog__header__title").html(title);
         $(".mdc-dialog").find(".mdc-dialog__body").html(message);
         $(".mdc-dialog").find(".mdc-dialog__footer__button--accept").text(window.text.index_6);
         $(".mdc-dialog").find(".mdc-dialog__footer__button--cancel").text(window.text.index_7);
         
         materialDesign.refresh();
+
+        if (callbackOk !== undefined)
+            $(".mdc-dialog").find(".mdc-dialog__footer__button--accept").off("click").on("click", "", callbackOk);
         
-        let clickOk = null;
-        let clickCancel = null;
+        if (callbackCancel !== undefined)
+            $(".mdc-dialog").find(".mdc-dialog__footer__button--cancel").off("click").on("click", "", callbackCancel);
         
-        if (callbackOk !== undefined) {
-            clickOk = () => {
-                callbackOk();
-            };
-            
-            $(".mdc-dialog").find(".mdc-dialog__footer__button--accept").off("click").on("click", "", clickOk);
-        }
-        
-        if (callbackCancel !== undefined) {
-            clickCancel = () => {
-                callbackCancel();
-            };
-            
-            $(".mdc-dialog").find(".mdc-dialog__footer__button--cancel").off("click").on("click", "", clickCancel);
-        }
-        
-        this.dialogMdc = materialDesign.getDialogMdc;
         this.dialogMdc.show();
     }
     
@@ -46,7 +35,7 @@ class PopupEasy {
     }
     
     recursive = (title, elements, key) => {
-        this.create(
+        this.show(
             title,
             elements[key],
             () => {

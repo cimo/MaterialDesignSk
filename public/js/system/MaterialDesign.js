@@ -54,13 +54,14 @@ class MaterialDesign {
     dialog = () => {
         if ($(".mdc-dialog").length > 0) {
             this.dialogMdc = new mdc.dialog.MDCDialog.attachTo($(".mdc-dialog")[0]);
-            
-            /*$(".show_dialog").on("click", "", (event) => {
+
+            // For example
+            $(".show_dialog").on("click", "", (event) => {
                 this.dialogMdc.lastFocusedTarget = event.target;
                 this.dialogMdc.show();
             });
-            
-            this.dialogMdc.listen("MDCDialog:accept", () => {
+
+            /*this.dialogMdc.listen("MDCDialog:accept", () => {
                 console.log("Dialog - Accepted");
             });
             
@@ -118,15 +119,14 @@ class MaterialDesign {
         $.each($(".mdc-text-field"), (key, value) => {
             this.mdcTextFields.push(new mdc.textField.MDCTextField.attachTo(value));
             this.mdcTextFields[key].layout();
-            
-            if ($(value).find(".mdc-text-field__input").attr('placeholder') === "******") {
+
+            if ($(value).find(".mdc-text-field__input").attr('placeholder') === "******")
                 $(value).find(".mdc-floating-label").addClass("mdc-floating-label--float-above mdc-floating-label_password");
-                
-                $(value).find(".mdc-text-field__input[placeholder='******']").on("blur", "", (event) => {
-                    $(value).find(".mdc-floating-label").addClass("mdc-floating-label--float-above mdc-floating-label_password");
-                    $(value).removeClass("mdc-text-field--invalid");
-                });
-            }
+
+            $(value).find(".mdc-text-field__input[placeholder='******']").off("blur").on("blur", "", (event) => {
+                $(value).find(".mdc-floating-label").addClass("mdc-floating-label--float-above mdc-floating-label_password");
+                $(value).removeClass("mdc-text-field--invalid");
+            });
         });
         
         /*$.each($(".mdc-text-field"), (key, value) => {
@@ -181,8 +181,9 @@ class MaterialDesign {
         $.each($(".mdc-snackbar"), (key, value) => {
             this.snackbarMdc = new mdc.snackbar.MDCSnackbar.attachTo(value);
         });
-        
-        /*$(".show_snackbar").on("click", "", (event) => {
+
+        // For example
+        $(".show_snackbar").on("click", "", (event) => {
             let snackbarDataObj = {
                 message: "Text",
                 actionText: "Close",
@@ -190,7 +191,7 @@ class MaterialDesign {
             };
 
             this.snackbarMdc.show(snackbarDataObj);
-        });*/
+        });
     }
     
     tabBar = () => {

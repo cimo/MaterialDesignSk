@@ -18,15 +18,15 @@ $(document).ready(() => {
     loader = new Loader();
     materialDesign = new MaterialDesign();
     popupEasy = new PopupEasy();
-    widgetDatePicker = new WidgetDatePicker();
+    widgetDatePicker = new WidgetDatePicker(window.setting.language);
     widgetSearch = new WidgetSearch();
     
-    helper.checkMobile(true);
+    helper.checkMobile();
     helper.linkPreventDefault();
     helper.accordion("button");
     helper.menuRoot();
     helper.uploadFakeClick();
-    helper.blockMultiTab(true);
+    helper.blockMultiTab();
     helper.bodyProgress();
     
     materialDesign.button();
@@ -47,18 +47,14 @@ $(document).ready(() => {
     materialDesign.snackbar();
     materialDesign.tabBar();
     materialDesign.fix();
-    
+
     flashBag.setElement = materialDesign.getSnackbarMdc;
     flashBag.sessionActivity();
-    
-    widgetDatePicker.setLanguage = "en";
-    //widgetDatePicker.setCurrentYear = 1984;
-    //widgetDatePicker.setCurrentMonth = 4;
-    //widgetDatePicker.setCurrentDay = 11;
+
     widgetDatePicker.setInputFill = ".widget_datePicker_input";
     widgetDatePicker.create();
-    
-    widgetSearch.create();
+
+    widgetSearch.action();
     widgetSearch.changeView();
     
     $(window).on("resize", "", (event) => {
@@ -69,5 +65,9 @@ $(document).ready(() => {
     });
     
     $(window).on("orientationchange", "", (event) => {
+        materialDesign.refresh();
+        materialDesign.fix();
+
+        widgetSearch.changeView();
     });
 });

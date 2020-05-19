@@ -1,17 +1,16 @@
 <?php
 require_once(dirname(dirname(__DIR__)) . "/src/Classes/System/Helper.php");
-require_once(dirname(dirname(__DIR__)) . "/src/Classes/System/Root.php");
+require_once(dirname(dirname(__DIR__)) . "/src/Controller/RootController.php");
 
 $helper = new Helper();
-$root = new Root();
+$rootController = new RootController();
 
 $settingRow = $helper->getSettingRow();
-$websiteName = $root->getWebsiteName();
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $_SESSION['languageTextCode'] ?>">
     <head>
-        <title><?php echo $websiteName; ?></title>
+        <title><?php echo $helper->getWebsiteName(); ?></title>
         
         <!-- Meta -->
         <meta charset="UTF-8"/>
@@ -34,7 +33,6 @@ $websiteName = $root->getWebsiteName();
         
         <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/<?php echo $settingRow['template']; ?>.css" rel="stylesheet"/>
         <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/loader.css" rel="stylesheet"/>
-        <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/process_lock.css" rel="stylesheet"/>
         <link href="<?php echo $helper->getUrlRoot(); ?>/css/system/widget.css" rel="stylesheet"/>
         
         <?php include_once(__DIR__ . "/layout_site_custom_top.html.php"); ?>
@@ -56,11 +54,8 @@ $websiteName = $root->getWebsiteName();
                     <a class="material-icons mdc-top-app-bar__navigation-icon menu_root_mobile display_mobile" href="#">menu</a>
                     <div class="display_desktop">
                         <img class="logo_main_big" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
-                        <span class="mdc-top-app-bar__title"><?php echo $websiteName; ?></span>
+                        <svg class="mdc-top-app-bar__title logo_text_main_big"><text class="style" x="4" y="22"><?php echo $helper->getWebsiteName(); ?></text></svg>
                     </div>
-                    <span class="mdc-top-app-bar__title display_mobile">
-                        <img class="logo_main_small" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
-                    </span>
                 </section>
                 <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
                     <?php include_once(dirname(__DIR__) . "/render/module/widget_search.html.php"); ?>
@@ -74,7 +69,7 @@ $websiteName = $root->getWebsiteName();
                     <header class="mdc-drawer__header">
                         <div class="mdc-drawer__header-content">
                             <img class="logo_main_big" src="<?php echo $helper->getUrlRoot(); ?>/images/templates/<?php echo $settingRow['template']; ?>/logo.svg" alt="logo.svg"/>
-                            <span><?php echo $websiteName; ?></span>
+                            <svg class="logo_text_main_big"><text class="style" x="4" y="22"><?php echo $helper->getWebsiteName(); ?></text></svg>
                         </div>
                     </header>
                     <?php
@@ -84,6 +79,7 @@ $websiteName = $root->getWebsiteName();
                 </nav>
             </aside>
         </header>
+
         <div class="mdc-layout-grid main">
             <div class="mdc-layout-grid__inner">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid__cell--span-2-tablet column_left_container display_desktop">
@@ -125,6 +121,7 @@ $websiteName = $root->getWebsiteName();
                 </div>
             </div>
         </div>
+
         <footer class="mdc-theme--primary-bg mdc-theme--on-primary footer">
             <div class="icon">
                 <div>
@@ -153,31 +150,32 @@ $websiteName = $root->getWebsiteName();
             window.session = {
                 'token': "<?php echo $_SESSION['token']; ?>",
                 'name': "<?php echo session_name(); ?>",
-                'userInform': "<?php echo $_SESSION['userInform']; ?>",
+                'userInform': "",
                 'languageTextCode': "<?php echo $_SESSION['languageTextCode'] ?>",
-                'currentPageId': "0",
-                'xssProtectionValue': "<?php echo $_SESSION['xssProtectionValue'] ?>"
+                'currentPageId': 2,
+                'xssProtectionValue': "<?php echo $_SESSION['xssProtectionValue'] ?>",
+                'sessionMaxIdleTime': 0
             };
-            
-            window.path = {
-                'documentRoot': "<?php echo $_SERVER['DOCUMENT_ROOT']; ?>",
-                'root': "<?php echo $helper->getPathRoot(); ?>",
-                'src': "<?php echo $helper->getPathSrc(); ?>",
-                'public': "<?php echo $helper->getPathPublic(); ?>"
-            };
-            
-            window.url = {
-                'root': "<?php echo $helper->getUrlRoot(); ?>",
-                'processLockListener': "<?php echo $helper->getUrlRoot(); ?>/listener/processLockListener.php",
-                'eventListener': "<?php echo $helper->getUrlEventListener(); ?>"
-            };
-            
+
             window.setting = {
                 'widthMobile': 839,
                 'widthDesktop': 840,
                 'template': "<?php echo $settingRow['template']; ?>",
                 'language': "<?php echo $settingRow['language']; ?>",
-                'websiteActive': "<?php echo $settingRow['website_active']; ?>"
+                'websiteActive': "<?php echo $settingRow['website_active']; ?>",
+                'blockMultitab': "<?php echo $settingRow['block_multitab']; ?>"
+            };
+            
+            window.url = {
+                'root': "<?php echo $helper->getUrlRoot(); ?>",
+                'eventListener': "<?php echo $helper->getUrlEventListener(); ?>"
+            };
+
+            window.path = {
+                'documentRoot': "<?php echo $_SERVER['DOCUMENT_ROOT']; ?>",
+                'root': "<?php echo $helper->getPathRoot(); ?>",
+                'src': "<?php echo $helper->getPathSrc(); ?>",
+                'public': "<?php echo $helper->getPathPublic(); ?>"
             };
             
             window.text = {
@@ -210,11 +208,10 @@ $websiteName = $root->getWebsiteName();
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Loader.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/FlashBag.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/PopupEasy.min.js"></script>
-        <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/ProcessLock.min.js"></script>
-        
-        <?php include_once(__DIR__ . "/layout_site_custom_bottom.html.php"); ?>
         
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Index.min.js"></script>
         <script <?php echo "nonce=\"{$_SESSION['xssProtectionValue']}\""; ?> src="<?php echo $helper->getUrlRoot(); ?>/js/system/Index_custom.min.js"></script>
+
+        <?php include_once(__DIR__ . "/layout_site_custom_bottom.html.php"); ?>
     </body>
 </html>

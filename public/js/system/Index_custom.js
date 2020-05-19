@@ -4,7 +4,7 @@
 
 $(document).ready(() => {
     //...
-
+    
     $(window).on("resize", "", (event) => {
         //...
     });
