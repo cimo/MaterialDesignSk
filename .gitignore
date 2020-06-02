@@ -46,7 +46,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# cimo
+# cimo +
 public/.sass-cache
 src/Config.php
 var/sessions/*
