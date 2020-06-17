@@ -47,8 +47,9 @@ Temporary Items
 .apdisk
 
 # cimo +
-error.log
 public/.sass-cache
 src/Config.php
 var/sessions/*
 !var/sessions/.gitkeep
+error.log
+debug.log
