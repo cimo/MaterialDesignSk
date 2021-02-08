@@ -54,14 +54,13 @@ class MaterialDesign {
     dialog = () => {
         if ($(".mdc-dialog").length > 0) {
             this.dialogMdc = new mdc.dialog.MDCDialog.attachTo($(".mdc-dialog")[0]);
-
-            // For example
-            $(".show_dialog").on("click", "", (event) => {
+            
+            /*$(".show_dialog").on("click", "", (event) => {
                 this.dialogMdc.lastFocusedTarget = event.target;
                 this.dialogMdc.show();
             });
-
-            /*this.dialogMdc.listen("MDCDialog:accept", () => {
+            
+            this.dialogMdc.listen("MDCDialog:accept", () => {
                 console.log("Dialog - Accepted");
             });
             
@@ -181,9 +180,8 @@ class MaterialDesign {
         $.each($(".mdc-snackbar"), (key, value) => {
             this.snackbarMdc = new mdc.snackbar.MDCSnackbar.attachTo(value);
         });
-
-        // For example
-        $(".show_snackbar").on("click", "", (event) => {
+        
+        /*$(".show_snackbar").on("click", "", (event) => {
             let snackbarDataObj = {
                 message: "Text",
                 actionText: "Close",
@@ -191,7 +189,7 @@ class MaterialDesign {
             };
 
             this.snackbarMdc.show(snackbarDataObj);
-        });
+        });*/
     }
     
     tabBar = () => {
