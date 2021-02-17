@@ -1,14 +1,12 @@
 Material design sk
 ==============
 
-Starter kit with material design components.
-
-All folders are organize for easy and fast develop.
+Starter kit code for web app. Create in a few steps the complete material design web project.
 
 | Info: |
 |:---|
-| Cross browser and responsive (Chrome, Firefox, Edge, Opera, Safari) |
 | Cross platform (Windows, Linux, Mac, Android, Ios) |
+| Cross browser and responsive (Chrome, Firefox, Edge, Opera, Safari) |
 
 | Elements: |
 |:---|
@@ -33,7 +31,7 @@ All folders are organize for easy and fast develop.
 |:---|
 | Material design web - https://material.io/develop/web |
 
-<b>By CIMO - https://reinventsoftware.org</b>
+By CIMO - https://reinventsoftware.org
 
 Supported By:
 
