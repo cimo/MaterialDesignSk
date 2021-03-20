@@ -24,6 +24,7 @@ public/.sass-cache
 src/Config.php
 var/sessions/*
 !var/sessions/.gitkeep
+
 .digest_htpasswd
 .env
 error.log
